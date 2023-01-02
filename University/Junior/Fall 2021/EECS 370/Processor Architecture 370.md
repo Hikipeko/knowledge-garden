@@ -115,6 +115,7 @@ Fetch -> Decode -> Execute -> Memory -> Write Back
 ![](./attachments/image-20211029171244109.png)
 
 
+
 ## L13 Data Hazard
 
 **Data Dependency**
@@ -195,5 +196,3 @@ speed = f / CPI
 time = \#instructions + \#load stalls + 3 * \#branch stalls + 4 (empty pipe time)
 
 Branch resolved at Execute: branch stalls penalty becomes 2
-
-

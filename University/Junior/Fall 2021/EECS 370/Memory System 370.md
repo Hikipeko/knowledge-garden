@@ -79,6 +79,7 @@ Cons: only a single block from a given group can exists in the cache, causing a 
 Solution: set associative cache.
 
 
+
 ## L20 Set Associative
 
 A mix of fully-associative cache and direct mapped cache.
@@ -187,4 +188,3 @@ On a context switch:
 Virtual cache need to be invalidated.
 
 Dirty cache blocks written back.
-
