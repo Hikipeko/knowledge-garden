@@ -1,4 +1,4 @@
-### 19 Randomized Algorithm
+## 19 Randomized Algorithm
 
 Employs a degree of randomness as part of its logic or procedure.
 
@@ -65,7 +65,7 @@ The expected number of comparisons is $O(n \log n)$.
 
 
 
-### 20 Probabilistic Complexity Classes
+## 20 Probabilistic Complexity Classes
 
 ##### Monte Carlo
 
@@ -77,7 +77,7 @@ Always produces the right answer, but the runtime bound only holds in expectatio
 
 
 
-### 21 Monte Carlo Methods and Chernoff Bounds
+## 21 Monte Carlo Methods and Chernoff Bounds
 
 Monte Carlo methods is a way of approximation by repeated trails. (Different concept form Monte Carlo algorithms)
 
@@ -92,4 +92,3 @@ E.g. estimating pi
 #### 21.2 Hoeffding's Inequality
 
 ![[Pasted image 20221219230408.png]]
-

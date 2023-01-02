@@ -1,4 +1,4 @@
-### 1 Introduction
+## 1 Introduction
 
 **A6 (Euclid)**
 
@@ -11,7 +11,7 @@ Algorithm Euclid(x, y):
 
 
 
-### 2 The Potential Method
+## 2 The Potential Method
 
 Define a function $s: A \to \mathbb{R}$ that maps the state of the algorithm to a number. The function $s$ is called potential function if:
 
@@ -28,7 +28,9 @@ $s_i = x_i + y_i$
 
 
 
-### 3 [[EECS 281#Divide and Conquer|Divide and Conquer]]
+## 3 Divide and Conquer
+
+Review [[EECS 281#Divide and Conquer|Divide and Conquer]] from EECS 281.
 
 **A14** Merge sort
 
@@ -74,9 +76,11 @@ O(log(n)) for 2-D space
 
 ![](./attachment/image-20210914175237968.png)
 
-### 4 Dynamic Programming
 
-![[DP 281#L23 Dynamic Programming|Dynamic Programming]]
+
+## 4 Dynamic Programming
+
+Review [[DP 281#L23 Dynamic Programming|Dynamic Programming]] from EECS 281.
 
 **Optimality:** the optimal solution to a larger problem can be constructed from smaller subproblems.
 
@@ -110,9 +114,9 @@ $O(|V|^3)$
 
 
 
-### 5 Greedy
+## 5 Greedy
 
-![[EECS 281#Greedy|Greedy Algorithms]]
+![[Algorithms 281#Greedy|Greedy Algorithms]]
 
 ```Algorithm
 Algorithm 38 (Kruskal)
@@ -122,4 +126,3 @@ For each edge sorted by weight:
 		add e to S
 Return S
 ```
-

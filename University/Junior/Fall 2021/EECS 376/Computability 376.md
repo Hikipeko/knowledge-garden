@@ -1,4 +1,4 @@
-### 6 Introduction to Computability
+## 6 Introduction to Computability
 
 #### 6.1 Formal Languages
 
@@ -18,7 +18,7 @@
 
 
 
-### 7 Finite Automata
+## 7 Finite Automata
 
 Similar to FSM: finite number of states and no additional storage.
 
@@ -40,7 +40,7 @@ Similar to FSM: finite number of states and no additional storage.
 
 
 
-### 8 Turing Machines
+## 8 Turing Machines
 
 We can only keep a fixed amount in our brain at any time. We model the latter using a finite set of states, with each state corresponding to a different set of information in our brain.
 
@@ -92,7 +92,7 @@ A language 𝐴 is decidable if there exists some machine 𝑀 that decides it.
 
 
 
-### 9 Diagonalization
+## 9 Diagonalization
 
 Let $\mathcal{L}$ be the set of all languages, and let $\mathcal{M}$ be the set of all machines. If $|\mathcal{L} |> |\mathcal{M}|$, then there are more languages than machines, and it follows that there must be some language that does not have a corresponding machine.
 
@@ -134,7 +134,7 @@ $L_{ACC} = \{(<M>, x):M \text{ is a program and } M \text{ accepts }x\}$.
 
 
 
-### 11 Reducibility
+## 11 Reducibility
 
 **D63 Turing Reduction** 
 
@@ -160,7 +160,7 @@ Since each row corresponds to a step of the Turing machine, the question of whet
 
 
 
-### 12 Recognizability
+## 12 Recognizability
 
 **Definition**
 
@@ -192,7 +192,7 @@ $L_\varnothing = \{\langle M \rangle : M \text{ is a program and } L(M) = \varno
 
 
 
-### 13 Computable Functions and Kolmogorov Complexity
+## 13 Computable Functions and Kolmogorov Complexity
 
 Equivalence of Functional an Decision Models
 
@@ -208,7 +208,7 @@ $K_U(w)$ is incomputable.
 
 
 
-### 14 Rice's Theorem
+## 14 Rice's Theorem
 
 ![|600](./attachment/image-20211020040600180.png)
 
@@ -223,16 +223,3 @@ $L_{\mathbb{P}} = \{ \langle M \rangle : M \text{ is a program and } L(M) \in \m
 **T18 Rice's Theorem** 
 
 If $\mathbb{P}$ is a nontrivial semantic property, then  $L_{\mathbb{P}} = \{ \langle M \rangle : M \text{ is a program and } L(M) \in \mathbb{P}\}$ is undecidable.
-
-
-
-
-
-
-
-
-
-
-
-
-

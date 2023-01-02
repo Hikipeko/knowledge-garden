@@ -1,4 +1,4 @@
-### 15 Introduction to complexity
+## 15 Introduction to complexity
 
 ##### P
 
@@ -20,13 +20,17 @@ P = NP?
 
 NP-Hard is the set of problems that are at least as hard as the hardest problems in NP.
 
-### 16 The Cook-Levin Theorem
+
+
+## 16 The Cook-Levin Theorem
 
 SAT is NP-Hard.
 
 If we have an efficient decider $D$ for SAT, we can construct a program and run $D$ to decide it. Thus, an efficient decider for SAT implies that P = NP, and SAT is an NP-Hard problem.
 
-### 17 NP-Completeness
+
+
+## 17 NP-Completeness
 
 ##### D91 Mapping Reduction
 
@@ -55,7 +59,9 @@ Can we cover all the tasks using k workers?
 
 Can we find a path that start and ends at the same vertex and visits all the other vertices exactly once?
 
-### 18 Search and Approximation
+
+
+## 18 Search and Approximation
 
 #### $\alpha-$Approximation
 

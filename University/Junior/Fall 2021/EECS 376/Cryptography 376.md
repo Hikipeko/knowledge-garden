@@ -1,4 +1,4 @@
-### 22 Introduction to Cryptography
+## 22 Introduction to Cryptography
 
 ##### Authority
 
@@ -38,7 +38,7 @@ The only cryptosystems that provides information-theoretic security.
 
 
 
-### 23 Diffie-Hellman Key Exchange
+## 23 Diffie-Hellman Key Exchange
 
 ##### Symmetric-Key Algorithm
 
@@ -70,7 +70,7 @@ The brute-force algorithm is exponential, and the *discrete logarithm assumption
 
 
 
-### 24 RSA
+## 24 RSA
 
 **Fermat's Little Theorem**
 
@@ -109,8 +109,3 @@ Now Bob can verify Alice's public key by checking the certificate.
 What happens if a website doesn't have a certificate?
 
 Anyone else can make a website looks the same and cheat the users.
-
-
-
-
-
