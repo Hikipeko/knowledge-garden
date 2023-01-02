@@ -1,4 +1,4 @@
-### L16 FS
+## L16 FS
 
 Hardware is heterogenous. File System is the abstraction of uniform file store.
 
@@ -42,7 +42,7 @@ File = tree of block pointers
 
 
 
-### L17-18 Transaction
+## L17-18 Transaction
 
 Use a tree to store the mapping, which naturally represent directories.
 
@@ -100,7 +100,7 @@ struct fs_inode {
 
 
 
-### L19 RAID
+## L19 RAID
 
 Redundant Array of Inexpensive Disk.
 

@@ -15,12 +15,8 @@ OS is the software layer between user applications and the hardware. It "transla
 
 ![[Pasted image 20221223201352.png]]
 
-[[Process 482]]
-
-[[Virtual Memory 482]]
-
-[[File System 482]]
-
-[[Network 482]]
-
-[[Distributed System 482]]
+1. [[Process 482]]
+2. [[Virtual Memory 482]]
+3. [[File System 482]]
+4. [[Network 482]]
+5. [[Distributed System 482]]

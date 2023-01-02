@@ -57,5 +57,3 @@ S: use states: invalid, shared, exclusive
 ![[Pasted image 20221224152345.png]]
 
 TBA
-
-

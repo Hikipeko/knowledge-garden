@@ -1,4 +1,4 @@
-### L2 Threads
+## L2 Threads
 
 #### Process
 
@@ -47,7 +47,7 @@ A model of program execution in which execution happens simultaneously. Differen
 
 
 
-### L3 Synchronization
+## L3 Synchronization
 
 Ordering within thread is sequential, but there're many ways of thread interleaving that may lead to different behaviors.
 
@@ -123,7 +123,9 @@ Wake up all waiting threads.
 
 Monitor = a lock + condition variables associated with that lock
 
-### L4-5 Programing with Monitors
+
+
+## L4-5 Programing with Monitors
 
 1. List the shared data
 2. Assign locks to each group of shared data
@@ -171,7 +173,7 @@ Allow multiple readers, if no threads are writing data.
 
 
 
-### L6 Semaphores
+## L6 Semaphores
 
 No need for writing semaphore code, but might appear in some old OS codes.
 
@@ -179,7 +181,7 @@ TBA
 
 
 
-### L7 Thread Implementation
+## L7 Thread Implementation
 
 #### State of a Thread
 
@@ -225,7 +227,7 @@ Sometimes a parent wants to wait for child to finish, and we implement this as j
 
 
 
-### L8 Lock Implementation
+## L8 Lock Implementation
 
 ##### Atomic Read-Modify-Write
 
@@ -258,7 +260,7 @@ unlock() {
 
 
 
-### L9 Switch Invariant
+## L9 Switch Invariant
 
 Disable interrupts before switch, enable interrupt after switch
 
@@ -325,7 +327,7 @@ Three ways of prevention:
 
 
 
-### L10 Banker's Algorithm
+## L10 Banker's Algorithm
 
 Eliminate hold-and-wait
 
@@ -337,7 +339,7 @@ However, Banker's algorithm only applies to quantitative resources, not to locks
 
 
 
-### L15 Scheduling
+## L15 Scheduling
 
 When >1 threads are ready which one should we run?
 
@@ -380,39 +382,3 @@ Run high-priority jobs before low-priority ones.
 Problem: priority inversion.
 
 Solution of starvation: if a job hasn't run for time $t$, boost priority.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

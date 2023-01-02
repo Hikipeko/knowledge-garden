@@ -1,4 +1,4 @@
-### L11 Paging
+## L11 Paging
 
 #### Address space Abstraction
 
@@ -60,7 +60,7 @@ Has to clear the TLB table in context switch (TLB flush).
 
 
 
-### L12 Eviction
+## L12 Eviction
 
 Which page to evict when you need a free page?
 
@@ -91,7 +91,7 @@ Since page table is physical implementation, we want to reduce state as much as 
 
 
 
-### L13 Kernel vs. User
+## L13 Kernel vs. User
 
 Kernel sets up page table for process and manages their virtual memory.
 
@@ -152,7 +152,7 @@ No one can change this table after boot, so transitions are limited, and securit
 
 
 
-### L14 Multi-Process and Fork
+## L14 Multi-Process and Fork
 
 #### Multi-Process Issues
 
@@ -196,16 +196,3 @@ Copy the entire address space is expensive. Fork only copies the page table. Whe
 1. Make a copy of the page with refcnt of one
 2. Modify PTE of modifier to point to new page
 3. Decrement refcnt of old page
-
-
-
-
-
-
-
-
-
-
-
-
-

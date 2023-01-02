@@ -14,7 +14,6 @@ Virtual network interface card, named by port number.
 
 IP + sockets
 
-
 ##### TCP
 
 IP + sockets + reliable, ordered streams
@@ -69,7 +68,3 @@ Hide complexity of message-based communication from developers. Make remote comm
 Pass a pointer? Different address space! So just pass the whole object.
 
 Note the endianness, since network transmission uses big-endian.
-
-
-
-
