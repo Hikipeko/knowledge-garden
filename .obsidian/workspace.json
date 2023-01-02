@@ -1,0 +1,242 @@
+{
+  "main": {
+    "id": "85f41c52e45aabde",
+    "type": "split",
+    "children": [
+      {
+        "id": "884824bb705e4bfd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0a98dbe7270eb22e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "University/Junior/Winter 2022/EECS 445/EECS 445.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f3fcf98853b8b21a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "University/Junior/Winter 2022/EECS 445/Supervised Learning.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "dd9a26f20221d08e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "University/Junior/Fall 2021/EECS 281/EECS 281.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "cd92c5bb134f8be5",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "4d052aeb8aa12277",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "University/Junior/Fall 2021/EECS 376/EECS 376.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "297fb7a9a12ab417",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f3a9bb171cd15310",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "University/Junior/Fall 2021/MATH 214/MATH 214.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c0f350e8ba8f9866",
+    "type": "split",
+    "children": [
+      {
+        "id": "e92743cc84c48471",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "56703a46fae283f3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7234eaef2ffe7d72",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e17ef146ac50b2c0",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 215.49999618530273
+  },
+  "right": {
+    "id": "7da5d8f3cf740066",
+    "type": "split",
+    "children": [
+      {
+        "id": "137a22da5f5b31a4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "65a451a44c6f810f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
+          },
+          {
+            "id": "dc8d4d1dcc355ba7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "c05d9c5ca1a2a224",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b1d7db8a8c75c851",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "1d2efecaf10f61f4",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 354.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "audio-recorder:开始/结束录音": false,
+      "workspaces:管理工作区布局": false
+    }
+  },
+  "active": "297fb7a9a12ab417",
+  "lastOpenFiles": [
+    "University/Junior/Fall 2021/EECS 376/EECS 376.md",
+    "Computer Science/Blog.md",
+    "README.md.md",
+    "Workout/README.md.md",
+    "Workout/身体结构.md",
+    "University/Junior/Fall 2021/EECS 281/README.md.md",
+    "University/Junior/Fall 2021/EECS 281/未命名.md",
+    "University/Junior/Fall 2021/EECS 281/EECS 281.md",
+    "University/Junior/Fall 2021/EECS 281/Backtracking 281.md",
+    "University/Junior/Fall 2021/EECS 281/DP 281.md"
+  ]
+}

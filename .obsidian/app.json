@@ -1,0 +1,14 @@
+{
+  "trashOption": "local",
+  "newFileLocation": "current",
+  "attachmentFolderPath": "./attachments",
+  "strictLineBreaks": true,
+  "spellcheck": true,
+  "spellcheckLanguages": [
+    "en-US"
+  ],
+  "defaultViewMode": "source",
+  "autoPairMarkdown": false,
+  "autoPairBrackets": true,
+  "alwaysUpdateLinks": true
+}

@@ -1,0 +1,220 @@
+## I/O
+
+```c++
+while (cin>>str) {} // read string
+while (getline(cin, str)) {} // read whole line
+```
+
+### Faster I/O
+
+```c++
+std::ios_base::sync_with_stdio(false); // put as the first line in main()
+// use '\n' instead of << endl
+```
+
+### `getline()`
+
+```c++
+istream& getline (istream& is, string& str, char delim);
+// If the delimiter is found, it is extracted and discarded (i.e. it is not stored and the next input operation will begin after it).
+```
+
+### I/O重新输入
+
+```c++
+while (!(cin >> n)) {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    // numeric_limits<streamsize>::max() sets the maximum number of characters to ignore. This line ignores the rest of the current line, up to '\n' or EOF.
+    cout << "Enter n: " <<flush;
+}
+```
+
+## Others
+
+### `getopt_long()`
+
+A function for reading input arguments
+
+```c++
+struct option long_opts[] = {
+	{ "action", no_arguments, nullptr, 'a'},
+};
+
+while ((gotopt = getopt_long(argc, argv, "an:", long_opts, &option_index) != -1) {
+    switch (gotopt) {
+        case 'a':
+            cout<<"Action!\n";
+            break;
+        default:
+            cout<<"Invalid option!\n";
+            exit(0);
+            break;
+    }
+}
+```
+
+**Initialize vector**
+
+`iota(vector.begin(), vector.end(), step);`
+
+**Infinity**
+
+```c++
+#include <limits>
+inf = numeric_limits<double>::infinity();
+// don't use numeric_limits<double>::max()
+assert(inf / inf == 1)
+```
+
+## L6 Dynamic Memory Allocation
+
+**Container**
+
+vector, list, stack, queue, deque, map, set, etc.
+
+**Safety Tip**
+
+```c++
+delete ptr;
+ptr = nullptr;
+```
+
+**new**
+
+new calls default constructor
+
+new[] calls default constructor for each object in an array
+
+#### Copy Constructors
+
+```c++
+ClassName(const ClassName &that);
+// example:
+String str2(str1); String str2 = str1; String str2 = String(str1);
+```
+
+Used when a new object is created and initialized to an existing object of the same kind.
+
+Less obviously, a compiler uses a copy constructor whenever a program generates copies of an object. In particular, it’s used when a function passes an object by value (as callme2() does in Listing 12.3) or when a function returns an object.
+
+#### Assignment Operators
+
+```c++
+ClassName & ClassName::operator=(const ClassName &that)
+// example:
+String str1 = ...; String str2 = ...; str1 = str2;
+```
+
+An overloaded assignment operator is used when you assign one object to another existing object:
+
+#### Comparison Members
+
+```c++
+bool operator<(const String &st1, const String &st2)
+// example:
+str1 < str2
+```
+
+#### Operator[]
+
+Two versions: so that both const and non-const instances can call this method.
+
+see in code example(contained in lab4)
+
+```c++
+T &operator[] (size_t i);
+const T &operator(size_t i) const;
+```
+
+## L7 STL
+
+**Explicit keyword**
+
+Should be used with 1-parameter constructors to prevent accidental conversion form another type.
+
+**Mutable***
+
+A mutable member variable can be modified by a const member function.
+
+#### Iterator
+
+`.begin(), .end(), .cbegin() (const begin), .cend(), .rbegin() (reverse begin), .rend()`
+
+```c++
+for (vector<int>::reverse_iterator it = temp.rbegin(); it < temp.rend(); it++) {}
+copy(v.begin() v.end(), a); //copy from begin to end to a.
+```
+
+**Write a template version with iterators!**
+
+**Iterate through all the container:** 
+
+`for (auto &i: vector)`
+
+**Memory Allocation:**
+
+`vector<vector<T>> T2D(10, vector<T>(20,-1))`
+
+**Output Iterator**
+
+Cannot appear in the right side, cannot be compared.
+
+#### Comparator
+
+Suppose a class needs to be sorted in different ways.
+
+```c++
+class SortByName {
+    const vector<T> &_name;
+    
+    public: 
+    bool operator() (const T &left, const T &right) const {
+        return left.getName() < right.getName();
+    }
+}
+```
+
+```c++
+class SortByCoord {
+    const vector<double> &_coords;
+    
+    public:
+    SortByCoord(const vector<double> &z): _coords(z) {}
+    // A good way of initialization, necessary for initializing references
+    bool operator()(size_t i, size_t j) const {
+        return _coords[i] < _coords[j];
+    }
+}
+
+vector<size_t> idx(100);
+vector<double> xCoord(100) = some random numbers;
+SortByCoord sbx(xCoord);
+sort(begin(idx), end(idx), sbx);
+```
+
+#### Lambda
+
+Similar to anonymous function.
+
+`[capture list] (parameter list) -> return_type {function body}`
+
+**E.g.**
+
+```c++
+vector<int> v = {1,2,3,4,5,...};
+int factor;
+cin >> factor;
+cout << "The first number that is a multiple of " << factor << " is: ";
+cout << *find_if(begin(v), end(v), [factor](int n) {return n%factor == 0;});
+```
+
+Learning STL by looking at the STL documentation.
+
+#### Pair and Tuples
+
+Can be of different types: std::pair<T1, T2>
+
+Tuples: the number of elements grouped as a single object can be greater than two.
+
+Access: `get<0>(myTuple)`
