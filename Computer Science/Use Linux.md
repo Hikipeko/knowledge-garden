@@ -24,7 +24,7 @@ ps
 pgrep
 ```
 
-**Process** #link 482
+**Process**
 
 1. PID
 2. Associated user

@@ -38,4 +38,3 @@ world$ world must be at the end of a line
 \n matches nth parenthesized subexpression
 (123)testing\1 matches "123testing 123"
 ```
-

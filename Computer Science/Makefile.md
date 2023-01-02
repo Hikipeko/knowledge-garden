@@ -76,4 +76,3 @@ FS_OBJS=${FS_SOURCES:.cpp=.o}
 %.o : %.c
 	gcc -c -o $@ $<
 ```
-

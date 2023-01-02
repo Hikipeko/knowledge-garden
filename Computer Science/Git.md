@@ -78,4 +78,3 @@ git stash drop
 git reset --hard origin/master 
 git pull --rebase origin m
 ```
-
