@@ -4,91 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "884824bb705e4bfd",
+        "id": "e827f2bf5bdd47e1",
         "type": "tabs",
         "children": [
           {
-            "id": "0a98dbe7270eb22e",
+            "id": "317bceb83aa79711",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "University/Junior/Winter 2022/EECS 445/EECS 445.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "f3fcf98853b8b21a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "University/Junior/Winter 2022/EECS 445/Supervised Learning.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "dd9a26f20221d08e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "University/Junior/Fall 2021/EECS 281/EECS 281.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "cd92c5bb134f8be5",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "4d052aeb8aa12277",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "University/Junior/Fall 2021/EECS 376/EECS 376.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "297fb7a9a12ab417",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "f3a9bb171cd15310",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "University/Junior/Fall 2021/MATH 214/MATH 214.md",
+                "file": "University/Junior/Fall 2021/EECS 281/Tree 281.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -154,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "University/Junior/Fall 2021/EECS 281/Tree 281.md"
               }
             }
           },
@@ -164,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "University/Junior/Fall 2021/EECS 281/Tree 281.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -176,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "University/Junior/Fall 2021/EECS 281/Tree 281.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -226,17 +157,17 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "297fb7a9a12ab417",
+  "active": "317bceb83aa79711",
   "lastOpenFiles": [
+    "University/Junior/Fall 2021/EECS 281/EECS 281.md",
+    "University/Junior/Fall 2021/EECS 281/DP 281.md",
+    "University/Junior/Fall 2021/EECS 281/Backtracking 281.md",
+    "University/Junior/Fall 2021/MATH 214/MATH 214.md",
+    "README.md",
     "University/Junior/Fall 2021/EECS 376/EECS 376.md",
     "Computer Science/Blog.md",
     "README.md.md",
     "Workout/README.md.md",
-    "Workout/身体结构.md",
-    "University/Junior/Fall 2021/EECS 281/README.md.md",
-    "University/Junior/Fall 2021/EECS 281/未命名.md",
-    "University/Junior/Fall 2021/EECS 281/EECS 281.md",
-    "University/Junior/Fall 2021/EECS 281/Backtracking 281.md",
-    "University/Junior/Fall 2021/EECS 281/DP 281.md"
+    "Workout/身体结构.md"
   ]
 }
