@@ -1,4 +1,4 @@
-## L17, 18 Tree
+## L17-18 Tree
 
 Tree is an [[EECS 281#ADT|ADT]] represents a hierarchical tree structure with a set of connected nodes.
 
