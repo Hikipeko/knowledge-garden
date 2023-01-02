@@ -12,7 +12,7 @@ EECS 201 contains some important and practical CS knowledges that are not covere
 
 [[Python]]
 
-[[C++ Tips]]
+[[C++ 281]]
 
 [[C++ Debug]]
 

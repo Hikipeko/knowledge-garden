@@ -33,7 +33,7 @@ Loop n times:
 	3. Adjust the distance of its adjacent nodes -- O(n)
 ```
 
-Complexity: $O(n^2)$ if use simple nested loop, $O(m \log n)$ with a [[Heap, Union 281#Binary Heap|binary heap]] storing vertices in the order of their smallest edge-weight, $O(m + n \log n)$ if ==Fibonacci heap== is used.
+Complexity: $O(n^2)$ if use simple nested loop, $O(m \log n)$ with a [[Heap 281#Binary Heap|binary heap]] storing vertices in the order of their smallest edge-weight, $O(m + n \log n)$ if ==Fibonacci heap== is used.
 
 ### Kruskal's Algorithm
 
@@ -41,7 +41,7 @@ Solves MST
 
 Repeat: greedily select the minimum-weight edge that connects two trees into one until the forest merges into a single tree.
 
-Based on [[Heap, Union 281#Disjoint-Set (Union-Find)|Union-Find]].
+Based on [[Heap 281#Disjoint-Set (Union-Find)|Union-Find]].
 
 ```algorithm
 Sort all the edges -- O(m log(m))
@@ -130,4 +130,3 @@ return dist[], prev[]
 ```
 
 Time complexity: $\Theta(m + n \log n)$
-
