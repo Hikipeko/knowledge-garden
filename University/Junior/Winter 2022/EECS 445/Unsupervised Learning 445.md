@@ -4,13 +4,9 @@ What if we don't have labels?
 
 ![[Pasted image 20230103005915.png|400]]
 
-**Input**
-$$
-S_n = \{\bar x^{(i)} \}_{i = 1}^n
-$$
-**Output**
+**Input**: $S_n = \{\bar x^{(i)} \}_{i = 1}^n$
 
-A set of cluster assignments $c_1, ..., c_n$.
+**Output**: a set of cluster assignments $c_1, ..., c_n$.
 
 **Goal**
 
@@ -82,21 +78,27 @@ Spectral clustering reformulated data clustering problem as minimum graph cut pr
 $$
 w_{ij} = \exp (-\frac{||x^{(i)} - x^{(j)}||^2}{2\sigma^2})
 $$
+
 **Cost of a cut**
 $$
 cut(A, \bar A) = \sum_{i \in A, j \in \bar A} w_{ij}
 $$
+
 **Ratio cut**
+
 $$
 RatioCut(A_1, ..., A_k) = \frac{1}{2}\sum_{i=1}^k\frac{cut(A_i, \bar A_i)}{|A_i|}
 $$
+
 **Graph Laplacian**
+
 $$
-d_{ii} = \sum_{j = 1} ^n w_{ij}
+\begin{align}
+d_{ii} &= \sum_{j = 1} ^n w_{ij} \\
+L &= D - W
+\end{align}
 $$
-$$
-L = D - W
-$$
+
 Goal: minimizing the ratio cut, which is similar to the following problem.
 
 L is symmetric, PSD, has n non-negative real-valued eigenvalues.
@@ -142,6 +144,7 @@ $$
 J(U,V) &= \frac{1}{2}\sum_{(a,i)\in D}(Y_{ai} - \bar u^{(a)} \cdot \bar v^{(i)})^2 + \frac{\lambda}{2}(\sum_a || \bar u^{(a)}||^2 + \sum_i || \bar v^{(i)}|| ^2)
 \end{align}
 $$
+
 $U$ contains relevant features of the users, $V$ contains relevant features of the movie.
 
 Minimize the lost function. *Coordinate descent?*
@@ -158,14 +161,16 @@ We compute a prediction bases on $k$ users that are most similar to the target u
 ##### Sample Pearson's Correlation
 
 $$
-\tilde Y_{a:b} = \text{a's average rating of movies rated by both a and b}
-$$
-$$
+\begin{align}
+\tilde Y_{a:b} = \text{a's average rating of movies rated by both a and b} \\
 sim(a, b) = \frac{\sum_{j \in R(a,b)}(Y_{a_j}-\tilde Y_{a:b})(Y_{b_j} - \tilde Y_{b:a})}{\sqrt {\sum_{j \in R(a,b)} (Y_{a_j} - \tilde Y_{a:b})^2 \cdot\sum_{j \in R(a,b)} (Y_{b_j} - \tilde Y_{b:a})^2}}
+\end{align}
 $$
+
 Measure of linear relationship between two variables, ranging from \[-1, 1\].
 
 $kNN(a, i)$: k nearest neighbors who have rated movie $i$.
+
 $$
 \hat Y_{a_i} = \bar Y_a + \frac{\sum_{b \in kNN(a, i)}sim(a,b)(Y_{b_i} - \bar Y_b)}{\sum_{b \in kNN(a, i)}|sim(a,b)|}
 $$
@@ -203,6 +208,7 @@ Estimate parameter as the one that maximize the probability of observed outcome.
 ##### Gaussian Distribution
 
 The MLE result is:
+
 $$
 \begin{align}
 \mathcal{N}(x|\mu, \sigma^2) &= \frac{1}{\sqrt{2\pi\sigma^2}}\exp -\frac{(x - \mu)^2}{2\sigma^2}  \\
@@ -210,20 +216,24 @@ $$
 \sigma^2_{MLE} &= \sum_{i = 1}^n\frac{(x^{(i)} - \mu_{MLE})^2}{n}
 \end{align}
 $$
+
 ##### Multivariate Gaussian Distribution
 
 ![[22.1.PNG]]
+
 $$
 \begin{align}
 \Sigma &= E[(\bar x - \bar \mu) (\bar x - \bar \mu)^T]\\
 |\Sigma| &= \det \Sigma
 \end{align}
 $$
+
 $\Sigma$ measures the covariance between x.
 
 ##### Spherical Gaussian
 
 A special kind of multivariate Gaussian assuming that variables are independent.
+
 $$
 \begin{align}
 \Sigma &= \sigma ^2 \mathbf{I}_d\\
@@ -231,12 +241,15 @@ $$
 \sigma^2_{MLE} &= \sum_{i = 1}^n\frac{||\bar x^{(i)} - \bar{\mu}_{MLE}||^2}{nd}
 \end{align}
 $$
+
 ##### Gaussian mixture model (GMM)
 
 ![[Pasted image 20230103164459.png]]
+
 $$
 \Pr (\bar x^{(i)}| \bar \theta) = \gamma_j N(\bar x | \bar \theta)\\
 $$
+
 $j$ is the corresponding cluster and $\gamma_j$ is the probability of that cluster.
 
 MLE solution for known labels:
@@ -263,9 +276,11 @@ Iterate over convergence:
 ##### E-Step
 
 Fix $\gamma, \mu, \sigma^2$,
+
 $$
 p(j|i)=\frac{\gamma_j N(\bar x^{(i)} | \bar \mu_j, \sigma_j^2)}{\sum_t\gamma_t N(\bar x^{(i)} | \bar \mu_t, \sigma_t ^2)}
 $$
+
 ##### M-Step
 
 ![[22.3.PNG]]
@@ -275,6 +290,7 @@ $$
 How to pick k? Use BIC to penalize complex models.
 
 l : log likelihood
+
 $$
 BIC(D;\bar \theta) = l(D;\bar \theta) - \frac{\#param}{2} \log(n)
 $$
@@ -294,14 +310,18 @@ Given its parent, a node $x$ is conditionally independent from all other nodes i
 Directed edges: dependencies
 
 **Marginal independence**
+
 $$
 \Pr (X_1, X_2) = \Pr (X_1) \Pr (X_2)
 $$
+
 **Conditional Independence**
+
 $$
 \Pr(X_1, X_2,|X_3) = \Pr(X_1|X_3)\Pr (X_2|X_3)\\
 X_1 \perp X_2 | X_3
 $$
+
 ##### d-separation
 
 1. Keep only "ancestral" graph of the variables of interest.
@@ -332,9 +352,11 @@ A special kind of [[Unsupervised Learning 445#L24 Bayesian Networks|Bayesian Net
 Current observation only depends on current state (see from [[Unsupervised Learning 445#d-separation|d-separation]]), current state only depends on last state.
 
 E.g. observed data: words in a sentence; hidden state: POS tags.
+
 $$
 P(x_1, ..., X_T, z_1, ..., z_t) = \pi(z_1)\prod_{t=1}^{T-1}t(z_t, z_{t+1})\prod_{t=1}^T e(z_t, x_t)
 $$
+
 $\pi$: initial, $t$: transition, $e$: emission.
 
 **Viterbi Algorithm**

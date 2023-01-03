@@ -31,23 +31,30 @@ An algorithm that gives a linear classifier. It repeatedly finds a misclassified
 ##### Training Error
 
 We can define the training error as the amortized number of points that is incorrectly classified.
+
 $$
 E_n(\bar{\theta}) = \frac{1}{n}\sum_{i=1}^n [[y^{(i)} (\bar{\theta} \cdot \bar{x}^{(i)}) \leq 0]]
 $$
+
 ##### Perceptron Update
+
 $$
 \begin{align}
 \text{if} \quad y^{(i)}(\bar{\theta}^{(k + 1)} \cdot \bar{x}^{(i)}) \leq 0\\
 \bar{\theta}^{(k + 1)} = \bar{\theta}^{(k)} + y^{(i)}\bar{x}^{(i)}
 \end{align}
 $$
+
 The perceptron algorithm converges as long as the training examples are linear separable. This the the result of gradient descent if we define lost function as $\max(-z, 0)$.
 
 ##### Empirical Risk
+
 $$
 R_n(\bar\theta) = \frac{1}{n}\sum_{i = 1}^n \text{Loss}(y^{(i)} (\bar\theta \cdot \bar x^{(i)}))
 $$
+
 ##### Hinge loss Function
+
 $$
 \text{HingeLoss} (z) = \max((1 - z), 0)
 $$
@@ -57,10 +64,10 @@ $$
 ## L4 Gradient Descent
 
 Take a small step opposite to which the gradient points.
+
 $$
 \bar\theta^{(k+1)} = \bar\theta^{(k)} - \eta \nabla_\bar\theta R_n(\bar\theta)|_{\bar\theta = \bar\theta^k}
 $$
-
 
 #### Stochastic Gradient Descent
 
@@ -77,16 +84,20 @@ Often gets close to minimum faster than GD.
 #### Hard Margin SVM
 
 We want the linear classifier to be maximally removed from training examples closest to the decision boundary.
+
 $$
 \min_{\gamma, w, b} \frac{1}{2}||w||^2, \,\,
 y^{(i)}(w^T x^{(i)} + b) \geq 1, \,\,i = 1, ..., m
 $$
+
 Only works if data are liner separable. Fixed by Soft-Margin SVM.
 
 **Soft-Margin SVM**
+
 $$
 \min_{\gamma, w, b} \frac{1}{2}||w||^2 + C\sum_{i = 1}^m \xi
 $$
+
 $$
 y^{(i)}(w^T x^{(i)} + b) \geq 1 - \xi_i,\,\, \xi_i \geq 0,\,\,i = 1, ..., m
 $$
@@ -94,6 +105,7 @@ $$
 #### Lagrange Duality
 
 Find alpha:
+
 $$
 \max_\alpha\sum_{i = 1}^n \alpha_i - \frac{1}{2}\sum_{i = 1}^n \sum_{j = 1}^n \alpha_i\alpha_j y^{(i)} y^{(j)}(\phi(x^{(i)}\cdot \phi(x^{(j)}))
 $$
@@ -114,18 +126,13 @@ Sometimes data are not linearly separable, so we can map data into a higher dime
 $$
 k(\bar u,\bar v) = \phi(\bar u) \cdot \phi(\bar v)
 $$
-Linear
-$$
-K(\bar u,\bar v) = \bar u \cdot \bar v
-$$
-Quadratic
-$$
-K(\bar u,\bar v) = (\bar u \cdot \bar v+r)^2, r\geq 0
-$$
-RBF (Gaussian)
-$$
-K(\bar u,\bar v) = \exp(-\gamma \|\bar u - \bar v\|^2)
-$$
+
+**Linear** $K(\bar u,\bar v) = \bar u \cdot \bar v$
+
+**Quadratic** $K(\bar u,\bar v) = (\bar u \cdot \bar v+r)^2, r\geq 0$
+
+**RBF (Gaussian)**$K(\bar u,\bar v) = \exp(-\gamma \|\bar u - \bar v\|^2)$
+
 ##### Mercer's Theorem
 
 A function $K: \mathbb{R}^d \times \mathbb{R}^d \to \mathbb{R}$ is a valid kernel iff the matrix $G$ with $G_{ij}=K(\bar x^{(i)}, \bar x^{(j)})$ is positive-semidefinite:
@@ -154,29 +161,39 @@ The changes in the model when using different portions of the training data set,
 Structural error, a systematic error that can be caused by incorrect assumptions, leading to underfitting.
 
 #### Regularization
+
 $$
 J_{n,\lambda}(\theta) = \lambda Z(\theta) + R_n(\theta)
 $$
+
 E.g., SVM can be viewed as optimizing the hinge loss function with L2 regularization on $\theta$.
 
 #### Linear Regression
+
 $$
 R_n(\theta) = \frac{1}{n}\sum_{i = 1}^n \text{Loss}(y^{(i)} -(\theta \cdot x^{(i)}))
 $$
+
 **Square Loss**
+
 $$
 Loss(z) = \frac{z^2}{2}
 $$
+
 **SGD with Square Loss**
+
 $$
 \theta^{(k+1)} = \theta^{(k)} - \eta (y^{(i)} - \theta^{(k)} \cdot x^{(i)})x^{(i)}
 $$
+
 #### Closed Form Solution
 
 To find the minimum loss, we let gradient = 0 and gets the following solution:
+
 $$
 \bar \theta^* = (X^T X)^{-1} X^T \bar y
 $$
+
 Also note that this is consistent with [[MATH 214#The Normal Equation|Normal Equation]] in MATH 214.
 
 So why SGD? Efficiency.
@@ -184,10 +201,13 @@ So why SGD? Efficiency.
 If not invertible? That means there are [[MATH 214#^3d13bb|redundant vectors]] in $X$, and we need to delete redundant data points. 
 
 #### Ridge Regression
+
 $$
 J_{n,\lambda}(\theta) = \frac{1}{2n}\sum_{i = 1}^n (y^{(i)} - \theta^{(k)} \cdot x^{(i)})^2 + \lambda \frac{\| \theta \|^2}{2}
 $$
+
 ##### Closed Form
+
 $$
 \theta = (\lambda I + X^T X)^{-1} X^T y
 $$
@@ -207,9 +227,11 @@ E.g. regularization on parameters.
 ##### Filter Approach
 
 E.g. correlation with output
+
 $$
 r_{x_i,y} = \frac{\sum_{i=1}^n(x_j^i - \bar{x_j})(y^i-\bar{y})}{\sqrt{\sum_{i=1}^n(x_j^i-\bar{x_j})^2}\sqrt{\sum_{i=1}^n(y^i-\bar{y})^2}}
 $$
+
 ##### Wrapper
 
 Utilize learning algorithm to score subsets according to predictive power.
@@ -227,21 +249,26 @@ Finding the smallest decision tree that minimizes error is an [[Complexity 376#N
 ##### Entropy
 
 The average level of "information", "surprise", or "uncertainty" inherent to a random variable's possible outcomes.
+
 $$
 H(Y) = -\sum_{i=1}^k Pr(Y=y_i) \log Pr(Y=y_i)
 $$
+
 **Conditional Entropy**
+
 $$
 \begin{align}
 H(Y|X=x_j) &= -\sum_{i=1}^k Pr(Y=y_i|x_j) \log Pr(Y=y_i|x_j),\\
 H(Y|X) &= \sum_{j=1}^m Pr(X=x_j) H(Y|X=x_j)
 \end{align}
 $$
+
 **Information Gain**
 
 $$
 IG(X,Y) = H(Y)-H(Y|X)
 $$
+
 ##### Greedy Approach
 
 Recursively split on the "best" feature that maximize information gain. But when should we stop?
@@ -295,15 +322,18 @@ for b = 1, ..., B
 Idea: during every naïve classification, increase the weight of points that are wrongly classifies, and decrease those are correct.
 
 AdaBoost optimizes exponential loss.
+
 $$
 \begin{align}
 h_M(x) &= \sum_{i=1}^M \alpha_i h(x;\theta_i)\\
 h(x) &= \text{sign}(h_M(x))
 \end{align}
 $$
+
 ##### Loss Function
 
 Minimize exponential loss by doing gradient descend.
+
 $$
 \begin{align}
 Loss_{\exp}(z) &= \exp(-z)\\
@@ -319,6 +349,7 @@ $$
 
 1. set $w_0(i) = \frac{1}{n}$ for $i=1,...,n$.
 2. for $m=1,...,M$:
+
 $$
 \begin{align}
 \theta_m &= \arg \min_{\theta} \epsilon_m = \sum_{i=1}^n w_{m-1}(i)[[y^{(i)} \neq h(x^{(i)}; \theta)]]\\
@@ -329,10 +360,13 @@ w_m(i) &= \frac{\exp \{-y^{(i)} h_m(x^{(i)})\}}{z_m}\\
 \text{for } i &= 1, ..., n
 \end{align}
 $$
+
 3. Output classifier 
+
 $$
 h_M(x) = \sum_{m=1}^M \alpha_m h(x;\theta_m)
 $$
+
 ##### High level view
 
 1. train a weak classifier parameterized by $\theta_m$ on weighted data
