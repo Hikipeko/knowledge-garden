@@ -412,7 +412,7 @@ We can view determinants as "volume" expanded to higher dimension.
 
 
 
-## 7 Eigenvalues and Eigenvectors #link 445
+## 7 Eigenvalues and Eigenvectors
 
 ### 7.1 Diagonalization
 

@@ -18,7 +18,7 @@ P = NP?
 
 ##### NP-Hard
 
-NP-Hard is the set of problems that are at least as hard as the hardest problems in NP.
+NP-hard is the set of problems that are at least as hard as the hardest problems in NP. To prove a problem is NP-hard, we need to reduce a known NP-hard problem to the problem in polynomial time.
 
 
 
