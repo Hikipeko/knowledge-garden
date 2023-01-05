@@ -16,6 +16,8 @@ Statistics or attributes that describe the data, represented in terms of vectors
 
 Goal: learn a linear decision boundary that minimizes training error.
 
+Predict result as $sgn(\bar \theta \cdot \bar x + b)$
+
 ##### Hyperplane
 
 A plane specified by a parameter vector $\bar{\theta}  \in \mathbb{R}^d$ and offset $b \in \mathbb{R}$. It is the set of point $\bar{x}$ such that $\bar\theta \cdot \bar{x} + b = 0$.
@@ -74,6 +76,39 @@ $$
 Update based on a single points a time instead of on the whole dataset.
 
 Often gets close to minimum faster than GD.
+
+**Problems**
+
+1. Jittering
+2. Stuck in local minimum
+3. Sample data points can be noisy
+
+##### Momentum
+
+SGD + Momentum. We build up a "velocity" as a funning mean of gradients. $\rho$ gives "friction", typically 0.9 or 0.99.
+
+$$
+\begin{align}
+v_{t+1} &= \rho v_t + \nabla f(x_t) \\
+x_{t+1} &= x_t - \alpha v_{t+1}
+\end{align}
+$$
+
+##### AdaGrad
+
+AdaGrad + SGD. Adaptive learning rate. Reduce learning rate when the gradient is large. **RMSProp** is a better version of AdaGrad.
+
+##### Adam
+
+![[Pasted image 20230105031416.png]]
+
+(Almost) RMSProp + Momentum. Use *bias correction* to prevent big leaps in the first few iterations. Typically beta1 = 0.9, beta2 = 0.999, and learning rate = 1e-3, 1e-4, 1e-5.
+
+The state-of-art version is **AdamW**.
+
+##### L-BFGS
+
+Use second order derivative. Not very practical.
 
 
 
@@ -381,18 +416,30 @@ Weighted error tends to increase with each boosting iteration.
 
 ## L12 Neural Networks
 
-Activation Functions
+##### Activation Functions
+
+![[Pasted image 20230105140120.png]]
 
 1. threshold (sign)
 2. logistic (0 to 1)
 3. hyperbolic tangent (tanh, -1 to 1)
-4. ReLU (max(0,z))
+4. ReLU (max(0,z)) *a good default choice*
 
 **Fully connected NN**
 
 ![[12.1.PNG]]
 
 $w_{ki}^{(j)}$​ is the weight of layer $j$, unit $k$, input $i$.
+
+##### Power of NN
+
+![[Pasted image 20230105155412.png]]
+
+##### Universal Approximation
+
+NN with one hidden layer can approximate *any* functions $f: \mathbb{R}^n \to \mathbb{R}^m$ provided it has enough neurons. Each neural can provide a ReLU, and we can combine ReLU functions to approximate nearly any funcitions (remember from VE 216).
+
+[Demo of ConvNeJS](https://cs.stanford.edu/people/karpathy/convnetjs/demo/classify2d.html)
 
 
 
@@ -417,9 +464,6 @@ Start with 1-2 hidden layers and ramp up until you start to overfit.
 $$
 w_{ij}^{(k+1)} = w_{ji}^{(k)}+\eta_k y[[(1-yz) > 0]]v_j[[z_j>0]]x_i
 $$
-##### Choice of Architecture
-
-NN with 2 hidden layer can approximate *any* functions provided it has enough neurons.
 
 ##### Reducing Overfitting
 
