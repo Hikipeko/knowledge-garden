@@ -437,7 +437,7 @@ $w_{ki}^{(j)}$​ is the weight of layer $j$, unit $k$, input $i$.
 
 ##### Universal Approximation
 
-NN with one hidden layer can approximate *any* functions $f: \mathbb{R}^n \to \mathbb{R}^m$ provided it has enough neurons. Each neural can provide a ReLU, and we can combine ReLU functions to approximate nearly any funcitions (remember from VE 216).
+NN with one hidden layer can approximate *any* functions $f: \mathbb{R}^n \to \mathbb{R}^m$ provided it has enough neurons. Each neural can provide a ReLU, and we can combine ReLU functions to approximate nearly any functions (remember from VE 216).
 
 [Demo of ConvNeJS](https://cs.stanford.edu/people/karpathy/convnetjs/demo/classify2d.html)
 
@@ -455,10 +455,7 @@ The same as all the other machine learning algorithms, our goal is to minimize t
 
 ##### Backpropagation
 
-1. Make a prediction (forward propagation)
-2. Measure the loss of the prediction
-3. Go through each layer in reverse to measure the error contribution of each propagation
-4. Tweak weight to reduce error
+See [[Deep Learning 498#L6 Backpropagation|backpropagation]] from CV 498.
 
 Start with 1-2 hidden layers and ramp up until you start to overfit.
 $$
@@ -475,45 +472,7 @@ $$
 
 ## L15 CNN
 
-A image has too many parameters, so we need a way to
-
-## CNN architecture
-
-##### Convolution
-
-input: image, filter
-
-output: convolved feature of feature map
-
-HxWxD
-
-![[15.2.PNG|500]]
-
-We can set \#filters, stride length, filter size, and padding strategy.
-
-##### Rectified Linear Unit (ReLU)
-
-Apply non-linear function on each cell.
-
-##### Pooling
-
-Idea: reduce dimensionality of feature map while retaining significant information.
-
-Control overfitting, usually max pooling.
-
-![[15.3.PNG|600]]
-
-##### Fully Connected Layer
-
-Usually used as the last few layers.
-
-##### SoftMax Neurons
-
-Used as the final layer for classification.
-
-$$
-y_i = \frac{e^{z_j}}{\sum_k e^{z_k}}
-$$
+See [[Deep Learning 498#L7 Convolutional Networks]].
 
 #### Recurrent Neural Network
 
