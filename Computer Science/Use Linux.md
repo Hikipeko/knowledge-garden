@@ -115,6 +115,8 @@ Save a list of commands into a file.
 
 ##### SSH
 
+[zhihu](https://zhuanlan.zhihu.com/p/241341815)
+
 Security Shell Protocol is a [[Cryptography 376|cryptographic]] network protocol for operating network services securely over an unsecured network.
 
 Allowing for secure connection of log into to another system.

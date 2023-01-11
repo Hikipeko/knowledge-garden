@@ -1,0 +1,546 @@
+## 2 Application Layer
+
+The ultimate goal of computer network is to support Web applications such as search engines, video platforms and chatting apps.
+
+### 2.1 Principles of Network Applications
+
+If you want to implement a web app, the only layer you have to care about is the application layer.
+
+#### 2.1.1 Network Application Architectures
+
+##### Client-server architecture
+ 
+Server services requests from many other hosts, called clients. The server has a fixed IP address.
+
+E.g. Web, FTP, Telnet, e-mail, 
+
+A data center houses a large number of servers.
+
+##### P2P architecture
+
+Minimal (or no) reliance on dedicated servers. It exploit direct communication between pairs of intermittently connected hosts, called peers. P2P has self-scalability.
+
+P2P is commonly used in traffic-intensive applications such as Xunlei and BitTorrent.
+
+#### 2.1.2 Processes Communicating
+
+Processes on two different end systems communicate by exchanging messages across the computer network.
+
+The peer downloading files labeled as **client**, the peer uploading the file labeled as **server**. Or during a communication session, the process initiating the communication is labeled as the client.
+
+##### Socket
+
+Socket is the interface (or API) between the processes and the computer network. It is the interface between the application layer and the transport layer within a host (usually implemented in OS).
+
+![[Pasted image 20230109233703.png]]
+
+How to distinguish between end devices? **IP address**
+
+How to distinguish between applications on the same computer? **Port number**
+
+E.g. Web server: 80, mail server: 25.
+
+#### 2.1.3 Transport Services Available to Applications
+
+1. Reliable Data Transfer
+2. Throughputs
+3. Timing (e.g. CS:GO)
+4. Security
+
+#### 2.1.4 Transport Services Provided by the Internet
+
+#delete
+
+##### TCP services
+
+**Connection-oriented service**: after exchanging transport-layer control information (handshaking), a TCP connection exists between the sockets.
+
+Reliable data transfer service.
+
+##### UDP services
+
+No-frills, lightweight, provide minimal services, connectionless.
+
+Unreliable data transfer service. (data may loss, wrong order)
+
+![[Pasted image 20230109235048.png]]
+
+#### 2.1.5 Application-Layer Protocols
+
+Defines how an application's processes passes messages to each other.
+
+1. Type of messages (request, response)
+2. Syntax of message. (how fields are delineated)
+3. Semantics of the fields.
+4. Rules for determining ways of response.
+
+Some public application-layer protocols are specified in **RFC**, such as HTTP. HTTP as a protocol is a part of the Web application.
+
+#### 2.1.6 Network Applications
+
+Web, e-mail, DNS, video streaming, P2P, etc.
+
+
+
+### 2.2 The Web and HTTP
+
+The World Wide Web is an application enabling users to obtain documents from Web servers over the [[Introduction 489#1.1 What is the Internet?|Internet]].
+
+#### 2.2.1 Overview of HTTP
+
+The Hypertext Transfer Protocol is the Web's application-layer protocol.
+
+HTTP is implemented in both the client program (e.g. browsers) and the server program (e.g. nginx), talking to each other by exchanging HTTP messages. HTTP define the structure of these messages.
+
+A **Web page** = HTML source files + reference objects (images, videos).
+
+An **object** is a file addressable by a single URL.
+
+**URL** uniform resource locator = hostname + path name
+
+HTTP is a stateless protocol, which means each request is executed independently, without knowing anything about previous requests. HTTP is based on TCP (socket).
+
+#### 2.2.2 Non-Persistent and Persistent Connections
+
+##### Non-Persistent connection
+
+1. HTTP client initiates a TCP connection to the server by creating a socket.
+2. The client sends HTTP request message of  a path.
+3. Server receives the request via socket, retrieves the object, encapsulated the object in an HTTP response message, and send message via socket.
+4. Server tells TCP to close the connection.
+5. Client receives the response message, TCP connection terminates.
+
+##### RTT
+
+Round trip time, the time it takes for a small packet to travel from client to server and then back to the client. TCP connection is a "three-way handshake" protocol, while the third part is combined with the HTTP request message.
+
+![[Pasted image 20230110191527.png]]
+
+##### Persistent Connection
+
+With HTTP 1.1 persistent connections, the server leaves the TCP connection open after sending a response. A common choice in modern web servers. **HTTP/2** allows requests and replies to interleave in the same connection. #confused
+
+#### 2.2.3 HTTP Message Format
+
+Uses US-ASCII encoding, so humans can read it.
+
+##### Request
+
+```http
+GET /somedir/page.html HTTP/1.1
+Host: www.someschool.edu
+Connection: close
+User-agent: Mozilla/5.0
+Accept-language: fr
+```
+
+![[Pasted image 20230110192933.png]]
+
+* **GET**: request an object
+* **POST**: used when you post reviews or images
+* **DELETE**: delete an object on a Web server.
+* **HEAD**: GET without request, used mostly for debugging
+* **PUT**: create file
+
+##### Response
+
+```http
+HTTP/1.1 200 OK
+Connection: close
+Date: Tue, 18 Aug 2015 15:44:04 GMT
+Server: Apache/2.2.3 (CentOS)
+Last-Modified: Tue, 18 Aug 2015 15:11:03 GMT
+Content-Length: 6821
+Content-Type: text/html
+
+(data data data data data ...)
+```
+
+![[Pasted image 20230110200922.png]]
+
+##### Status codes
+
+1. 2xx Success
+2. 3xx Redirection
+3. 4xx Client errors, e.g. 404 Not Found
+4. 5xx Server errors
+
+#### 2.2.4 User-Server Interaction: Cookies
+
+HTTP uses cookies to allow sites to keep track of users. Cookie technology has four components:
+
+1. A cookie header line in the HTTP response message
+2. A cookie header line in the HTTP request message
+3. A cookie file kept and managed by the client
+4. A back-end database at the Web site
+
+![[Pasted image 20230110202607.png]]
+
+### 2.2.5 Web Caching
+
+Web cache, aka **proxy server**: a network entity that satisfies HTTP requests on the behalf of an origin Web server. It caches recently requested objects in its storage. It is typically installed by an ISP.
+
+1. Reduce response time
+2. Reduce traffic on an institution's access link to the Internet
+
+##### CDN
+
+Content distribution networks are entities implementing web caching. A CDN company installs geographically distributed caches, and thus localizing the traffic.
+
+##### Conditional GET
+
+Problem: the copy on the cache may be stale
+
+Include a If-Modified-Since header line in the GET request. The server sends the file if the file has been modified, and 304 Not Modified otherwise.
+
+
+
+## 2.3 Electronic Mail in the Internet
+
+User agents, mail server, Simple Mail Transfer Protocol (SMTP). Use TCP service.
+
+### 2.3.1 SMPT
+
+The client SMTP has TCP establish a connection to port 25 at the server SMTP.
+
+Used to transfer file from a mail server to another.
+
+```SMTP
+S: 220 hamburger.edu
+C: HELO crepes.fr
+S: 250 Hello crepes.fr, pleased to meet you
+C: MAIL FROM: <alice@crepes.fr>
+S: 250 alice@crepes.fr ... Sender ok
+C: RCPT TO: <bob@hamburger.edu>
+S: 250 bob@hamburger.edu ... Recipient ok
+C: DATA
+S: 354 Enter mail, end with ”.” on a line by itself
+C: Do you like ketchup?
+C: How about pickles?
+C: .
+S: 250 Message accepted for delivery
+C: QUIT
+S: 221 hamburger.edu closing connection
+```
+
+**telNet**
+
+### 2.3.2 Comparison with HTTP
+
+HTTP: pull protocol.
+
+SMTP: push protocol, TCP initiated by the machine that wants to send the file.
+
+SMTP requires each message to be in 7-bit ASCII format.
+
+### 2.3.3 Mail Message Formats
+
+```
+From: alice@crepes.fr
+To: bob@hamburger.edu
+Subject: Searching for the meaning of life.
+
+Content.
+```
+
+### 2.3.4 Mail Access Protocols
+
+SMTP: Alice -> Alice's mail server -> Bob's mail server
+
+POP3/IMAP/HTTP: Bob's mail server -> Bob's local PC.
+
+ <img src="./image/2.3.4.PNG" style="zoom:60%;" />
+
+**POP3**
+
+Simple, limited function.
+
+1. Client open TCP connection on port 110.
+2. Client sends username and a password (authenticate).
+3. User agent retrieves message (transaction).
+3. Mail server deletes the messages marked for deletion (update).
+
+**Web-Based E-Mail**
+
+User agent is an ordinary Web browser, and the user communicates with its mailbox via HTTP.
+
+
+
+## 2.4 DNS - The Internet's Directory Service
+
+**Hostname**
+
+www.google.com
+
+IP address is hierarchical from left to right.
+
+### 2.4.1 Services Provided by DNS
+
+Domain name system is
+
+1. A distributed database implemented in a hierarchy of DNS serves.
+2. An application-layer protocol that allows host to query the distributed database.
+
+Employed by application-layer protocols such as HTTP.
+
+1. User machine runs the client side of DNS app, and receives the URL extracted by browser.
+2. DNS client sends a query to DNS server, and receives the IP address.
+3. One browser receives IP address, initiate a TCP connection to the HTTP server process at port 80.
+
+**Other services**
+
+1. Host aliasing.
+2. Mail sever aliasing.
+3. Load distribution. (busy site can have multiple IP address, DNS rotation distributes the traffic among the replicated servers).
+
+## 2.4.2 Overview of How DNS Works
+
+gethostbyname()
+
+ <img src="./image/2.4.2.PNG" style="zoom:60%;" />
+
+**Root DNS servers**
+
+Around 600 scattered over the world.
+
+Provide the IP addresses of the TLD servers.
+
+**Top-level domain servers (TLD)**
+
+One for each of the top-level domains (com, org, net, edu, gov, cn, uk)
+
+Provide the IP addresses for authoritative DNS servers.
+
+**Authoritative DNS servers**
+
+Every public host must provide publicly accessible DNS records mapping name to its IP.
+
+Implement own authoritative DNS server / pay to have records stored in DNS server.
+
+ <img src="./image/2.4.2.1.PNG" style="zoom:50%;" />
+
+**DNS Caching**
+
+Cache the mapping in its local memory when a DNS server receives a DNS reply.
+
+### 2.4.3 DNS Records and Messages
+
+The DNS servers together implement the DNS database, which stores **resources records (RRs)**, including the RRs that provide hostname-to-IP mappings.
+
+RR is a four-tuple containing (Name, Value, Type, TTL)
+
+TTL: time to live, determines when to remove TT from cache.
+
+| Type  | Name                 | Value                                |
+| ----- | -------------------- | ------------------------------------ |
+| A     | hostname             | IP address                           |
+| NS    | domain (foo.com)     | hostname of authoritative DNS server |
+| CNAME | alias hostname       | canonical hostname                   |
+| MX    | alias hostname(mail) | canonical hostname                   |
+
+If DNS server authoritative for hostname, return Type A record for the hostname.
+
+If not, return Type NS + type A which provides IP of DNS server.
+
+**DNS Messages**
+
+Two type: query & reply, having the same format.
+
+ <img src="./image/2.4.3.PNG" style="zoom:60%;" />
+
+**Inserting records into the DNS Database**
+
+1. register the domain name
+2. The registrar make sure that a Type NS and a Type A record are entered into the TLD com servers. These two RRs are the authoritative DNS servers.
+
+
+
+## 2.5 Peer-to-Peer File Distribution
+
+$$
+DP2P \geq \max\{F_u, F_{dmin}, NF_{u + Nui}\}
+$$
+
+**BitTorrent**
+A popular P2P protocol for file distribution.
+
+The collection of all peers participating in the distribution of a particular file is called a torrent.
+
+Each user downloads chunks (typically 256 KB data) while uploading chunks
+
+Which chunk to request first?
+
+**Rarest first**
+
+The chunks that have the fewest copy among all the neighbours.
+
+Send data to the neighbors that are currently supplying her data at highest rate (unchoked) and a randomly chosen peer (optimistically unchoked).
+
+
+
+## 2.6 Video Streaming and Content Distribution Networks
+
+### 2.6.1 Internet Video
+
+Consume huge amount of traffic and storage (10 Mbps for 4K).
+
+Use compression to create multiple versions of the same video.
+
+### 2.6.2 HTTP Streaming and DASH
+
+Video is stored at an HTTP server as an ordinary file with a specific URL.
+
+The streaming video application periodically grabs video frames from the client application buffer, decompress and play the frame.
+
+Problem: all clients receive the same encoding of the video despite their bandwidth difference.
+
+**DASH**
+
+Dynamic Adaptive Streaming over HTTP.
+
+The video is encoded into several different versions with different bit rate, each with a different URL.
+
+The client dynamically requests video segments depending on the available bandwidth.
+
+First send a manifest file with a list of URLs, one for each version of the video.
+
+### 2.6.3 Content Distribution Networks
+
+Challenge: distribute massive amount of video contents to users around the world.
+
+A CDN manages distributed servers to store copies of videos and attempts to direct each user request to the best CDN location.
+
+**Private CDN** is owned by the content provider (YouTube).
+
+**Third-Party CDN** distributes content on behalf of multiple content providers.
+
+Two server placement philosophies.
+
+**1 Enter Deep**
+
+Deploying server clusters in access ISPs all over the world.
+
+Highly distributed, challenging to manage.
+
+**2 Bring Home**
+
+Build large clusters at a smaller number (e.g. 10) of sites. 
+
+Each CDN stores the videos that are frequently requested by the corresponding region.
+
+**CDN Operation**
+
+1. The user sends a DNS query for video.netcinema.com
+2. The DNS server observes the string "video" and "hand over" the query to KingCDN and returns a hostname in KingCDN's domain.
+3. The user send DNS query for KingCDN and receives its IP address.
+4. The user establish a TCP connection with the server at that IP address and issues an HTTP GET request for the video.
+
+**Cluster Selection Strategies**
+
+Problem: direct client to a server cluster within the CDN.
+
+1. Geographically closest. Problem: some users ae configured to use remotely located LDNSs.
+2. Periodic real-time measurements of delay between their clusters and clients.
+
+*How do clusters know which videos are on which cluster?*
+
+### 2.6.4 Case Studies: Netflix, YouTube, Kankan
+
+#### Netflix
+
+Amazon cloud + private CDN infrastructure.
+
+The website (login, billing, etc.) run entirely on Amazon servers.
+
+Amazon cloud do:
+
+1. Content ingestion: upload new movies to hosts in the Amazon cloud.
+2. Content processing: create different formats for each movie.
+3. Uploading versions to its CDN.
+
+Have its own CDN (realized by server racks).
+
+Use push caching.
+
+#### YouTube
+
+Google uses its own CDNs.
+
+Use pull caching.
+
+HTTP streaming without adaptive streaming.
+
+
+
+## 2.7 Socket Programming
+
+Two types of network applications:
+
+1. Open: whose operation is specified in a protocol standard, such as HTTP.
+2. Proprietary: not openly published in an RFC.
+
+### 2.7.1 Socket Programming with UDP
+
+**UDPClient.py**
+
+```python
+from socket import *
+serverName = '35.3.90.87'
+serverPort = 12000
+clientSocket = socket(AF_INET, SOCK_DGRAM)
+message = input("Input lowercase sentence:")
+clientSocket.sendto(message.encode(), (serverName, serverPort))
+modifiedMsg, serverAddress = clientSocket.recvfrom(2048)
+print(modifiedMsg.decode())
+clientSocket.close()
+```
+
+**UDPServer.py**
+
+```python
+from socket import *
+serverPort = 12000
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket.bind(('', serverPort))
+print("The server is ready to receive")
+while True:
+    msg, clientAddress = serverSocket.recvfrom(2048)
+    modifiedMsg = msg.decode().upper()
+    serverSocket.sendto(modifiedMsg.encode(), clientAddress)
+```
+
+### 2.7.2 Socket Programming with TCP
+
+ <img src="./image/2.7.2.PNG" style="zoom:60%;" />
+
+**TCPClient.py**
+
+```python
+from socket import *
+serverName = '127.0.0.1'
+serverPort = 12000
+clientSocket = socket(AF_INET, SOCK_STREAM)
+clientSocket.connect((serverName, serverPort))
+sentence = input('Input sentence:')
+clientSocket.send(sentence.encode())
+modifiedSen = clientSocket.recv(1024)
+print('From Server: ', modifiedSen.decode())
+clientSocket.close()
+```
+
+**TCPServer.py**
+
+```python
+from socket import *
+serverPort = 12000
+serverSocket = socket(AF_INET, SOCK_STREAM)
+serverSocket.bind(('', serverPort))
+serverSocket.listen(1)
+print('The server is ready to receive')
+while True:
+    connectionSocket, addr = serverSocket.accept()
+    sentence  = connectionSocket.recv(1024).decode()
+    capSen = sentence.upper()
+    connectionSocket.send(capSen.encode())
+    connectionSocket.close()
+```

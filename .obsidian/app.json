@@ -10,5 +10,6 @@
   "defaultViewMode": "source",
   "autoPairMarkdown": false,
   "autoPairBrackets": true,
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "promptDelete": false
 }
