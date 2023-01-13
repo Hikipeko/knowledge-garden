@@ -199,4 +199,65 @@ Hundreds of millions of learnable parameters are learned from about 10 millions 
 
 
 
-## L9
+## L9 Training Neural Networks 1
+
+##### Activation Functions
+
+$$
+\begin{align}
+h_i^{(l)} &= \sum_j w_{i,j}^{(l)} \sigma(h_j^{(l-1)}) + b_i^{(l)} \\
+\frac{\partial L}{\partial w_{i,j}^{(l)}} &= \sigma(h_j^{(l-1)}) \cdot \frac {\partial L}{\partial h_i^{(l)}}
+\end{align}
+$$
+
+
+
+![[Pasted image 20230105140120.png]]
+
+* **Sigmoid** is historically popular, but it "kills" the gradient of saturated neurons, slowing down the training process.
+* **Tanh** is similar to sigmoid.
+* **ReLU** is fast, but also has the gradient problem when $x < 0$. Batch normalization seems to solve this problem.
+* **Leaky ReLU** is ReLU that will not "die".
+* **ELU** has all benefits of ReLU, except the computation is expensive.
+* **SELU** is a scaled ELU with self-normalization property. Batch normalization (expensive) is not needed if SELU is used.
+* **GELU** is common in Transformers
+
+![[Pasted image 20230110215956.png|600]]
+
+Don't think too hard, just use ReLU.
+
+##### Data Preprocessing
+
+Typically zero-centering + normalization
+
+PCA and whitening, not commonly used for images
+
+ResNet uses subtract per-channel mean + divide by per-channel std.
+
+#### Weight Initialization
+
+If the initial weight of a layer is identical, it will keep to be identical in the whole training process. 
+What if we initialize to small random numbers? For a deep NN, as we get deeper and deeper, the activations tend to be zero, and the gradient are all zero. And if we initialize to large random number, the local gradient will vanish to zero. *Proper initialization is an active area of research.*
+
+![[Pasted image 20230110224524.png]]
+
+##### Kaiming/MSRA
+
+`W = np.random.rand(Din, Dout) / np.sqrt(2/Din)` produces a size that is "just right" for ReLU.
+
+For conv layers, Din is kernel_size^2 * input_channels.
+
+##### Residual Networks
+
+Initialize first conv with MSRA and second conv to zero.
+
+#### Regularization
+
+##### Dropout
+
+In each forward pass, randomly set some neurons to zero with a pre-set probability. 0.5 is common.
+
+![[Pasted image 20230110231143.png]]
+
+We want that the network to have a redundant representation rather than relying so much on a single representation. 
+

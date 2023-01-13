@@ -416,16 +416,9 @@ Weighted error tends to increase with each boosting iteration.
 
 ## L12 Neural Networks
 
-##### Activation Functions
+See [[Deep Learning 498#Activation Functions|activation functions]].
 
-![[Pasted image 20230105140120.png]]
-
-1. threshold (sign)
-2. logistic (0 to 1)
-3. hyperbolic tangent (tanh, -1 to 1)
-4. ReLU (max(0,z)) *a good default choice*
-
-**Fully connected NN**
+##### Fully connected NN
 
 ![[12.1.PNG]]
 

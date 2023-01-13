@@ -176,7 +176,7 @@ HTTP uses cookies to allow sites to keep track of users. Cookie technology has f
 
 ![[Pasted image 20230110202607.png]]
 
-### 2.2.5 Web Caching
+#### 2.2.5 Web Caching
 
 Web cache, aka **proxy server**: a network entity that satisfies HTTP requests on the behalf of an origin Web server. It caches recently requested objects in its storage. It is typically installed by an ISP.
 
@@ -195,17 +195,19 @@ Include a If-Modified-Since header line in the GET request. The server sends the
 
 
 
-## 2.3 Electronic Mail in the Internet
+### 2.3 Electronic Mail in the Internet
 
-User agents, mail server, Simple Mail Transfer Protocol (SMTP). Use TCP service.
+User agents, mail server, Simple Mail Transfer Protocol (SMTP). Uses TCP service.
 
-### 2.3.1 SMPT
+#### 2.3.1 SMTP
 
-The client SMTP has TCP establish a connection to port 25 at the server SMTP.
+![[Pasted image 20230112140920.png]]
 
-Used to transfer file from a mail server to another.
+Has a long history, and thus has come archaic properties. E.g. it used ascii encoding, so multimedia data has to be encoded to ascii.
 
-```SMTP
+The client SMTP has TCP establish a connection to port 25 at the server SMTP. Used to transfer file from a mail server to another (step 4). Note that SMTP uses persistent connection.
+
+```smtp
 S: 220 hamburger.edu
 C: HELO crepes.fr
 S: 250 Hello crepes.fr, pleased to meet you
@@ -223,42 +225,39 @@ C: QUIT
 S: 221 hamburger.edu closing connection
 ```
 
-**telNet**
+You can try this with **TelNet**.
 
-### 2.3.2 Comparison with HTTP
+#### 2.3.2 Comparison with HTTP
 
-HTTP: pull protocol.
+HTTP is mainly a pull protocol, while SMTP is a push protocol. It is a TCP connection initiated by the machine that wants to send the file.
 
-SMTP: push protocol, TCP initiated by the machine that wants to send the file.
+SMTP requires each message to be in 7-bit ASCII format while HTTP does not.
 
-SMTP requires each message to be in 7-bit ASCII format.
-
-### 2.3.3 Mail Message Formats
+#### 2.3.3 Mail Message Formats
 
 ```
 From: alice@crepes.fr
 To: bob@hamburger.edu
 Subject: Searching for the meaning of life.
 
-Content.
+Content
 ```
 
-### 2.3.4 Mail Access Protocols
+#### 2.3.4 Mail Access Protocols
 
-SMTP: Alice -> Alice's mail server -> Bob's mail server
+![[Pasted image 20230112203902.png]]
 
-POP3/IMAP/HTTP: Bob's mail server -> Bob's local PC.
+##### POP3
 
- <img src="./image/2.3.4.PNG" style="zoom:60%;" />
-
-**POP3**
-
-Simple, limited function.
+Why don't we use SMTP for Bob's agent? Because Bob needs a pop protocol. Simple, limited function.
 
 1. Client open TCP connection on port 110.
 2. Client sends username and a password (authenticate).
 3. User agent retrieves message (transaction).
-3. Mail server deletes the messages marked for deletion (update).
+
+##### IMAP
+
+Allows user to access mails from any computer, maintains a folder hierarchy on a remote server. Used by Gmail.
 
 **Web-Based E-Mail**
 
@@ -266,127 +265,118 @@ User agent is an ordinary Web browser, and the user communicates with its mailbo
 
 
 
-## 2.4 DNS - The Internet's Directory Service
+### 2.4 DNS - The Internet's Directory Service
 
-**Hostname**
+**Hostname** is just a name that can be used to identify a host, e.g. google.com.=
 
-www.google.com
+**IP address** is hierarchical from left to right.
 
-IP address is hierarchical from left to right.
-
-### 2.4.1 Services Provided by DNS
+#### 2.4.1 Services Provided by DNS
 
 Domain name system is
 
-1. A distributed database implemented in a hierarchy of DNS serves.
-2. An application-layer protocol that allows host to query the distributed database.
+1. A ==distributed database== implemented in a hierarchy of DNS serves.
+2. An application-layer ==protocol== that allows host to query the distributed database.
 
-Employed by application-layer protocols such as HTTP.
+DNS runs over UDP and uses port 53. It is commonly employed by application-layer protocols such as HTTP.
 
-1. User machine runs the client side of DNS app, and receives the URL extracted by browser.
+1. Client passes the hostname to the client side of DNS application.
 2. DNS client sends a query to DNS server, and receives the IP address.
-3. One browser receives IP address, initiate a TCP connection to the HTTP server process at port 80.
+3. The browser starts a HTTP connection using this IP address.
 
-**Other services**
+##### Other services
 
-1. Host aliasing.
-2. Mail sever aliasing.
-3. Load distribution. (busy site can have multiple IP address, DNS rotation distributes the traffic among the replicated servers).
+1. Host aliasing
+2. Mail sever aliasing
+3. Load distribution (busy site can have multiple IP address, DNS rotation distributes the traffic among the replicated servers).
 
-## 2.4.2 Overview of How DNS Works
+#### 2.4.2 Overview of How DNS Works
 
-gethostbyname()
+![[Pasted image 20230112211133.png]]
 
- <img src="./image/2.4.2.PNG" style="zoom:60%;" />
+**Root DNS servers** provide the IP addresses of the TLD servers.
 
-**Root DNS servers**
+**Top-level domain servers (TLD)** (com, org, net, edu, gov, cn, uk) provide the IP addresses for authoritative DNS servers.
 
-Around 600 scattered over the world.
+**Authoritative DNS servers**. An organization either implements its own authoritative DNS server or pay to have records stored in DNS server.
 
-Provide the IP addresses of the TLD servers.
+**Local DNS server** is implemented by ISP. Its IP address is stored in devices accessing the Internet through this ISP.
 
-**Top-level domain servers (TLD)**
+![[Pasted image 20230112211934.png]]
 
-One for each of the top-level domains (com, org, net, edu, gov, cn, uk)
+##### DNS Caching
 
-Provide the IP addresses for authoritative DNS servers.
+A DNS server will cache the mapping in its local memory after receiving the query result. Thus, root servers are accessed for a tiny portion of DNS queries.
 
-**Authoritative DNS servers**
+#### 2.4.3 DNS Records and Messages
 
-Every public host must provide publicly accessible DNS records mapping name to its IP.
-
-Implement own authoritative DNS server / pay to have records stored in DNS server.
-
- <img src="./image/2.4.2.1.PNG" style="zoom:50%;" />
-
-**DNS Caching**
-
-Cache the mapping in its local memory when a DNS server receives a DNS reply.
-
-### 2.4.3 DNS Records and Messages
-
-The DNS servers together implement the DNS database, which stores **resources records (RRs)**, including the RRs that provide hostname-to-IP mappings.
+The DNS servers together implement the DNS database, which stores **resources records (RRs)**, including the RRs that provide hostname-to-IP mappings. #link database
 
 RR is a four-tuple containing (Name, Value, Type, TTL)
 
 TTL: time to live, determines when to remove TT from cache.
 
-| Type  | Name                 | Value                                |
-| ----- | -------------------- | ------------------------------------ |
-| A     | hostname             | IP address                           |
-| NS    | domain (foo.com)     | hostname of authoritative DNS server |
-| CNAME | alias hostname       | canonical hostname                   |
-| MX    | alias hostname(mail) | canonical hostname                   |
+| Type                   | Name                 | Value                                |
+| ---------------------- | -------------------- | ------------------------------------ |
+| A (Address)            | hostname             | IP address                           |
+| NS (name server)       | domain (foo.com)     | hostname of authoritative DNS server |
+| CNAME (canonical name) | alias hostname       | canonical hostname                   |
+| MX (mail exchange)     | alias hostname(mail) | canonical hostname                   |
 
 If DNS server authoritative for hostname, return Type A record for the hostname.
 
 If not, return Type NS + type A which provides IP of DNS server.
 
-**DNS Messages**
+##### DNS Messages
 
 Two type: query & reply, having the same format.
 
- <img src="./image/2.4.3.PNG" style="zoom:60%;" />
+![[Pasted image 20230113133826.png]]
 
-**Inserting records into the DNS Database**
+##### Inserting records into the DNS Database
 
-1. register the domain name
-2. The registrar make sure that a Type NS and a Type A record are entered into the TLD com servers. These two RRs are the authoritative DNS servers.
+Suppose you want to register a domain name for your website, you have to:
+
+1. Register the domain name
+2. The registrar make sure that a Type NS (hostname, DNS server name) and a Type A (DNS server name, DNS server address) record are entered into the TLD com servers. These two RRs are the authoritative DNS servers.
+
+Thus in step 5, the TLD servers will return these two records. The client can then access your DNS server and get IP address of your website.
 
 
 
-## 2.5 Peer-to-Peer File Distribution
+### 2.5 Peer-to-Peer File Distribution
+
+Our goal is to distribute a large file from a single server to many hosts (peers). In P2P, a when a peer receives some file data, it uses its upload capacity to redistribute the file to other peers. Useful when the server upload bandwidth is small.
 
 $$
-DP2P \geq \max\{F_u, F_{dmin}, NF_{u + Nui}\}
+DP2P \geq \max\{F_{us}, F_{dmin}, NF_{u + Nui}\}
 $$
 
-**BitTorrent**
+##### BitTorrent
+
 A popular P2P protocol for file distribution.
 
-The collection of all peers participating in the distribution of a particular file is called a torrent.
+The collection of all peers participating in the distribution of a particular file is called a torrent. Each user downloads chunks (typically 256 KB data) while uploading chunks.
 
-Each user downloads chunks (typically 256 KB data) while uploading chunks
+A tracker tracks all the users in a torrent. When a new user joins the torrent, it establishes TCP connection with a list of neighboring peers (sent by the tracker).
 
-Which chunk to request first?
+Which chunk to request first? **Rarest first**: the chunks that have the fewest copy among all the neighbors.
 
-**Rarest first**
-
-The chunks that have the fewest copy among all the neighbours.
-
-Send data to the neighbors that are currently supplying her data at highest rate (unchoked) and a randomly chosen peer (optimistically unchoked).
+To which neighbor should she sent her chunks? Send data to the neighbors that are currently supplying her data at highest rate (unchoked) and a randomly chosen peer (optimistically unchoked).
 
 
 
-## 2.6 Video Streaming and Content Distribution Networks
+### 2.6 Video Streaming and Content Distribution Networks
 
-### 2.6.1 Internet Video
+By 2022, 82% of the Internet traffic is videos, and it's quite expensive!
+
+#### 2.6.1 Internet Video
 
 Consume huge amount of traffic and storage (10 Mbps for 4K).
 
 Use compression to create multiple versions of the same video.
 
-### 2.6.2 HTTP Streaming and DASH
+#### 2.6.2 HTTP Streaming and DASH
 
 Video is stored at an HTTP server as an ordinary file with a specific URL.
 
@@ -394,92 +384,74 @@ The streaming video application periodically grabs video frames from the client 
 
 Problem: all clients receive the same encoding of the video despite their bandwidth difference.
 
-**DASH**
+##### DASH
 
-Dynamic Adaptive Streaming over HTTP.
+Dynamic Adaptive Streaming over HTTP. The video is encoded into several different versions with different bit rate, each with a different URL. The server first send a **manifest file** with a list of URLs, one for each version of the video. The client dynamically requests video segments depending on the available bandwidth. 
 
-The video is encoded into several different versions with different bit rate, each with a different URL.
-
-The client dynamically requests video segments depending on the available bandwidth.
-
-First send a manifest file with a list of URLs, one for each version of the video.
-
-### 2.6.3 Content Distribution Networks
+#### 2.6.3 Content Distribution Networks
 
 Challenge: distribute massive amount of video contents to users around the world.
 
 A CDN manages distributed servers to store copies of videos and attempts to direct each user request to the best CDN location.
 
-**Private CDN** is owned by the content provider (YouTube).
-
-**Third-Party CDN** distributes content on behalf of multiple content providers.
+* **Private CDN** is owned by the content provider, e.g. Google's CDN distributes YouTube videos.
+* **Third-Party CDN** distributes content on behalf of multiple content providers.
 
 Two server placement philosophies.
 
-**1 Enter Deep**
+* **Enter Deep**: deploying server clusters in access ISPs all over the world. Highly distributed, challenging to manage.
+* **Bring Home**: build large clusters at a smaller number (e.g. 10) of sites and connect them to IXPs. Each CDN stores the videos that are frequently requested by the corresponding region.
 
-Deploying server clusters in access ISPs all over the world.
+##### CDN Operation
 
-Highly distributed, challenging to manage.
-
-**2 Bring Home**
-
-Build large clusters at a smaller number (e.g. 10) of sites. 
-
-Each CDN stores the videos that are frequently requested by the corresponding region.
-
-**CDN Operation**
+![[Pasted image 20230113154024.png]]
 
 1. The user sends a DNS query for video.netcinema.com
-2. The DNS server observes the string "video" and "hand over" the query to KingCDN and returns a hostname in KingCDN's domain.
-3. The user send DNS query for KingCDN and receives its IP address.
+2. NetCinema's DNS server observes the string "video" and "hand over" the query to KingCDN and returns a hostname in KingCDN's domain.
+3. The user send DNS query for a host in KingCDN and receives its IP address.
 4. The user establish a TCP connection with the server at that IP address and issues an HTTP GET request for the video.
 
-**Cluster Selection Strategies**
+##### Cluster Selection Strategies
 
-Problem: direct client to a server cluster within the CDN.
+How do we select the CDN server?
 
-1. Geographically closest. Problem: some users ae configured to use remotely located LDNSs.
+1. Geographically closest. Problem: some users are configured to use remotely located LDNSs.
 2. Periodic real-time measurements of delay between their clusters and clients.
 
 *How do clusters know which videos are on which cluster?*
 
-### 2.6.4 Case Studies: Netflix, YouTube, Kankan
+#### 2.6.4 Case Studies: Netflix, YouTube, Kankan
 
-#### Netflix
+##### Netflix
 
-Amazon cloud + private CDN infrastructure.
-
-The website (login, billing, etc.) run entirely on Amazon servers.
+Amazon cloud + own private CDN infrastructure.
 
 Amazon cloud do:
 
-1. Content ingestion: upload new movies to hosts in the Amazon cloud.
-2. Content processing: create different formats for each movie.
-3. Uploading versions to its CDN.
+1. Content ingestion: upload new movies to hosts in the Amazon cloud
+2. Content processing: create different formats for each movie
+3. Uploading versions to its CDN
 
-Have its own CDN (realized by server racks).
+When a user requests a video, the Netflix software determines a CDN to serve the user, and sends the IP address of that server.
 
-Use push caching.
+Netflix uses *push cashing*, which pushes content into CDN during off-peak hours.
 
-#### YouTube
+##### YouTube
 
-Google uses its own CDNs.
-
-Use pull caching.
-
-HTTP streaming without adaptive streaming.
+* Google uses its private CDNs
+* Uses pull caching cause the content is dynamic
+* Uses HTTP streaming without adaptive streaming
 
 
 
-## 2.7 Socket Programming
+### 2.7 Socket Programming
 
 Two types of network applications:
 
-1. Open: whose operation is specified in a protocol standard, such as HTTP.
-2. Proprietary: not openly published in an RFC.
+1. Open: whose operation is specified in a protocol standard, such as HTTP
+2. Proprietary: not openly published in an RFC
 
-### 2.7.1 Socket Programming with UDP
+#### 2.7.1 Socket Programming with UDP
 
 **UDPClient.py**
 
@@ -487,12 +459,12 @@ Two types of network applications:
 from socket import *
 serverName = '35.3.90.87'
 serverPort = 12000
-clientSocket = socket(AF_INET, SOCK_DGRAM)
+clientSocket = socket(AF_INET, SOCK_DGRAM) # IPv4, UPD
 message = input("Input lowercase sentence:")
 clientSocket.sendto(message.encode(), (serverName, serverPort))
 modifiedMsg, serverAddress = clientSocket.recvfrom(2048)
 print(modifiedMsg.decode())
-clientSocket.close()
+clientSocket.close() # close the socket
 ```
 
 **UDPServer.py**
@@ -509,9 +481,11 @@ while True:
     serverSocket.sendto(modifiedMsg.encode(), clientAddress)
 ```
 
-### 2.7.2 Socket Programming with TCP
+#### 2.7.2 Socket Programming with TCP
 
- <img src="./image/2.7.2.PNG" style="zoom:60%;" />
+TCP is connection-oriented, a connection must be established before any communication. After the connection, both side can do both sending and receiving through the socket.
+
+![[Pasted image 20230113161139.png]]
 
 **TCPClient.py**
 
@@ -520,12 +494,12 @@ from socket import *
 serverName = '127.0.0.1'
 serverPort = 12000
 clientSocket = socket(AF_INET, SOCK_STREAM)
-clientSocket.connect((serverName, serverPort))
+clientSocket.connect((serverName, serverPort)) # try to establish connection
 sentence = input('Input sentence:')
 clientSocket.send(sentence.encode())
 modifiedSen = clientSocket.recv(1024)
 print('From Server: ', modifiedSen.decode())
-clientSocket.close()
+clientSocket.close() # close the socket, and hence the connection
 ```
 
 **TCPServer.py**
@@ -535,12 +509,12 @@ from socket import *
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
-serverSocket.listen(1)
+serverSocket.listen(1) # maximun number of queued connections
 print('The server is ready to receive')
 while True:
-    connectionSocket, addr = serverSocket.accept()
+    connectionSocket, addr = serverSocket.accept() # create a new socket for this client. We are letting the OS to decide the port humber
     sentence  = connectionSocket.recv(1024).decode()
     capSen = sentence.upper()
     connectionSocket.send(capSen.encode())
-    connectionSocket.close()
+    connectionSocket.close() # close the connection socket
 ```
