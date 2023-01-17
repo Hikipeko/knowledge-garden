@@ -43,3 +43,48 @@ Complete a brief quiz before the next lecture. Contribute on Piazza.
 ##### Security Ethics
 
 Don't be evil, practice attacks only on systems we give you to test.
+
+
+
+## L2 Message Integrity
+
+Message integrity wants to ensure that attackers cannot modify messages without being detected.
+
+#### Message Verifier
+
+1. Alice computes verifier $v = f(m)$
+2. Alice sends $(m, v)$
+3. Bob verifies that $v' = f(m')$
+
+We want f to be easily computed by Alice and Bob, not Mallory.
+
+**Random function (RF)** is a giant look up table, given an random (256 bits) string for any possible input m.
+
+##### Pseudorandom Function
+
+We choose $f$ from a family of $2^n$ functions. We say the function family is secure if no effective algorithm can tell the difference between a function chosen randomly from the RRF family and a true random function.
+
+1. Let $f$ be a secure PRF know to everyone
+2. Alice and Bob (not Mallory) shared a private key $k$
+3. Alice sends $(m, v = f_k(m))$
+4. Bob verifies $v' = f_k(m')$
+
+#### Cryptographic Hashes
+
+##### Preimage Resistance
+
+Given output $h$, hard to find input $m$ s.t. $H(m) = h$.
+
+##### Second-Preimage Resistance
+
+Given input $m_1$, hard to find input $m_2$ s.t. $H(m_1) = H(m_2)$.
+
+##### Collision Resistance
+
+Hard to find any $m_1, m_2$ s.t. $H(m_1) = H(m_2)$.
+
+Collisions have been found in MD5 and SHA-1. Now SHA-256 is widely used.
+
+
+
+

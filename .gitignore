@@ -6,6 +6,7 @@ logseq/.recycle
 
 # 个人隐私屏蔽
 Self/*
+Private/*
 
 # 不适合上传的信息
 Knowledge/Politics/*
