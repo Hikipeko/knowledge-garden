@@ -4,8 +4,6 @@
 
 Cryptography has gone from an "art" to a science.
 
-
-
 ### 1.2 The Setting of Private-Key Encryption
 
 **Private-key setting** is that the communication parties share some secret information in advance.
@@ -31,8 +29,6 @@ The cipher method must not be required to be secret, and it must be able to fall
 1. has a public view checking for weakness
 2. ensures compatibility.
 
-
-
 ### 1.3 Historical Ciphers
 
 ##### Caesar's cipher
@@ -46,8 +42,6 @@ A permutation of the alphabet. Can be attacked by statistical properties of the 
 ##### Vigenère cipher
 
 Shift a chunk by a string. e.g. hello -> igmnp if key is 12. It can also be attacked by statistics.
-
-
 
 ### 1.4 Principles of Modern Cryptography
 
@@ -97,10 +91,35 @@ $K$ (random variable for the key) and $M$ (random variable for the message) are 
 
 The adversary know anything except for the private key. He should not gain any knowledge about the plaintext by observer the ciphertext.
 
-An encryption schema with message space $\mathcal M$ is *perfectly secret* if for every probability distribution for $\mathcal M$, every message $m \in \mathcal M$, and every ciphertext $c \in \mathcal C$ for which $\text{Pr}[C=c]>0$:
+An encryption schema with message space $\mathcal M$ is **Shannon secret** if for every probability distribution for $\mathcal M$, every message $m \in \mathcal M$, and every ciphertext $c \in \mathcal C$ for which $\text{Pr}[C=c]>0,$
 
 $$
 \text{Pr} [M = m | C = c] = \text{Pr} [M = m].
 $$
 
-TODO
+*Try to prove it.* Shannon secrecy is equivalent to **perfect secrecy**: for every $m, m' \in \mathcal M$, and every $c \in \mathcal C$, we have
+
+$$
+\text{Pr} [{\sf Enc}_K(m) = c] = \text{Pr} [{\sf Enc}_K(m') =c].\quad (2.1)
+$$
+
+It is also equivalent to **perfectly indistinguishability**, which means an adversary with unbounded computation power can do no better than random guess of which one of the two messages (specified by the adversary) are encrypted given the ciphertext.
+
+### 2.2 The One-Time Pad
+
+The key is uniformly chosen from the key space. Both encryption and decryption are $c := k \oplus m, m := k \oplus c$.
+
+The one-time pad encryption schema is perfectly secret. This can easily be proved by using (2.1).
+
+##### Limitations
+
+* The key has to be as long as the message.
+* One key can be used only once. Note that $c\oplus c' = m \oplus m'$.
+
+### 2.3 Limitations of Perfect Secrecy
+
+##### Theorem 2.11
+
+*Try to prove it.* For any perfectly secret encryption scheme with message space $\mathcal M$ and key space $\mathcal K$, then $|\mathcal K| \geq |\mathcal M|$.
+
+https://umich.instructure.com/files/965080/download?download_frd=1&verifier=IPxayFJ84ZUV6XbMtBxtCw4WfVoB21gN4nrep7s7
