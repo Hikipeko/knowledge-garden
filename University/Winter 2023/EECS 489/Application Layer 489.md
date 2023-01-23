@@ -49,21 +49,7 @@ E.g. Web server: 80, mail server: 25.
 
 #### 2.1.4 Transport Services Provided by the Internet
 
-#delete
-
-##### TCP services
-
-**Connection-oriented service**: after exchanging transport-layer control information (handshaking), a TCP connection exists between the sockets.
-
-Reliable data transfer service.
-
-##### UDP services
-
-No-frills, lightweight, provide minimal services, connectionless.
-
-Unreliable data transfer service. (data may loss, wrong order)
-
-![[Pasted image 20230109235048.png]]
+See [[Transport Layer 489#3.1.2 Overview of the Transport Layer in the Internet]]
 
 #### 2.1.5 Application-Layer Protocols
 
@@ -518,3 +504,13 @@ while True:
     connectionSocket.send(capSen.encode())
     connectionSocket.close() # close the connection socket
 ```
+
+
+
+### Problems
+
+##### dig
+
+A flexible tool for interrogating DNS name servers. It performs DNS lookups and displays the answers. Can use it to simulate how DNS works. `dig +norecurse @a.root-servers.net any gaia.cs.umass.edu`
+
+It can also be used to know if a website is recently queried before by `dig bilibili.com` and observe the query time.

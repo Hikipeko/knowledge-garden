@@ -121,5 +121,3 @@ The one-time pad encryption schema is perfectly secret. This can easily be prove
 ##### Theorem 2.11
 
 *Try to prove it.* For any perfectly secret encryption scheme with message space $\mathcal M$ and key space $\mathcal K$, then $|\mathcal K| \geq |\mathcal M|$.
-
-https://umich.instructure.com/files/965080/download?download_frd=1&verifier=IPxayFJ84ZUV6XbMtBxtCw4WfVoB21gN4nrep7s7

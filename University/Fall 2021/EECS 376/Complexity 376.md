@@ -5,10 +5,10 @@
 P is the class of languages decidable by a polynomial-time Turing machine, where
 
 $$
-P = \bigcup_{k \geq 1}DTIME(n^k)
+P = \bigcup_{k \geq 1}DTIME(n^k),
 $$
-We informally consider P to be the class of efficiently decidable languages.
 
+$n$ is the length of the input. We informally consider P to be the class of efficiently decidable languages.
 
 ##### NP
 

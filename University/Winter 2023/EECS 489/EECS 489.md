@@ -6,5 +6,5 @@ Internet in a sentence: a bunch of computers connected together that allows comm
 
 1. [[Introduction 489]]
 2. [[Application Layer 489]]
-3. [[Transport Layer]]
+3. [[Transport Layer 489]]
 4. [[Network Layer]]

@@ -1,3 +1,4 @@
+
 ## L5 Neural Networks
 
 Problem: linear classifiers aren't that powerful.
@@ -199,7 +200,7 @@ Hundreds of millions of learnable parameters are learned from about 10 millions 
 
 
 
-## L9 Training Neural Networks 1
+## L9 Training Neural Networks I
 
 ##### Activation Functions
 
@@ -245,7 +246,7 @@ What if we initialize to small random numbers? For a deep NN, as we get deeper a
 
 `W = np.random.rand(Din, Dout) / np.sqrt(2/Din)` produces a size that is "just right" for ReLU.
 
-For conv layers, Din is kernel_size^2 * input_channels.
+For conv layers, Din is `kernel_size^2 * input_channels`.
 
 ##### Residual Networks
 
@@ -259,5 +260,79 @@ In each forward pass, randomly set some neurons to zero with a pre-set probabili
 
 ![[Pasted image 20230110231143.png]]
 
-We want that the network to have a redundant representation rather than relying so much on a single representation. 
+We want that the network to have a redundant representation rather than relying so much on a single representation.
 
+For ResNet and later, often L2 and BN are the only regularizers.
+
+
+
+## L10 Training Neural Networks II
+
+#### Data Augmentation
+
+Another way of regularization. Be aware of the **invariances**, e.g. don't rotate the image 180 degree in a digit recognition task.
+
+* **Horizontal flips**
+* **Random crops and scales** (recognize a cat even if only seeing the head)
+* **Color Jitter**
+* **CutOut**: set random image regions to 0
+* **RandAugment**: apply N random augmentation transformations with magnitude M
+
+During testing, we average (e.g. average the probability) a fixed se of augmented images.
+
+#### Regularization Summary
+
+* Training: add some randomness
+* Testing: marginalize over randomness
+
+* **Dropout** (used in ViTs)
+* **Batch normalization**
+* **Data augmentation**
+* **DropConnect**: randomly drop connections between neurons (not commonly used)
+* **Fractional pooling**: use randomized pooling regions (not commonly used)
+* **Stochastic depth**: skip some residual blocks in ResNet
+* **Mixup**: train on random blends of images
+* **Label smoothing**: set target distribution to slightly lower than 1. Useful for mislabeled data.
+
+#### Learning Rate Schedules
+
+In general, we want to start with high learning rate and decay over time.
+
+* **Step**: reduce learning rate at a few fixed points (e.g. * 0.1 after every 30 epochs)
+* **Cosine**: no extra hyperparameter, *recommended by JJ*
+* **Linear**
+* **Inverse Sqrt**
+* **Constant**: choose it as your starting point
+
+![[Pasted image 20230122204253.png|300]] ![[Pasted image 20230122203758.png|300]]
+
+##### Early Stopping
+
+We keep track of the model snapshot that work best on validation set.
+
+#### Choosing Hyperparameters
+
+* **Grid search**: set a grid, and evaluate all possible choices
+* **Random search**: sample log-uniform on a range, generally a better choice
+
+![[Pasted image 20230122204811.png]]
+
+![[Pasted image 20230122205046.png]]
+
+What if you don't have tons of GPU?
+
+1. Check initial loss
+2. Overfit a small sample (100% training accuracy on a small sample of training data)
+3. Find LR that makes loss go down (within the first few iterations)
+4. Train 1-5 epochs on a coarse grid
+5. Refine grid, train longer
+6. Look at learning curves: training loss curve and validation accuracy
+7. Go to step 5
+
+![[Pasted image 20230122210116.png]]
+
+![[Pasted image 20230122210609.png|300]] ![[Pasted image 20230122210650.png|300]]
+
+#### After Training
+
+We can use [[Supervised Learning 445#Ensemble Methods|model ensembles]] to get 2% extra performance. Instead of training independent models, we can use multiple snapshots of a single model during training.

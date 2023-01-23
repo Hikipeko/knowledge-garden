@@ -1,112 +1,115 @@
-## 3.1 Introduction and Transport-Layer Services
+### 3.1 Introduction and Transport-Layer Services
 
-Transport-layer protocols are implemented in the end systems.
+Transport-layer protocols are implemented in the end systems, not in routers.
 
-On the sending side, the transport layer converts the application-layer message into transport-layer packets, know as transport-layer **segments** by breaking the messages into smaller chunks and adding a transport-layer header. 
+The transport layer converts the application-layer message into transport-layer packets, know as transport-layer **segments** by breaking the messages into smaller chunks and adding a transport-layer header. 
 
-### 3.1.1 Relation Between Transport and Network Layers
-
- <img src="./image/3.1.1.PNG" style="zoom:60%;" />
+#### 3.1.1 Relation Between Transport and Network Layers
 
 Transport-layer protocol provides logical communication between processes.
 
 Network-layer protocol provides logical communication between hosts.
 
-### 3.1.2 Overview of the Transport Layer in the Internet
+#### 3.1.2 Overview of the Transport Layer in the Internet
 
-**UDP**
+##### UDP
 
-Unreliable, connectionless.
+Unreliable and connectionless, lightweight. It only provides process-to-process data delivery and error checking.
 
-Services: process-to-process data delivery & error checking.
+##### TCP
 
-**TCP**
+**Connection-oriented service**: after exchanging transport-layer control information (handshaking), a TCP connection exists between the sockets.
 
-Reliable (correct & order), connection-oriented.
+Reliable (correct & order). Congestion control: prevent TCP connection from swamping the links and route with an excessive amount of traffic.
 
-Congestion control: prevent TCP connection from swamping the links and route with an excessive amount of traffic.
+##### IP
 
-**IP**
+The network-layer IP protocol is a best-effort delivery service which tries to transmit data as much as possible. It's unreliable.
 
-The network-layer protocol, IP, is a best-effort delivery service.
 
-Unreliable.
 
-## 3.2 Multiplexing and Demultiplexing
+### 3.2 Multiplexing and Demultiplexing
 
-Extend the host-to-host delivery service to process-to-process delivery.
+![[Pasted image 20230120233421.png]]
 
-**Demultiplexing**
+##### Demultiplexing
 
-Deliver the data in a transport-layer segment to the correct socket.
+Deliver the data in a transport-layer segment (from the network layer) to the correct socket.
 
-**Multiplexing**
+##### Multiplexing
 
 Gather data chunks at source host from different sockets and encapsulate with header information.
 
-Requirements: unique identifiers & each segment have fields indicating the socket to be delivered
+Requirements: unique identifiers & each segment has a source port number field and a destination port number field.
 
-Source port number field & Destination port number field.
+##### Port
 
-**Port**
+Port number ranges from 0 to 65535. We should avoid using **well-know port numbers** (0 to 1023) when developing new applications.
 
-Range from 0 to 65535 (0 to 1023 are **well-know port numbers**).
-
-### 3.2.1 Connectionless M & D
+##### Connectionless M & D
 
 M: The transport layer in Host A create a segment including the source port number & destination port number besides the original data.
 
 D: The transport layer in Host B examines the destination port number and delivers the segment to its socket.
 
-### 3.2.2 Connection-Oriented M & D
+##### Connection-Oriented M & D
 
 Arriving TCP segments with different source IP address or source port numbers will be directed to two different sockets. (contrast with UDP)
 
-The newly created connection socket is identified by:
+A TCP socket connection is identified by (Source IP, source port number, destination IP, destination port). The arriving segments match all four values will be demultiplexed to this socket.
 
-1. Source port umber.
-2. IP address of source host.
-3. Destination port number.
-4. Its own IP address.
+![[Pasted image 20230120235341.png]]
 
-The arriving segments match all four values will be demultiplexed to this socket.
 
-## 3.3 UDP
+
+### 3.3 UDP
+
+Almost like the application is directly talking with IP.
 
 **Reasons of choosing UDP**
 
 1. Finer application-level control over what data is sent, and when.
-2. No connection establishment, no delay.
+2. No connection establishment, and thus less delay (DNS).
 3. No connection state, no need for state information.
-4. Smaller packet header overhead.
+4. Smaller packet header overhead (8 vs 20).
 
-### 3.3.1 UDP Segment Structure
+HTTP3 is based on UDP.
 
- <img src="./image/3.3.1.PNG" style="zoom:65%;" />
+#### 3.3.1 UDP Segment Structure
 
-### 3.3.2 UDP Checksum
+![[Pasted image 20230121010818.png]]
 
-The sender performs the 1s complement of the sum of al the 16-bit words in the segment.
+#### 3.3.2 UDP Checksum
 
-The receiver add all the 16-bit words and the checksum and check the sum to be 1111 1111 1111 1111.
+The sender performs the 1s complement of the sum of all the 16-bit words in the segment. The receiver add all the 16-bit words and the checksum and check the sum to be 1111 1111 1111 1111.
 
-No way to recover.
+Even if we know data is invalid, we have no way to recover.
 
-## 3.4 Principles of Reliable Data Transfer
+##### End-End Principle
 
- <img src="./image/3.4.PNG" style="zoom:70%;" />
+Functions placed at the lower levels may be redundant when compared to the cost of providing them at the higher level.
 
-### 3.4.1 Building a Reliable Data Transfer Protocol
 
-**Bits in a packet may be corrupted**
+
+### 3.4 Principles of Reliable Data Transfer
+
+![[Pasted image 20230121133707.png]]
+
+#### 3.4.1 Building a Reliable Data Transfer Protocol
+
+##### Reliable Data Transfer over a Perfectly Reliable Channel
+
+The sender just make data into a packet and call `udt_send()`. The receiver just receives the packet, extract the data, and delivered to the socket.
+
+##### Bits Errors
 
 Use positive/negative acknowledgements to indicate whether the data has been received correctly.
 
 **ARQ (Automatic Repeat reQuest) protocol**
 
-1. Error detection.
-2. Receiver feedback. ACK/NAK
-3. Retransmission.
+1. Error detection, e.g. check sum
+2. Receiver feedback: ACK/NAK
+3. Retransmission
 
 Problem: what if the ack packet is corrupted?
 
@@ -116,31 +119,27 @@ Problem: how does receiver know the packet is a new packet or a retransmission?
 
 Solution: Add **sequence number** field to the data packet (0/1).
 
-Problem: the underlying channel can lose packets.
+![[Pasted image 20230121135841.png]]
 
-The sender wait for some time for the ACK, otherwise resend the data packet.
+![[Pasted image 20230121140554.png]]
 
-The time is chosen by the sender.
+##### A Lossy Channel with Bit Errors
 
- <img src="./image/3.4.1.PNG" style="zoom:80%;" />
+The sender wait for some time for the ACK, otherwise resend the data packet. The time is chosen by the sender.
 
- <img src="./image/3.4.1.1.PNG" style="zoom:80%;" />
+![[Pasted image 20230121144206.png]]
 
-### 3.4.2 Pipelined Reliable Data Transfer Protocols
+#### 3.4.2 Pipelined Reliable Data Transfer Protocols
 
-The **utilization** of the sender (the fraction of time the sender is actually busy sending bits into the channel) is  very low using stop-and-wait protocol.
+Problem: the above implementation is slow! The **utilization** of the sender (the fraction of time the sender is actually busy sending bits into the channel) is  very low using stop-and-wait protocol. Solution: use the **pipelining** technique.
 
- <img src="./image/3.4.2.PNG" style="zoom:80%;" />
+#### 3.4.3 Go-Back-N
 
-### 3.4.3 Go-Back_N
+In a **Go-Back-N protocol**, the sender is allowed to transmit multiple packets without waiting for an acknowledgment.
 
-In a **Go-Back-N protocol**, the sender is allowed to transmit  multiple packets without waiting for an acknowledgment.
+![[Pasted image 20230121151025.png]]
 
- <img src="./image/3.4.3.PNG" style="zoom:50%;" />
-
-N: window size.
-
-A sliding-window protocol.
+N is the window size, which is the maximum allowing number for not yet ACK packets. GBN is a **sliding-window protocol**.
 
  <img src="./image/3.4.3.2.PNG" style="zoom:60%;" />
 
@@ -152,7 +151,7 @@ The sender discards out-of-order packets.
 
 Problem: a single packet error can cause GBN to retransmit a large number of packets.
 
-### 3.4.4 Selective Repeat (SR)
+#### 3.4.4 Selective Repeat (SR)
 
  <img src="./image/3.4.4.PNG" style="zoom:60%;" />
 
@@ -162,9 +161,9 @@ Problem: a single packet error can cause GBN to retransmit a large number of pac
 
 As sequence number may be reused, some care must be taken to guard against duplicate packets.
 
-## 3.5 TCP
+### 3.5 TCP
 
-### 3.5.1 The TCP Connection
+#### 3.5.1 The TCP Connection
 
 Processes must send some preliminary segments to establish the parameters of the ensuing data transfer.
 
@@ -193,7 +192,7 @@ Maximum transmission unit: largest link-layer frame.
 
  <img src="./image/3.5.1.PNG" style="zoom:50%;" />
 
-### 3.5.2 TCP Segment Structure
+#### 3.5.2 TCP Segment Structure
 
  <img src="./image/3.5.2.PNG" style="zoom:50%;" />
 
@@ -232,7 +231,7 @@ The receiver have two choices for out-of-order segments:
 1. Discard.
 2. Keep and wait for the missing bytes.
 
-#### Telnet
+##### Telnet
 
 Port: 23.
 
@@ -244,11 +243,11 @@ Each character typed by the user is sent to the remote host, sent back to the cl
 
  <img src="./image/3.5.2.2.PNG" style="zoom:60%;" />
 
-### 3.5.3 Round-Trip Time Estimation and Timeout
+#### 3.5.3 Round-Trip Time Estimation and Timeout
 
 TCP use timeout mechanism to recover from lost segments.
 
-#### Estimating the Round-Trip Time (RTT)
+##### Estimating the Round-Trip Time (RTT)
 
 **SampleRTT**
 
@@ -275,7 +274,7 @@ $$
 \text{TimeoutInterval} = \text{EstimatedRTT} + 4 \cdot \text{DevRTT}
 $$
 
-### 3.5.4 Reliable Data Transfer
+#### 3.5.4 Reliable Data Transfer
 
 The recommended TCP timer management procedures use only a single retransmission timer for all the not yet acknowledged segments.
 
@@ -318,7 +317,7 @@ Each time TCP  retransmits, it sets the next timeout interval to twice the previ
 
 The timeout interval is set according to EstimatedRTT and DevRTT in the other two situations.
 
-#### Fast Retransmit
+##### Fast Retransmit
 
  <img src="./image/3.5.4.PNG" style="zoom:60%;" />
 
@@ -326,13 +325,13 @@ If one segment is lost, there will likely be many back-to-back duplicate ACKs.
 
 If the TCP sender receives three duplicate ACKs for the same data, the TCP sender performs a **fast retransmit**, retransmitting the missing segment before the timer expires.
 
-#### Go-Back-N or Selective Repeat?
+##### Go-Back-N or Selective Repeat?
 
 TCP  is similar to GBN in the sense that it only maintain the smallest sequence number of a transmitted but unacknowledged byte (SendBase) and the sequence number of the next byte to be sent (NextSeqNum).
 
 However, many TCP implementations will buffer correctly received but out-of-order segments.
 
-### 3.5.5 Flow Control
+#### 3.5.5 Flow Control
 
 The host of TCP connection set aside a receive buffer for the connection.
 
@@ -361,7 +360,7 @@ Problem: when the buffer becomes full, the sender will stop to send message, and
 
 Solution: the receiver send segment with one data byte when the receive window is zero.
 
-### 3.5.6 TCP Connection Management
+#### 3.5.6 TCP Connection Management
 
 **Establishment of TCP connection**
 
@@ -384,9 +383,9 @@ If a host receives a TCP segment whose port numbers or source IP address do not 
 
 
 
-## 3.6 Principles of Congestion Control
+### 3.6 Principles of Congestion Control
 
-### 3.6.1 The Causes and the Costs of Congestion
+#### 3.6.1 The Causes and the Costs of Congestion
 
 1. Large queuing delays are experienced as the packet-arrival rate nears the link capacity.
 2. The packets will be dropped when arriving to an already-full buffer, and therefore the sender must perform retransmissions to compensate for dropped packets due to buffer overflow. The sender may time out prematurely and retransmit a packet that has been delayed in the queue but not yet lost.
@@ -394,7 +393,7 @@ If a host receives a TCP segment whose port numbers or source IP address do not 
 
  
 
-### 3.6.2 Approaches to Congestion Control
+#### 3.6.2 Approaches to Congestion Control
 
 **End-to-end congestion control** (default)
 
@@ -413,7 +412,7 @@ Two ways of feedback:
 
 
 
-## 3.7 TCP Congestion Control
+### 3.7 TCP Congestion Control
 
 Have each sender limit the rate at which it sends traffic into its connection as a function of perceived network congestion.
 
@@ -441,7 +440,7 @@ It increases cwnd according to the arriving rate of acknowledgments.
 2. A acknowledged segment indicates that the network is fine, and the sender's rate can be increased.
 3. Bandwidth probing: incrementally ask for more and more bandwidth.
 
-#### TCP congestion-control algorithm
+##### TCP congestion-control algorithm
 
 **Slow Start**
 
@@ -482,7 +481,7 @@ $$
 $$
 **TCP over high-bandwidth paths**
 
-### 3.7.1 Fairness
+#### 3.7.1 Fairness
 
 Assume 2 TCP connections pass through a bottleneck link with transmission rate R bps, the throughput of both connection will finally stabilize to R/2.
 
@@ -496,7 +495,7 @@ From the perspective of TCP, the UDP are not fair -- they do not cooperate with 
 
 Fairness problem may still exist as a single app can use multiple parallel TCP connections.
 
-### 3.7.2 Explicit Congestion Notification (ECN)
+#### 3.7.2 Explicit Congestion Notification (ECN)
 
 Network-assisted congestion control.
 
