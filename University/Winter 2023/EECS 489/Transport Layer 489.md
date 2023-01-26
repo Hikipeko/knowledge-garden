@@ -141,60 +141,56 @@ In a **Go-Back-N protocol**, the sender is allowed to transmit multiple packets 
 
 N is the window size, which is the maximum allowing number for not yet ACK packets. GBN is a **sliding-window protocol**.
 
- <img src="./image/3.4.3.2.PNG" style="zoom:60%;" />
+![[Pasted image 20230123120021.png]]
 
- <img src="./image/3.4.3.3.PNG" style="zoom:60%;" />
-
-If a timeout occurs, the sender resends all packets that have been sent but not acknowledged.
-
-The sender discards out-of-order packets.
+If a timeout occurs, the sender resends all packets that have been sent but not acknowledged. The sender discards out-of-order packets. Uses **cumulative acknowledgement**. This state machine can be implemented be **event-based programming**.
 
 Problem: a single packet error can cause GBN to retransmit a large number of packets.
 
 #### 3.4.4 Selective Repeat (SR)
 
- <img src="./image/3.4.4.PNG" style="zoom:60%;" />
+![[Pasted image 20230123123644.png]]
 
- <img src="./image/3.4.4.1.PNG" style="zoom:50%;" />
+##### Sender's Action
 
- <img src="./image/3.4.4.2.PNG" style="zoom:50%;" />
+* *Data received from above*: if the next sequence number is within the sender's window, then packetize and send the packet.
+* *Timeout*: each packet has a timer (can be simplified), and we resent the packet during timeout.
+* *ACK received*: mark the packet as received. Move the window if send base == sequence number.
+
+##### Receiver's Action
+
+* *Packet with sequence number within \[base, base+N-1\]*: buffer the page and send ACK (not matter duplicate or not). If base == sequence number, send data to socket and move the window.
+* *Packet with sequence number within \[base-N, base -1\]*: send ACK.
+* *Otherwise*: ignore the packet.
 
 As sequence number may be reused, some care must be taken to guard against duplicate packets.
 
+
+
 ### 3.5 TCP
+
+Processes must send some preliminary segments to establish the parameters of the ensuing data transfer. TCP provides **full-duplex services**. (双向传输)
 
 #### 3.5.1 The TCP Connection
 
-Processes must send some preliminary segments to establish the parameters of the ensuing data transfer.
-
-TCP provides **full-duplex services**. (双向传输)
-
-**Establish a connection**
-
-Three-way handshake
+##### Three-way handshake
 
 1. The client process informs the client transport layer that it wants to establish a connection to (serverName, serverPort).
 2. The client first sends a special TCP segments; the server responds with a second TCP segments; the client finally responds again with a third special segment.
 
-**Sending data**
+##### Sending data
 
-**MSS** 
+**MSS** maximum segment size is the maximum amount of data can be placed in a segment.
 
-Maximum segment size: maximum amount of data can be placed in a segment.
-
-**MTU** 
-
-Maximum transmission unit: largest link-layer frame.
+**MTU** maximum transmission unit is largest link-layer frame. Typically MSS = MTU - 40.
 
 1. TCP sender receives the data to the connection's send buffer.
 2. TCP sender constantly grab chunks of data from the send buffer, add a TCP header to form **TCP segments**, and send to the network layer.
 3. TCP receiver receives the segment on the receive buffer.
 
- <img src="./image/3.5.1.PNG" style="zoom:50%;" />
-
 #### 3.5.2 TCP Segment Structure
 
- <img src="./image/3.5.2.PNG" style="zoom:50%;" />
+![[Pasted image 20230124164911.png]]
 
 **Header length field**
 
@@ -212,36 +208,28 @@ PSH: the receiver should pass the data to the upper layer immediately.
 
 URG: data is marked as "urgent" by the sending-side.
 
-**Sequence Number**
+##### Sequence Number and Acknowledgement Number
 
-The sequence number for a segment is the byte-stream number of the first byte in the segment.
+![[Pasted image 20230124191724.png]]
 
- <img src="./image/3.5.2.1.PNG" style="zoom:60%;" />
+TCP views data as an unstructured, but ordered, stream of bytes.
 
-The first segment gets sequence number 0, the second segment gets 1000.
+The sequence number for a segment is the ==byte-stream number== of the first byte in the segment, not the number of segments. The first segment gets sequence number 0, the second segment gets 1000.
 
-**Acknowledgement Number**
-
-The sequence number of the next byte the receiver is expecting from sender.
-
-TCP is **cumulative acknowledgements** as it only acknowledges bytes up to the first missing byte in the stream.
+Thea ACK number is the sequence number of the next byte the receiver is expecting from sender. TCP is **cumulative acknowledgements** as it only acknowledges bytes up to the first missing byte in the stream.
 
 The receiver have two choices for out-of-order segments:
 
-1. Discard.
-2. Keep and wait for the missing bytes.
+1. Discard
+2. Keep and wait for the missing bytes
 
 ##### Telnet
 
-Port: 23.
+![[Pasted image 20230124192717.png]]
 
-Application-layer protocol for remote login.
-
-Not encrypted.
+Application-layer protocol for remote login. The data is not encrypted, so SSH is more commonly used.
 
 Each character typed by the user is sent to the remote host, sent back to the client, and displayed on the user's screen.
-
- <img src="./image/3.5.2.2.PNG" style="zoom:60%;" />
 
 #### 3.5.3 Round-Trip Time Estimation and Timeout
 
@@ -249,25 +237,21 @@ TCP use timeout mechanism to recover from lost segments.
 
 ##### Estimating the Round-Trip Time (RTT)
 
-**SampleRTT**
+**Sample RTT** is the amount of time between when the segment is send and when an acknowledge for it is received. It fluctuates from segment to segment.
 
-The amount of time between when the segment is send and when an acknowledge for it is received.
-
-Fluctuate from segment to segment.
-
-**EstimatedRTT**
+**Estimated RTT** is a running average of sample RTT.
 $$
 \text{EstimatedRTT} = (1-\alpha) \cdot  \text{EstimatedRTT} + \alpha \cdot \text{SampleRTT}
 $$
 The recommended value of $\alpha$ is 0.125.
 
-**DevRTT**
-
-Estimate of variability of the RTT.
+**Dev RTT** is the estimation of variability of the RTT.
 $$
 \text{DevRTT} = (1-\beta) \cdot  \text{DevRTT} + \beta \cdot |\text{SampleRTT} - \text{EstimatedRTT}|
 $$
 The recommended value of $\beta$ is 0.25.
+
+##### Setting and Managing the Retransmission Timeout Interval
 
 **Timeout Interval**
 $$
@@ -280,7 +264,7 @@ The recommended TCP timer management procedures use only a single retransmission
 
 **Simplified TCP sender**
 
-```pseudocode
+```c
 while (true) {
 	switch (event) {
 	
@@ -311,15 +295,13 @@ while (true) {
 }
 ```
 
-**Doubling the Timeout Interval**
+##### Doubling the Timeout Interval
 
-Each time TCP  retransmits, it sets the next timeout interval to twice the previous value.
-
-The timeout interval is set according to EstimatedRTT and DevRTT in the other two situations.
+During the timeout (TCP  retransmits) event, sets the next timeout interval to twice the previous value. The timeout interval is set according to Estimated RTT and Dev RTT in the other two situations.
 
 ##### Fast Retransmit
 
- <img src="./image/3.5.4.PNG" style="zoom:60%;" />
+![[Pasted image 20230124195744.png]]
 
 If one segment is lost, there will likely be many back-to-back duplicate ACKs.
 
@@ -333,24 +315,20 @@ However, many TCP implementations will buffer correctly received but out-of-orde
 
 #### 3.5.5 Flow Control
 
-The host of TCP connection set aside a receive buffer for the connection.
+The host of TCP connection set aside a receive buffer for the connection. The receive buffer can overflow if the sender send data too quickly. TCP provides a **flow-control service** to eliminate the probability of this overflow. It tries to match the sending speed against the reading speed.
 
-The receive buffer can overflow if the sender send data too quickly.
-
-TCP provides a **flow-control service** to solve overflow problem.
-
-Match the sending speed against the reading speed.
-
-**Receive window (rwnd)**
+TCP sender maintains a **Receive window (rwnd)**.
 
 How much free buffer space is available at the receiver.
 
-LastByteRead: the number of the last byte in the data stream read from the buffer from the client.
+`LastByteRead`: the number of the last byte in the data stream read from the buffer from the client.
 
-LastByteRcvd: the number of the last byte in the data stream that has arrived from the network and has been place in the receive buffer.
+`LastByteRcvd`: the number of the last byte in the data stream that has arrived from the network and has been place in the receive buffer.
 $$
+\begin{align*}
 \text{LastByteRcvd} - \text{LastByteRead} \leq \text{RcvBuffer}\\
 \text{rwnd} = \text{RcvBuffer} - (\text{LastByteRcvd} - \text{LastByteRead})
+\end{align*}
 $$
 **Sender side**
 $$
@@ -362,24 +340,29 @@ Solution: the receiver send segment with one data byte when the receive window i
 
 #### 3.5.6 TCP Connection Management
 
-**Establishment of TCP connection**
+##### Establishment of TCP connection
 
-1. The client send a TCP segment with **SYN** set to 1 and a randomly chosen **sequence number** as client_isn.
-2. The server extracts the SYN segment, allocates the TCP buffers, and send a connection-granted segment (**SYNHACK segment**) with SYN bit set to 1, acknowledgment field set to client_isn + 1, sequence number to be a randomly chosen value server_isn.
-3. The client receives the SYNACK segment and allocate buffer for the connection. Then client then send another segment with acknowledgment field to be server_isn + 1, SYN set to 0. This segment may contain client data.
+![[Pasted image 20230125131043.png]]
 
- <img src="./image/3.5.6.PNG" style="zoom:60%;" />
+1. The client send a TCP segment with **SYN** set to 1 and a randomly chosen **sequence number** as `client_isn`.
+2. The server extracts the SYN segment, allocates the TCP buffers, and send a connection-granted segment (**SYNHACK segment**). SYN bit is set to 1, acknowledgment field is set to `client_isn + 1`, and sequence number is a randomly chosen value `server_isn`.
+3. The client receives the SYNACK segment and allocate buffer for the connection. The client then sends another segment with `acknowledgment = server_isn + 1`, SYN set to 0. This segment may contain client data in the segment payload.
 
-**Closing a TCP connection**
+##### Closing a TCP connection
+
+![[Pasted image 20230125131121.png]]
 
 1. The client sends a special TCP segment with **FIN** bit set to 1.
 2. The server sends an acknowledgment segment in return.
 3. The server sends its own shutdown segment with FIN bit set to 1.
 4. The client acknowledges the server's shutdown.
 
- <img src="./image/3.5.6.1.PNG" style="zoom:60%;" />
+If a host receives a TCP segment whose port numbers or source IP address do not match with any of the ongoing sockets in the host, it sends a special reset segment to the source with **RST** bit set to 1. Use **Nmap** to scan the ports.
 
-If a host receives a TCP segment whose port numbers or source IP address do not match with any of the ongoing sockets in the host, it sends a special reset segment to the source with **RST** bit set to 1.
+##### SYN Flood Attack
+
+* Attack: send a large number of TCP SYN segments without completing the third handshake step
+* Defense: use SYN cookies. 
 
 
 
@@ -387,25 +370,28 @@ If a host receives a TCP segment whose port numbers or source IP address do not 
 
 #### 3.6.1 The Causes and the Costs of Congestion
 
-1. Large queuing delays are experienced as the packet-arrival rate nears the link capacity.
-2. The packets will be dropped when arriving to an already-full buffer, and therefore the sender must perform retransmissions to compensate for dropped packets due to buffer overflow. The sender may time out prematurely and retransmit a packet that has been delayed in the queue but not yet lost.
-3. When a packet is dropped along a path, the transmission capacity at upstream links to forward that packet is wasted.
+![[Pasted image 20230125135123.png]]
 
- 
+![[Pasted image 20230125135147.png]]
+
+1. Large queuing delays are experienced as the packet-arrival rate nears the link capacity (3.44).
+2. The packets will be dropped when arriving to an already-full buffer, and therefore the sender must perform retransmissions to compensate for dropped packets due to buffer overflow (b).
+3. The sender may timeout prematurely and retransmit a packet that has been delayed in the queue but not yet lost (c).
+4. When a packet is dropped along a path, the transmission capacity at upstream links to forward that packet is wasted.
+
+
 
 #### 3.6.2 Approaches to Congestion Control
 
-**End-to-end congestion control** (default)
+##### End-to-end congestion control
 
 The network layer provides no explicit support to the transport layer for congestion-control purposes.
 
 TCP segment loss is taken as indication of network congestion, and TCP decreases its window size accordingly.
 
-**Network-assisted congestion control**
+##### Network-assisted congestion control
 
-Routers provide explicit feedback to the sender/receiver regarding the congestion state of the network.
-
-Two ways of feedback:
+Routers provide explicit feedback to the sender/receiver regarding the congestion state of the network. Two ways of feedback:
 
 1. Direct feedback: sent from a router to the sender.
 2. A router updates a field in a packet flowing from sender to receiver to indicate congestion.

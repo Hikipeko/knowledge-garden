@@ -103,6 +103,8 @@ $$
 \text{Pr} [{\sf Enc}_K(m) = c] = \text{Pr} [{\sf Enc}_K(m') =c].\quad (2.1)
 $$
 
+##### Perfectly Indistinguishability
+
 It is also equivalent to **perfectly indistinguishability**, which means an adversary with unbounded computation power can do no better than random guess of which one of the two messages (specified by the adversary) are encrypted given the ciphertext.
 
 ### 2.2 The One-Time Pad

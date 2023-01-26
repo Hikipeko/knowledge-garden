@@ -10,8 +10,8 @@ Based on Jupyter and runs computations in cloud.
 
 ##### Shortcuts
 
-* `a` adds a cell before the current one
-* `b` adds a cell after the current one
+* `a` adds a cell above the current one
+* `b` adds a cell below the current one
 * `dd` deletes the current cell
 * `shirt + enter` execute current cell
 

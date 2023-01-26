@@ -1,4 +1,4 @@
-Actually not EECS 489, but [Computer Networking: A Top-Down Approach](https://gaia.cs.umass.edu/kurose_ross/index.php).
+Actually not EECS 489, but [Computer Networking: A Top-Down Approach edition 8](https://gaia.cs.umass.edu/kurose_ross/index.php).
 
 Internet in a sentence: a bunch of computers connected together that allows communication.
 
