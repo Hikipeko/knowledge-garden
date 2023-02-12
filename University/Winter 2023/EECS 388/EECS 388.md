@@ -3,5 +3,6 @@
 [course link](https://eecs388.org/)
 
 1. [[Security Fundamentals 388]]
+2. [[Web and Network Security 388]]
 
 

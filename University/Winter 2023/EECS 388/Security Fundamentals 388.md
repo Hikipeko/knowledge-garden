@@ -60,7 +60,7 @@ We want f to be easily computed by Alice and Bob, not Mallory.
 
 We choose $f$ from a family of $2^n$ functions. We say the function family is secure if no effective algorithm can tell the difference between a function chosen randomly from the RRF family and a true random function.
 
-1. Let $f$ be a secure PRF know to everyone
+1. Let $f$ be a secure PRF known to everyone
 2. Alice and Bob (not Mallory) shared a private key $k$
 3. Alice sends $(m, v = f_k(m))$
 4. Bob verifies $v' = f_k(m')$
@@ -159,7 +159,7 @@ Advanced encryption standard, the most commonly used block cipher. 128 bits x ke
 
 ##### PKCS7
 
-A padding method with adds n bytes of value n.
+A padding method which adds n bytes of value n.
 
 Problem: how do we encrypt message longer than 128 bits?
 
@@ -223,3 +223,25 @@ AES-GCM is a widely-used example.
 ![[Pasted image 20230125163307.png|400]]
 
 Although it violates principle of key separation, we can prove it's ok to do this.
+
+
+
+## L6 Key Exchange and Public-Key Cryptography
+
+##### Diffie-Hellman Key Exchange
+
+We need a shared private key for most of the encryption algorithms: [[Cryptography 376#Diffie-Hellman Protocol|Diffie-Hellman key exchange]]. However, it is prone to man in the middle attack. We can defend MITMs with digital signatures. Elliptic curves cryptography (ECC) is more commonly used nowadays, which is faster, and (hoped) harder to break.
+
+##### Forward Secrecy
+
+Even if our key is stolen, we don't want our adversary to break our previous ciphertexts. We use D-H to generate a temporary session key.
+
+##### RSA Public-Key Cryptography
+
+See [[Cryptography 376#24 RSA|RSA]] from EECS 376. This algorithm is problematic for real use. RSA can be used for public-key encryption, authentication (digital signature), or both. E.g. Alice first encrypts the message with Bob's public key, and then signs it with her private key. However, ==signatures can be forged on random message==, and textbook RSA is dangerously insecure.
+
+##### A Toy Secure Channel Protocol
+
+![[Pasted image 20230204160931.png]]
+
+asdf

@@ -76,8 +76,79 @@ $$
 $$
 where the first probability is taken over uniform choice of $s \in \{0,1\}^n$, and the second probability is taken over uniform choice of $r \in \{0,1\}^{l(n)}$. $l(n)$ is called the expansion factor of $G$.
 
+Do pseudorandom generators exist? We don't know!
+
+#### 3.3.2 Proofs by Reduction
+
+![[Pasted image 20230207121817.png]]
+
+To prove a scheme $\Pi$ is secure, we want to transform any efficient adversary $\cal A$ that breaks $\Pi$ into an efficient algorithm $\cal A'$ that solves $\sf X$.
+
+#### 3.3.3 EAV-Security from a Pseudorandom Generator
+ 
+We construct an encryption scheme $\Pi$. First we use $G$ to generate a pseudorandom string from the secret key. Then we use the pseudorandom string for both encryption and decryption (XOR). We want to prove that if $G$ is a pseudorandom generator, then $\Pi$ is EAV-secure.
+
+The key idea is to construct a distinguisher $D$ using $\cal A$:
+
+1. Run $\cal A(1^n)$ to obtain $m_0, m_1$
+2. Choose a uniform bit $b \in \{0,1\}. Set $c = w \oplus m_b$.
+3. Give $c$ to $\cal A$ and obtain output $b'$. Output 1 if $b' = b$, and output 0 otherwise.
+
+
+
+### 3.4 Stronger Security Notions
+
+#### 3.4.1 Security for Multiple Encryptions
+
+EAV-security only ensures a single message is sent securely, what if the communication parties need to send more than one messages?
+
+#### 3.4.1 Chosen-Plaintext Attacks and CPA-Security
+
+##### CPA Game
+
+The textbook definition is slightly different from the class definition (in 3.4.3). The adversary is given a single $c_b$. However, $\cal A$ have oracle access to ${\sf Enc}_k$.
+
+Think of the WW2, the US navy deciphered AF by sending a message "Midway is low on fresh water".
+
+##### Definition 3.21
+
+A scheme $\Pi$ has **indistinguishable encryptions under a chosen-plaintext attack (aka CPA-secure)** if all p.p.t $A$ has negligible advantage in the CPA game against $\Pi$.
+$$
+\Pr[{\sf PrivK}_{{\mathcal A}, \Pi}^{\sf eav}(n) = 1] \leq \frac{1}{2} + {\sf negl}(n).
+$$
+
+##### Theorem 3.20
+
+There does not exist a CPA-secure encryption with a deterministic and stateless ${\sf Enc}_k$. Just think of first input $(m_0, m_0)$, and then input $(m_0, m_1)$.
+
+#### 3.4.3 CPA-Security for Multiple Encryptions
+
+![[Pasted image 20230209125805.png]]
+
+A scheme $\Pi$ is **CPA-secure for multiple encryptions** if all p.p.t $A$ has negligible advantage in the CPA game against $\Pi$.
+
+CPA-secure for multiple encryptions implies CPA-secure since ${\sf Enc}(k(m) = {\sf LR}_{k,b}(m,m)$. More interestingly, the other way around is also true, and thus these two definitions are equivalent.
+
+
+
+### 3.5 Constructing a CPA-Secure Encryption Scheme
 
 
 
 
 
+
+* 3.5.1 3.5.2
+* 3.6.1 3.6.3
+* 4.1 4.2 4.3.1
+* 4.3.2 4.4
+* 5.2
+* 5.3
+* 6.1
+* 6.2 6.3.1
+* 6.3.2 12.1
+* 12.1 9.1
+* 9.1 9.3.1 9.3.2
+* 9.3.2 12.2
+* 12.4.1
+* 9.2.3 9.2.4 12.5.1

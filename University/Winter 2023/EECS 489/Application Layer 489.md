@@ -82,7 +82,9 @@ A **Web page** = HTML source files + reference objects (images, videos).
 
 An **object** is a file addressable by a single URL.
 
-**URL** uniform resource locator = hostname + path name
+##### URL
+
+Uniform resource locator = hostname + path name (scheme://host:port/path?query#fragment), a string specifying a unique resource on the Web.
 
 HTTP is a stateless protocol, which means each request is executed independently, without knowing anything about previous requests. HTTP is based on TCP (socket).
 
