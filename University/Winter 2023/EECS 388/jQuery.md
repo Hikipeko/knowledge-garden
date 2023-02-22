@@ -1,5 +1,6 @@
 https://learn.jquery.com/using-jquery-core/
 
+
 https://www.w3schools.com/jquery/
 
 ### Basis
@@ -60,9 +61,8 @@ $("p").on({
   click: function(){  
     $(this).css("background-color", "yellow");  
   }  
-});```
-
-
+});
+```
 
 ### jQuery HTML
 

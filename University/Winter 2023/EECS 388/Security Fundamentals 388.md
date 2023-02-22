@@ -58,7 +58,7 @@ We want f to be easily computed by Alice and Bob, not Mallory.
 
 ##### Pseudorandom Function
 
-We choose $f$ from a family of $2^n$ functions. We say the function family is secure if no effective algorithm can tell the difference between a function chosen randomly from the RRF family and a true random function.
+See [[Private-Key (Symmetric) Cryptography 475#3.5.1 Pseudorandom Functions and Permutations|pseudorandom function]] from EECS 475.
 
 1. Let $f$ be a secure PRF known to everyone
 2. Alice and Bob (not Mallory) shared a private key $k$
@@ -100,7 +100,6 @@ The attacker can calculate $H(x||\text{pading}||s)$.
 ##### HMAC-SHA256
 
 Prevents length extension attack, and we can treat it as a PRF.
-
 $$
 \text{HMAC}_k(m) = H(k\oplus c_1 || H(k\oplus c_2 || m))
 $$
@@ -113,15 +112,10 @@ Output of a physical process that is inherently unpredictable (e.g. quantum obse
 
 ##### Pseudorandom Generator (PRG)
 
-$g_k : \bot \to \{0,1\}_n$ for $n = \text{poly}(|k|)$, where $k$ is a truly random seed. We say that $g()$ is secure if Mallory can't do distinguish it from a truly random stream.
+See [[Private-Key (Symmetric) Cryptography 475#3.3.1 Pseudorandom Generators|pseudorandom generator]] and [[Introduction and Classical Cryptography 475#Random Generation|generate random stream]] from EECS 475.
+
 
 We can build a PRG from a PRF by defining $g_k() := f_k(0) || f_k(1) || \dots$
-
-See [[Introduction and Classical Cryptography#Random Generation|generate random stream]] from EECS 475. Some cryptography level PRG:
-
-* C (Linux): `#include <sys/random.h>`
-* Python: `import secrets;data = secrets.randbits(256)`
-* JavaScript: `const array = new Uint8Array(32);self.crypto.getRandomValues(array)`
 
 
 
@@ -129,24 +123,15 @@ See [[Introduction and Classical Cryptography#Random Generation|generate random 
 
 We want to keep the message secret form an eavesdropper.
 
-See [[Introduction and Classical Cryptography#1.3 Historical Ciphers|historical ciphers]] and [[Introduction and Classical Cryptography#2.2 The One-Time Pad|one-time pad]] from EECS 475.
+See [[Introduction and Classical Cryptography 475#1.3 Historical Ciphers|historical ciphers]] and [[Introduction and Classical Cryptography 475#2.2 The One-Time Pad|one-time pad]] from EECS 475.
 
 #### Stream Cipher
 
-1. Use a pseudorandom generator (PRG)
-2. Use XOR for both encryption and decryption
+See [[Private-Key (Symmetric) Cryptography 475#3.6.1 Stream Ciphers|stream cipher]]. E.g. ChaCha20
 
-E.g. ChaCha20
+#### Block Cipher
 
-### Block Cipher
-
-Consist of function that encrypts a fixed-size block with a reusable key $k$.
-
-$$
-{\sf Enc}_k(m) : \{0,1\}^{|k|} \times \{0,1\}^{|n|}\to \{0,1\}^{|n|}
-$$
-
-In effect, $k$ selects one *permutation* from the set of $2^n$, called a pseudorandom permutation (PRP).
+See [[Private-Key (Symmetric) Cryptography 475#3.6.3 Block Ciphers|block cipher]].
 
 #### AES
 
@@ -163,13 +148,13 @@ A padding method which adds n bytes of value n.
 
 Problem: how do we encrypt message longer than 128 bits?
 
-#### Cipher-Block Chaining (CBC) Mode
-
-Chains ciphertexts to obscure later ones. We have to send IV.
+##### Cipher-Block Chaining (CBC) Mode
 
 ![[Pasted image 20230122163058.png]]
 
-#### Counter (CTR) Mode
+Chains ciphertexts to obscure later ones. We have to send IV.
+
+##### Counter (CTR) Mode
 
 ![[Pasted image 20230125163143.png]]
 
@@ -193,7 +178,7 @@ To combine encryption and MAC, we have two approaches:
 
 **Security definition**
 
-1. If $b=0$ then $G() = E_k(), H() = D_K()$ or fail for previous $E()$ outputs
+1. If $b=0$ then $G() = E_k(), H() = D_k()$ or fail for previous $E()$ outputs
 2. If $b=1$ then $G() = \text{random bits}, H() = \text{Return fail}$
 3. Give Mallory $G()/H()$ oracles
 4. Mallory guess $b$ in polynomial time
@@ -243,5 +228,3 @@ See [[Cryptography 376#24 RSA|RSA]] from EECS 376. This algorithm is problematic
 ##### A Toy Secure Channel Protocol
 
 ![[Pasted image 20230204160931.png]]
-
-asdf

@@ -81,7 +81,11 @@ We should be careful about the assumptions, and make sure the definition meets o
 1. Collect a pool of high-entropy data. Some hardware support this, e.g. Intel processors uses thermal noise
 2. From these data, generate a sequence of nearly independent and unbiased bits
 
-We can obtain a uniform sequence even if the original bits are biased. We output 0 if we see 10, and output 1 if we see 01. 11 and 00 trigger not output.
+We can obtain a uniform sequence even if the original bits are biased. We output 0 if we see 10, and output 1 if we see 01. 11 and 00 trigger not output. Some cryptography level PRG:
+
+* C (Linux): `#include <sys/random.h>`
+* Python: `import secrets;data = secrets.randbits(256)`
+* JavaScript: `const array = new Uint8Array(32);self.crypto.getRandomValues(array)`
 
 ### 2.1 Definitions
 

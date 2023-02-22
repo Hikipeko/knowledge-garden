@@ -95,3 +95,111 @@ Certificate is a message asserting the server's identity, signed by a certificat
 ![[Pasted image 20230208185751.png|330]] ![[Pasted image 20230208185914.png|330]]
 
 **Certificate chains**: CAs sometimes issue intermediate CA certificates, which lend permission to sign further certificates. This results in a certificate chain.
+
+
+
+## L10 HTTPS Attacks and Defenses
+
+#### Fooling Users
+
+##### Homographs
+
+Use visually similar domain name to trick users. IDN homograph attacks use international characters which have the same pixel appearance. 
+
+Mitigation: Browsers use heuristics to block these sites.
+
+##### Stripping
+
+![[Pasted image 20230211191212.png]]
+
+A MITM exploit the HTTP that the user is using, even if the server only accepts HTTPS.
+
+Mitigation: **HTTP Strict Transport Security (HSTS)**, the server can use a header to instruct the browser to use only HTTPS. Also, it can add itself to HSTS preload list, which is shipped with browsers.
+
+##### Phishing
+
+A fake website that pretends to be some famous websites (amazon). Mitigation: Google Safe Browsing uses ML to detect these sites.
+
+#### Problems with Site Design
+
+**Mixed Content** can be modified or leak information, e.g. browser might allow images to be loaded over HTTP. Mitigation: use HTTPS for all resources.
+
+**Cookies** will be sent unencrypted for an HTTP request. Mitigation: Set the security attribute on cookies.
+
+**HTTPS reveals information**. Mitigation: use VPN or Tor for privacy.
+
+#### CA Weaknesses: Fooling Validation
+
+##### Fooling Validation
+
+What if an attacker can falsely convince a CA that they control a domain? They can perform a MITM attack and pretend to be that domain and steal users' information!
+
+1. Email validation. Mitigation: Sites must prohibit users creating these email addresses: administrator, admin, etc.
+2. HTTP validation: Attack intercept CA's GET request. Mitigation: CAs can introduce multi-perspective validation, sending the GET request from servers all over the world.
+
+##### Attacks on CAs
+
+Occasionally CAs get hacked. Mitigation: CAs can revoke their certs by adding them to a **Certificate Revocation List (CRL)**
+
+Now browsers require CAs to record every cert they issue in a public ledger, called a **Certificate Transparency (CT) log**. Server can monitor CT logs to detect untrusted certificates.
+
+![[Pasted image 20230211194217.png|400]]
+
+#### Bugs in TLS Implementations
+
+OpenSSL Heartbleed. Mitigation: Use formal verification techniques and write TLS code in memory-safe languages.
+
+#### TLS Protocol Vulnerabilities
+
+The **Compression-related Attack** exploits that some browsers compress the HTTPS request. Mitigation: use TLS 1.3, and use tools such as **SSL Labs** to test your server.
+
+#### Server Vulnerabilities
+
+TLS servers must protect their private key.
+
+
+
+## L11-12 Networking
+
+See [[EECS 489]]
+
+![[Pasted image 20230220181003.png]]
+
+Lower layers provide services to layers above. Higher layers use services of layers below.
+
+##### Attack Models
+
+* Off-path attacker: can talk to hosts, but cannot see packets.
+* On-path attacker: can see and add packets.
+* In-path attacker: can see, add, and change packets.
+
+##### Physical Layer
+
+* Eavesdropping
+* Jamming
+* IMSI catchers
+* Weak encryption
+
+##### Link Layer
+
+* Packets are in plaintext.
+* Clients can maliciously change their MACs.
+
+##### Network Layer
+
+* Packets are in plaintext.
+* IP headers are not authenticated.
+* ARP spoofing: a malicious host in a LAN can pretend to have a MAC address.
+* BGP hijacking
+
+##### Transport Layer
+
+* Segments are in plaintext.
+* On-path attacks are trivial.
+
+##### Application Layer
+
+
+
+
+

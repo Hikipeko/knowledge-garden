@@ -182,7 +182,7 @@ Processes must send some preliminary segments to establish the parameters of the
 
 **MSS** maximum segment size is the maximum amount of data can be placed in a segment.
 
-**MTU** maximum transmission unit is largest link-layer frame. Typically MSS = MTU - 40.
+**MTU** maximum transmission unit is largest link - layer frame. Typically MSS = MTU - 40.
 
 1. TCP sender receives the data to the connection's send buffer.
 2. TCP sender constantly grab chunks of data from the send buffer, add a TCP header to form **TCP segments**, and send to the network layer.
@@ -216,7 +216,7 @@ TCP views data as an unstructured, but ordered, stream of bytes.
 
 The sequence number for a segment is the ==byte-stream number== of the first byte in the segment, not the number of segments. The first segment gets sequence number 0, the second segment gets 1000.
 
-Thea ACK number is the sequence number of the next byte the receiver is expecting from sender. TCP is **cumulative acknowledgements** as it only acknowledges bytes up to the first missing byte in the stream.
+The ACK number is the sequence number of the next byte the receiver is expecting from sender. TCP is **cumulative acknowledgements** as it only acknowledges bytes up to the first missing byte in the stream.
 
 The receiver have two choices for out-of-order segments:
 
@@ -400,6 +400,8 @@ Routers provide explicit feedback to the sender/receiver regarding the congestio
 
 ### 3.7 TCP Congestion Control
 
+#### 3.7.1 Classic TCP Congestion Control
+
 Have each sender limit the rate at which it sends traffic into its connection as a function of perceived network congestion.
 
 **How to limit transmission rate**
@@ -410,54 +412,37 @@ $$
 $$
 The sending rate is roughly cwnd/RTT.
 
-**Detection**
-
-Receipt of three duplicate ACKs.
-
-**Adjust transmission rate**
-
-TCP takes the arrival of in-order acknowledgments as an indication of low traffic.
-
-It increases cwnd according to the arriving rate of acknowledgments.
-
 **TCP guiding principles**
 
-1. A lost segment implies congestion, and the TCP sender's rate should be decreases.
+1. A lost segment (Time out or receipt of three duplicate ACKs) implies congestion, and the TCP sender's rate should be decreases.
 2. A acknowledged segment indicates that the network is fine, and the sender's rate can be increased.
-3. Bandwidth probing: incrementally ask for more and more bandwidth.
+3. Bandwidth probing: incrementally ask for more and more bandwidth until a loss event.
 
-##### TCP congestion-control algorithm
+##### TCP Congestion-Control Algorithm
 
-**Slow Start**
+![[Pasted image 20230214213246.png]]
 
-The value of cwnd is typically initialize to 1 MSS (e.g. 500 bytes), and increased by 1 MSS every time a transmitted segment is acknowledged.
+###### Slow Start
 
- <img src="./image/3.7.1.PNG" style="zoom:60%;" />
+The value of cwnd is typically initialize to 1 MSS (e.g. 1460bytes), and increased by 1 MSS every time a transmitted segment is acknowledged. This leads to an exponential increase of the transmission rate.
 
-**Cases of ending**
+###### Congestion Avoidance
 
-1. Loss event happens (indicated by a timeout). cwnd is set to 1, **ssthresh (slow start threshold)** is set to cwnd/2.
-2. Directly tied to the value of ssthresh.
-3. Three duplicate ACKs are detected.
+TCP increases cwnd by a single MSS every RTT until a packet loss
 
-**Congestion Avoidance**
-
-TCP increases the value to cwnd by a single MSS ever RTT.
-
-Stop when:
-
-1. Timeout: enter slow start state.
-2. Three duplicate ACKs: half the cwnd, update ssthresh as half of ssthresh, enter fast recovery.
-
-**Fast Recovery**
+###### Fast Recovery
 
 The value of cwnd is increased by 1 MSS for every duplicate ACK received for the missing segment that caused TCP to enter the fast-recovery state. 
-
- <img src="./image/3.7.2.PNG" style="zoom:80%;" />
 
 **TCP congestion control: retrospective**
 
 Theoretical analyses showed that TCP's congestion-control algorithm serves as a distributed asynchronous-optimization algorithm that results in several important aspects of user and network performance being simultaneously optimized.
+
+**TCP Cubic**
+
+![[Pasted image 20230214221350.png]]
+
+TCP Cubic uses a cubic function instead of linear for recovery, and has recently gained wide deployment.
 
 **Macroscopic description of TCP throughput**
 
@@ -467,11 +452,21 @@ $$
 $$
 **TCP over high-bandwidth paths**
 
-#### 3.7.1 Fairness
+#### 3.7.2 Network-Assisted
+
+#####  Explicit Congestion Notification
+
+At the network layers, two bits are used for ECN. One is set by the router to indicate congestion. Another bit is to inform the routers that the sender and receivers are ECN-capable. The DCCP transport layer protocol provides a congestion-control UDP-like services that utilizes ECN.
+
+##### Delay-based Congestion Control
+
+The uncongested throughput rate would be ${\sf cwnd}/RTT_{min}$, so if the actual sender-measure throughput is significantly less than this value, the sender will decrease its sending rate.
+
+#### 3.7.3 Fairness
 
 Assume 2 TCP connections pass through a bottleneck link with transmission rate R bps, the throughput of both connection will finally stabilize to R/2.
 
- <img src="./image/3.7.1.1.PNG" style="zoom:70%;" />
+![[Pasted image 20230214223621.png]]
 
 **Fairness and UCP**
 
@@ -481,12 +476,23 @@ From the perspective of TCP, the UDP are not fair -- they do not cooperate with 
 
 Fairness problem may still exist as a single app can use multiple parallel TCP connections.
 
-#### 3.7.2 Explicit Congestion Notification (ECN)
 
-Network-assisted congestion control.
 
-The Service field of the IP datagram header are used for ECN. 
+### 3.8 Evolution of Transport-Layer Functionality
 
-One bit is used by a router to indicate congestion.
+TCP is evolving constantly in the past few years, and there are so many variations. They are so different that their only common feature is that they use the same TCP segment formant.
 
-Another bit is set by the host to indicate the sender and receiver are ECN-capable.
+##### QUIC: Quick UDP Internet Connections
+
+![[Pasted image 20230214230517.png]]
+
+An application-layer protocol designed to improve performance of transport-layer service for secure HTTP. It accounts for 8.7% of Internet traffic.
+
+* Connection-oriented
+* Secure: packets are encrypted
+* Streams: allows several different application-level "streams" to be multiplexed through a single QUIC connection.
+* Reliable
+* Congestion control: based on TCP Reno
+
+
+
