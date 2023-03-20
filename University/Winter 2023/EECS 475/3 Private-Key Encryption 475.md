@@ -1,5 +1,3 @@
-## 3 Private-Key Encryption
-
 ### 3.1 Computational Security
 
 We want to relax the secrecy we want to achieve:
@@ -42,7 +40,7 @@ If ${\sf Enc}_k$ is only defined for message $m \in \{0,1\}^{l(n)}$, then it's a
 
 #### 3.2.1 The Basic Definition of Security
 
-We made two modifications to the [[Introduction and Classical Cryptography 475#Perfectly Indistinguishability|perfectly indistinguishability]]. We consider only adversaries running in polynomial time, and we let them to have negligible advantage. Another difference is that we view the running time and success probability as functions of $n$.
+We made two modifications to the [[1 Introduction 475#Perfectly Indistinguishability|perfectly indistinguishability]]. We consider only adversaries running in polynomial time, and we let them to have negligible advantage. Another difference is that we view the running time and success probability as functions of $n$.
 
 ##### Definition 3.8 EAV-Security (Indistinguishability)
 
@@ -71,11 +69,9 @@ Let $\sf Dist$ be a *distribution* on $l$-bit strings, we say $\sf Dist$ is pseu
 ##### Definition 3.14
 
 For any PPT algorithm $D$, there is a negligible function $\sf negl$ such that
-
 $$
 |\Pr[D(G(s)) = 1] - \Pr[D(r) = 1]| \leq {\sf negl}(n),
 $$
-
 where the first probability is taken over uniform choice of $s \in \{0,1\}^n$, and the second probability is taken over uniform choice of $r \in \{0,1\}^{l(n)}$. $l(n)$ is called the expansion factor of $G$.
 
 Do pseudorandom generators exist? We don't know!
@@ -92,8 +88,8 @@ We construct an encryption scheme $\Pi$. First we use $G$ to generate a pseudora
 
 The key idea is to construct a distinguisher $D$ using $\cal A$:
 
-1. Run $\cal A(1^n)$ to obtain $m_0, m_1$
-2. Choose a uniform bit $b \in \{0,1\}. Set $c = w \oplus m_b$.
+1. Run ${\cal A}(1^n)$ to obtain $m_0, m_1$
+2. Choose a uniform bit $b \in \{0,1\}$. Set $c = w \oplus m_b$.
 3. Give $c$ to $\cal A$ and obtain output $b'$. Output 1 if $b' = b$, and output 0 otherwise.
 
 
@@ -151,7 +147,7 @@ $$
 $$
 where the first probability is taken over uniform choice of $k \in \{0,1\}^n$, and the second probability is taken over uniform choice of $u \in {\sf Func}_n$.
 
-We can easily create a [[Private-Key (Symmetric) Cryptography 475#3.3.1 Pseudorandom Generators|pseudorandom generator]] with a pseudorandom function by just concatenating $G(s) = F_s(1) || F_s(2) || \cdots || F_s(l)$. More interestingly, the other direction is also true. If the expansion factor is large enough, we can use $G$ to construct a lookup table. If this is not the case, the expansion is more complicated.
+We can easily create a [[3 Private-Key Encryption 475#3.3.1 Pseudorandom Generators|pseudorandom generator]] with a pseudorandom function by just concatenating $G(s) = F_s(1) || F_s(2) || \cdots || F_s(l)$. More interestingly, the other direction is also true. If the expansion factor is large enough, we can use $G$ to construct a lookup table. If this is not the case, the expansion is more complicated.
 
 ##### Pseudorandom Permutations
 
@@ -201,10 +197,10 @@ We are now interested in how building blocks such as PRG and PRP are instantiate
 
 A stream cipher is a pair of deterministic algorithms (Init, Next) where:
 
-* **Init** takes as input a seed and an optional **initialization vector IV**, and outputs some initial state $st$.
-* **Next** takes as input the current state $s$ and outputs a bit $y$ along with a updated state $st'$.
+* **Init** takes as input a seed $s$ and an optional **initialization vector IV**, and outputs some initial state $st$.
+* **Next** takes as input the current state $st$ and outputs a bit $y$ along with a updated state $st'$.
 
-Based on Init and Next, we define **GetBits** which returns $\langle y, st_l \rangle$. We also define
+Based on Init and Next, we define **GetBits** which returns $\langle y, st_l \rangle$ where $y$ is the $l$-bit string and $st_l$ is the current state. We also define
 $$
 G^l(s) := {\sf GetBits}_1({\sf Init}(s), 1^l).
 $$
@@ -223,7 +219,7 @@ Pros: simple, parallel, and no padding.
 
 ##### Synchronized Mode
 
-The sender and the receiver keeps a mutual state, so it is a **stateful** encryption. Used when messages arrive n order and no messages are lost.
+The sender and the receiver keeps a mutual state, so it is a **stateful** encryption. Used when messages arrive in order and no messages are lost.
 
 ##### Unsynchronized Mode
 
@@ -234,7 +230,7 @@ $$
 
 #### 3.6.3 Block Ciphers
 
-A.k.a. [[Private-Key (Symmetric) Cryptography 475#Pseudorandom Permutations|pseudorandom permutation]].
+A.k.a. [[3 Private-Key Encryption 475#Pseudorandom Permutations|pseudorandom permutation]].
 
 ##### Electronic Code Book (ECB) Mode
 ![[Pasted image 20230217192538.png|400]]
@@ -264,17 +260,3 @@ Being a unsynchronized block cipher, OFB mode works quite similar to synchronize
 Similar to OFB, but can be paralleled.
 
 **Theorem 3.33** If $F$ is a PRF, then CTR mode is CPA-secure.
-
-
-* 4.1 4.2 4.3.1
-* 4.3.2 4.4
-* 5.2
-* 5.3
-* 6.1
-* 6.2 6.3.1
-* 6.3.2 12.1
-* 12.1 9.1
-* 9.1 9.3.1 9.3.2
-* 9.3.2 12.2
-* 12.4.1
-* 9.2.3 9.2.4 12.5.1

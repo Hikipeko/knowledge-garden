@@ -3,7 +3,7 @@
 ##### Web Components
 
 1. HTML is the standard language for web documents
-2. JavaScript can read and modify page content through the DOM interface
+2. JavaScript can read and modify page content through the [[Web development 485#DOM|DOM]] interface
 3. [[Application Layer 489#URL|URL]] from EECS 489
 4. [[Application Layer 489#2.2.3 HTTP Message Format|HTTP]] from EECS 489
 5. [[Application Layer 489#2.2.4 User-Server Interaction: Cookies|Cookies]] from EECS 489
@@ -84,7 +84,7 @@ Thread model: the client and the servers are secure, while the network might be 
 
 ![[Pasted image 20230208184859.png]]
 
-Think of how can all of these be done in a single network round-trip. After the shared secret is established, all data is encrypted.
+Think of how can all of these be done in a single network round-trip. After the shared secret is established, all data is encrypted. Then client generates random key to be used for later symmetric encryption, encrypt with server public key, and send to server. The server decrypts this random key, and the session is established.
 
 ##### Certificates
 
@@ -199,7 +199,46 @@ Lower layers provide services to layers above. Higher layers use services of lay
 
 ##### Application Layer
 
+###### DNS
 
+See [[Application Layer 489#2.4 DNS - The Internet's Directory Service|DNS]]. Attacks:
 
+* **DNS hijacking**: attacker changes DHCP setting to point clients to attacker-controller DNS server
+* **Host file hijacking**: edit OS hosts file
+* **DNS monitoring & blocking**
+* **Off-path DNS cache poisoning**: attacker sends malicious DNS query response to the local DNS resolver
+
+Defense
+
+* **DNSSEC** adds authentication and integrity
+* **DNS-over-TLS** adds confidentiality (but not authentication)
+
+##### DoS Attack
+
+Overwhelm a host or network with traffic, such that it cannot process legitimate requests.
+
+###### SYN flood attack 
+
+The attacker sends SYN packets from many spoofed source IPs. By leaving the TCP connection incomplete, the server soon run out of resources.
+
+Defense: use SYN cookies which encode the initial connection state in the SYN-ACK packet itself.
+
+###### Amplification
+
+The attacker sets the source IP address to victim's IP address, and make huge amount of large UDP requests. Botnets generates nearly 1Tbps of requests.
+
+Defense:
+
+* **Ingress filtering**: ISPs drop packets from client if source IP is outside assigned range.
+* **CDN**: use large CDN to absorb DDoS attacks.
+
+##### Defense
+
+* End-to-end encryption
+* Use secure protocols
+* Passive network monitoring
+* Active port scanning
+* Firewalls
+* VPN
 
 

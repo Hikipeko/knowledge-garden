@@ -1,6 +1,5 @@
 https://learn.jquery.com/using-jquery-core/
 
-
 https://www.w3schools.com/jquery/
 
 ### Basis

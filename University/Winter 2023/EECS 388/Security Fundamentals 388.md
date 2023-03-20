@@ -58,7 +58,7 @@ We want f to be easily computed by Alice and Bob, not Mallory.
 
 ##### Pseudorandom Function
 
-See [[Private-Key (Symmetric) Cryptography 475#3.5.1 Pseudorandom Functions and Permutations|pseudorandom function]] from EECS 475.
+See [[3 Private-Key Encryption 475#3.5.1 Pseudorandom Functions and Permutations|pseudorandom function]] from EECS 475.
 
 1. Let $f$ be a secure PRF known to everyone
 2. Alice and Bob (not Mallory) shared a private key $k$
@@ -112,7 +112,7 @@ Output of a physical process that is inherently unpredictable (e.g. quantum obse
 
 ##### Pseudorandom Generator (PRG)
 
-See [[Private-Key (Symmetric) Cryptography 475#3.3.1 Pseudorandom Generators|pseudorandom generator]] and [[Introduction and Classical Cryptography 475#Random Generation|generate random stream]] from EECS 475.
+See [[3 Private-Key Encryption 475#3.3.1 Pseudorandom Generators|pseudorandom generator]] and [[1 Introduction 475#Random Generation|generate random stream]] from EECS 475.
 
 
 We can build a PRG from a PRF by defining $g_k() := f_k(0) || f_k(1) || \dots$
@@ -123,15 +123,15 @@ We can build a PRG from a PRF by defining $g_k() := f_k(0) || f_k(1) || \dots$
 
 We want to keep the message secret form an eavesdropper.
 
-See [[Introduction and Classical Cryptography 475#1.3 Historical Ciphers|historical ciphers]] and [[Introduction and Classical Cryptography 475#2.2 The One-Time Pad|one-time pad]] from EECS 475.
+See [[1 Introduction 475#1.3 Historical Ciphers|historical ciphers]] and [[1 Introduction 475#2.2 The One-Time Pad|one-time pad]] from EECS 475.
 
 #### Stream Cipher
 
-See [[Private-Key (Symmetric) Cryptography 475#3.6.1 Stream Ciphers|stream cipher]]. E.g. ChaCha20
+See [[3 Private-Key Encryption 475#3.6.1 Stream Ciphers|stream cipher]]. E.g. ChaCha20
 
 #### Block Cipher
 
-See [[Private-Key (Symmetric) Cryptography 475#3.6.3 Block Ciphers|block cipher]].
+See [[3 Private-Key Encryption 475#3.6.3 Block Ciphers|block cipher]].
 
 #### AES
 

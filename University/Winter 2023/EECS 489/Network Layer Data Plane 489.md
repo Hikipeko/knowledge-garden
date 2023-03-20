@@ -25,7 +25,7 @@ The routing algorithms determines the content of the routers' forwarding tables.
 **Control Plane: The SDN Approach**
 
 Remote controller computes and distributes the forwarding tables to be used by each physical routers. Routers perform forwarding only.
-
+  
 #### 4.1.2 Network Service Model
 
 The network service model defines the characteristics of end-to-end delivery of packets between sending and receiving hosts.
@@ -98,7 +98,6 @@ Imagine if it takes 20ms to transmit a packet inside the router, and RRT is 200m
 * FIFO (First-in-First-Out)
 * [[Process 482#Priority]]
 * [[Process 482#Round Robin]]
-* 
 
 **Weighted Fair Queuing (WFQ)** is a generalized form of round robin. It is a work-conserving queuing discipline that the link won't be idle as long as there're packets waiting to be transmitted. in WFQ, each class is assigned with a weight, and different classes receive a differential amount of service.
 
@@ -108,7 +107,7 @@ Imagine if it takes 20ms to transmit a packet inside the router, and RRT is 200m
 
 #### 4.3.1 IPv4 Datagram Format
 
-![[Pasted image 20230220210029.png]]
+![[Pasted image 20230220210029.png|550]]
 
 * **Version number**: IP protocol version of the datagram.
 * **Header length**: typically 20
@@ -154,3 +153,82 @@ Ideally each subnet will have a DHCP server. DHCP is a client-server protocol：
 2. DHCP server offers: the DHCP responds by broadcasting.
 3. DHCP request: the client chooses from IP addresses offered by the server.
 4. DNCP ACK.
+
+#### 4.3.3 Network Address Translation
+
+![[Pasted image 20230227155217.png]]
+
+For small office and home office (SOHO), it seems impossible to allocate an IP range for all households. So we need NAT and private network.
+
+**Private network** is a network whose addresses only have meaning to devices within that network. There are three portions of IP address reserved for a private network, which are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16.
+
+**NAT router** behaves to the outside world as a single device with a single IP address. It uses a NAT translation table to translate WAN address to LAN address. It runs a DHCP server to assign address to the devices within the LAN. This might cause some problem, e.g. it becomes hard to open a server inside a LAN.
+
+#### 4.3.4 IPv6
+
+Problem: the 32-bit IPv4 address space was beginning to be used up.
+
+![[Pasted image 20230227161949.png|500]]
+
+* **Version**: 6
+* **Traffic class**: give priority
+* **Flow label**: identify particular flows (audio, video, etc.)
+* **Next header**: the upper level protocol (TCP, UDP)
+* **Hop limit**: `if (--hot_limit == 0) drop;`
+* **Expanded 128 bits address length**: will never run out of IP address
+
+Compared with IPv4, it has no fragmentation, header checksum, or options.
+
+##### Transitioning from IPv4 to IPv6
+
+**Tunneling**
+
+![[Pasted image 20230227164347.png|500]]
+
+The IPv6 sender sends takes the entire IPv6 datagram and puts it in the data field of an IPv4 datagram.
+
+
+
+### 4.4 Generalized Forwarding and SDN
+
+![[Pasted image 20230227171849.png|500]]
+
+We refer to the link layer forwarding devices as **packet switches**. Each packet switch has a *match-plus-action table*. Packet switch vs router: router has its own routing algorithms and computes its routing table, while packet switch's table is set by a remote controller.
+
+Each entry in the match-plus-action table, know as a **flow table** in OpenFlow, includes:
+
+* **Headers**: used for matching
+* **Counters**: updated as packets are matched
+* **Actions**: what to do after a packet match (e.g. forward, drop, duplicate)
+
+#### 4.4.1 Match
+
+![[Pasted image 20230227173803.png]]
+
+The above 12 fields can be used in matching. **Ingress** port is the input port at the packet switch on which a packet is received. 
+
+Do one thing at a time, and do it well. An interface should capture the minimum essentials of an abstraction. Don't generalize,; generalizations are generally wrong. \[Lampson 1983\]
+
+#### 4.4.2 Action
+
+* **Forwarding** to one or multiple output ports
+* **Dropping**
+* **Modify-field**
+
+Software-defined networking (SDN) is an approach to network management that enables dynamic, programmatically efficient network configuration. It attempts to disassociate the forwarding process from the routing process.
+
+
+
+### 4.5 Middleboxes
+
+Any intermediary box performing functions other than standard functions of an IP router on the data path between a source host and a destination host.
+
+* NAT translation
+* **Security services**: such as firewalls
+* **Performance enhancement**: compression, caching, load balancing
+
+These middleboxes (inside the network core) touches higher layers, and somehow blur the separation between network layer and transport layer.
+
+> Architectural principle of the Internet: the goal is connectivity, the tool is the Internet Protocol, and the intelligence (complexity) is end to end rather than hidden in the network. IP is the narrow waist.
+
+

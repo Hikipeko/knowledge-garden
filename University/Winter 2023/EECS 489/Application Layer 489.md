@@ -125,7 +125,7 @@ Accept-language: fr
 ![[Pasted image 20230110192933.png]]
 
 * **GET**: request an object
-* **POST**: used when you post reviews or images
+* **POST**: used when you post reviews or images, commonly used with HTML forms
 * **DELETE**: delete an object on a Web server.
 * **HEAD**: GET without request, used mostly for debugging
 * **PUT**: create file

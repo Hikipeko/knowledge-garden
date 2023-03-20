@@ -1,4 +1,18 @@
-# Use Python
+## Python Language
+
+Python is a interpreted language: program is executed by an interpreter (python), which is another program (written in C).
+
+[Compile language vs. interpreted language](https://stackoverflow.com/questions/441824/java-virtual-machine-vs-python-interpreter-parlance)
+
+##### Data model
+
+* Object are Python's abstraction for data, all data in Python are represented by objects. An object has Identity, Type, Value.
+* Dynamic typing: runtime objects have a type
+* Use garbage collection mechanism to deallocate objects automatically (use reference counting)
+
+
+
+## Use Python
 
 ### Data Type
 
@@ -15,8 +29,6 @@ def my_abs(x: int) -> int:
     else:
         return -x
 ```
-
-
 
 ### Function
 
@@ -93,9 +105,9 @@ Jack 24 Beijing Engineer
 
 
 
-## 高级特征
+### 高级特征
 
-### 迭代
+#### 迭代
 
 ```python
 d = {'a': 1, 'b': 2, 'c': 3}
@@ -112,7 +124,7 @@ for x, y in [(1, 1), (2, 4), (3, 9)]:
     print(x, y)
 ```
 
-### 列表生成式
+#### 列表生成式
 
 ```
 >>> [x * x for x in range(1, 11) if x % 2 == 0]
@@ -126,7 +138,7 @@ for x, y in [(1, 1), (2, 4), (3, 9)]:
 ['.emacs.d', '.ssh', '.Trash', 'Adlm', 'Applications', 'Desktop', 'Documents', 'Downloads', 'Library', 'Movies', 'Music', 'Pictures', 'Public', 'VirtualBox VMs', 'Workspace', 'XCode']
 ```
 
-### 生成器
+#### 生成器
 
 节省空间
 
@@ -166,7 +178,7 @@ generator的函数，在每次调用 `next()` 的时候执行，遇到 `yield` �
 ...         break
 ```
 
-## 函数式编程
+### 函数式编程
 
 函数式语言允许把函数本身作为参数传入另一个函数，且允许返回一个函数
 
@@ -228,7 +240,7 @@ list(filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15]))
 
 
 
-## 模块
+### 模块
 
 一个.py文件为一个模块（module）
 
@@ -247,7 +259,7 @@ mycompany
 
 文件`www.py`的模块名就是`mycompany.web.www`，两个文件`utils.py`的模块名分别是`mycompany.utils`和`mycompany.web.utils`。
 
-### 安装第三方模块
+#### 安装第三方模块
 
 在Python中，安装第三方模块，是通过包管理工具pip完成的。
 
@@ -257,9 +269,9 @@ import numpy as np
 
 
 
-## OOP
+### OOP
 
-### Class
+#### Class
 
 ```python
 # class className(FatherClassName)
@@ -279,7 +291,7 @@ class Student(object):
 bart = Student('Bart Simposon', 98)
 ```
 
-### 获取对象信息
+#### 获取对象信息
 
 ```python
 # returns the type of the instance
@@ -293,7 +305,7 @@ setattr(obj, 'x', 1)
 hasattr(obj, 'x')
 ```
 
-### 类属性
+#### 类属性
 
 类似于类静态成员
 
@@ -304,7 +316,7 @@ class Student(object):
 
 
 
-## File I/O
+### File I/O
 
 ```python
 try:
@@ -324,7 +336,7 @@ with open('/Users/michael/test.txt', 'w') as f:
 ```
 
 
-## Standard library modules
+### Standard library modules
 
 sys, os, io, math, statistics, copy, csv, re
 
