@@ -14,3 +14,4 @@ Cryptography is the art of "secret writing."
 3. [[3 Private-Key Encryption 475]]
 4. [[4 Message Authentication Codes]]
 5. [[5 Authenticated Encryption]]
+6. [[6 Hash Functions and Applications]]

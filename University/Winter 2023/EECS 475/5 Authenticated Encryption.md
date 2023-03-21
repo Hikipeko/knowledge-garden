@@ -47,19 +47,3 @@ Not all combination works. Secure cryptographic tools can be combined in such a 
 * **Dec'**: First check ${\sf Vrky}_{k_M}(c) \stackrel{?}{=} t$, then output ${\sf Dec}_{k_E}(c)$ or $\bot$. 
 
 **Theorem 5.7** Construction 5.6 is an authenticated encryption scheme.
-
-
-
-
-
-
-
-
-* 6.1
-* 6.2 6.3.1
-* 6.3.2 12.1
-* 12.1 9.1
-* 9.1 9.3.1 9.3.2
-* 9.3.2 12.2
-* 12.4.1
-* 9.2.3 9.2.4 12.5.1
