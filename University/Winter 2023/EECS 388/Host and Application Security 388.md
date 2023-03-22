@@ -89,4 +89,102 @@ Example: Mirai botnet infected IoT devices by guessing passwords. It DDoS agains
 
 
 
+## L16-17 Control Hijacking
+
+**Binary exploitation** is the process of subverting a compiled application such that it violates some trust boundary.
+
+#### Buffer Overflow & Stack Shellcode
+
+See [[Process 482#Address Space|memory organization]].
+
+* eax: store return values
+* eip: instruction pointer
+* esp: stack pointer
+* ebp: frame/base pointer
+
+![[Pasted image 20230321124310.png|350]] ![[Pasted image 20230321125827.png|150]]
+
+##### Function Call
+
+1. Caller pashes arguments
+2. `call = push eip; jump foo`
+3. After jump, callee `push ebp; mov ebp, esp`
+
+##### Function Return
+
+1. `leave = move esp, ebp; pop ebp`
+2. `ret = pop eip`
+
+##### Blowing things up
+
+1. How can we guess the position that store the return address?
+2. How can we guess the position of the evil code?
+
+##### Data Execution Prevention
+
+Defense: A memory address cannot have write and execute access at the same time.
+
+#### Data-only Attacks & Return-to-Attack
+
+**Data-only attacks** modifies data in the stack and gain advantage.
+
+**Return-to-attack** reuse code that already exists, e.g. in the library. Our goal is that after the vulnerable function returns, we want the stack to be like a target function is just called. Using this technique, we can invoke any function that exists in the binary, e.g. `execv`.
+
+![[Pasted image 20230321131851.png]]
+
+**Extraneous Function Removal**: Take out functions that can launch shells.
+
+#### Return Oriented Programming (ROP)
+
+**ROP gadget** is a small section of code end in `ret`. Attacker uses ROP gadgets to compose functions they need. This is Turing complete. ROP chains are addresses of ROP gadgets stacked together.
+
+##### ASLR
+
+Address space layout randomization moves around code, making it hard to predict references. However, if the attacker can locate a single pointer in `libc`, he can locate any other functions by relative position.
+
+![[Pasted image 20230321133612.png|200]] ![[Pasted image 20230321133629.png|200]]
+
+##### Stack Canaries
+
+Store a secret canary value above the caller FP, and detect stack modification.
+
+#### Buffer Over-read
+
+First read the stack as well as the canary value, and then modifies the stack without changing the canary value. **Heartbleed** is an buffer over-read attack against OpenSSL in 2014.
+
+##### Integer Overflow
+
+```c
+void foo(int *array, int len) {
+	int *buf;
+	// what if len is very large, say 1,073,742,024, len * 4 becomes 800
+	buf = malloc(len * sizeof(int)); 
+	if (!buf) return;
+	int i;
+	for (i=0; i<len; i++) {
+		buf[i] = array[i];
+	}
+}
+```
+
+##### Signed/Unsigned Integers
+
+```c
+int sendField(int socket, char *field){
+	int fieldLen = 0;
+	// what if field_len is negative?
+	read(socket, &fieldLen, 4);
+	if (fieldLen > 10) return;
+	write(socket, field, fieldLen); // size_t
+	return fieldLen;
+}
+```
+
+Defense: automated testing, taint analysis, fuzzer, etc.
+
+
+
+
+
+
 
