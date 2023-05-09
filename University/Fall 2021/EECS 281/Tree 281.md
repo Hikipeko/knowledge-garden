@@ -7,9 +7,9 @@ Tree is an [[EECS 281#ADT|ADT]] represents a hierarchical tree structure with a 
 Ordered tree in which every node has at most two children.
 
 ```c++
-//Height
+// Height
 height(node) = max(height(left_child), height(right_child) + 1)
-//Size
+// Size
 size(node) = size(left_child) + size(right_child) + 1
 // Depth
 depth(node) = depth(parent) + 1

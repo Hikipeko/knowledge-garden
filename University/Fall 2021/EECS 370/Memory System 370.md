@@ -188,3 +188,5 @@ On a context switch:
 Virtual cache need to be invalidated.
 
 Dirty cache blocks written back.
+
+

@@ -184,7 +184,156 @@ Defense: automated testing, taint analysis, fuzzer, etc.
 
 
 
+## L18 Access Control and Isolation
+
+**Principle of least privilege**: Every program and user is given the least amount of privilege to complete its job.
+
+##### Security Model
+
+System abstraction that enables us to discuss and formulate a policy. Consists of subject, objects, and operations.
+
+##### Security Policy
+
+Define an access matrix.
+
+![[Pasted image 20230328213257.png|400]]
+
+**Principle of complete mediation**: each access to every object must be checked by authority by a mediator.
+
+**Caching checks**: time-of-check, time-of-use vulnerabilities.
+
+##### Unix Security Model
+
+**Users and Groups** User belongs to several groups. Provides role-based access control. Superuser (root) has authority to do anything.
+
+**File Permissions** File permission bits specify what role can do what to the file.
+
+**Process** Every process has an *Effective User ID (EUID)*.
+
+##### Confused Deputies
+
+Low-privilege process tricks high-privilege process into performing an action it cannot perform itself. E.g. [[Web and Network Security 388#Cross-Site Request Forgery (CSRF)]].
+
+#### Process Isolation
+
+Ensure misbehaving process cannot harm rest of system.
+
+**Reference monitor**
+
+* Mediate every requests from applications
+* Must be **tamperproof**: cannot be killed
+* Must be small enough to be validated. Part of trusted computing base.
+
+**chroot**: `chroot /tmp/guest; su guest; ./myapp` Confine `myapp`'s file within `/tmp/guest`.
+
+##### 1 System Call Interposition
+
+![[Pasted image 20230329122324.png|550]]
+
+UNIX `ptrace` wakes up when `pid` makes a system call. Monitor checks policy.
+
+##### 2 Containers
+
+Confinement at the level of OS. Creates multiple isolated userspace instances.
+
+##### 3 Virtual Machines
+
+Isolate OSs on a single machine. Malware cannot escape from the infected VM.
+
+**Covert Channels**: unintended communication channel between isolated components.
 
 
 
+## L19 Machine Learning Security
 
+How to make a model trustworthy?
+
+* Poisoning attack: Microsoft's Tay chatbot outputs racist tweets.
+* Membership inference attack: the model might memorize some unusual datapoints
+
+![[Pasted image 20230324125313.png]]
+
+
+
+## L20 Privacy and Anonymity
+
+Privacy is seclusion, limits, control, secrecy, and liberty.
+
+**Data brokers** such as Acxiom and Oracle aggregate data sources to create detailed profiles about people, and sell these data.
+
+**Location tracking** Dozens of companies use smartphone locations to advertise.
+
+##### Third-Party Cookies
+
+When a page loads resources from another site, the browser set a cookie and sends it to that third-party origin. E.g. Doubleclick sends the same cookie each time any site loads any ad from Doubleclick.com.
+
+##### Browser Fingerprinting
+
+Even without cookies, sites can use browser fingerprinting to track users by reading attributes about browser information. E.g. Canvas fingerprinting
+
+##### Data Anonymization
+
+* **k-anonymity**: Each record is indistinguishable from at least k - 1 other records. Really hard to achieve.
+* **Differential Privacy**: Adding some random noise to the data.
+
+**National Security Order** issued by FBI compel network operators to provide information.
+
+##### Off-the-Record (OTR) Messaging
+
+![[Pasted image 20230329134933.png|400]]
+
+A protocol designed for confidentiality, authentication, forward secrecy, and deniability. **Deniability** means any passive observer could modify old ciphertext and produce forged but valid MACs for it. This allows the user to deny the fact that they are able to decrypt the ciphertext.
+
+##### Anonymous Networking
+
+VPN, Tor (entry node, middle node, and a exit node).
+
+
+
+## L21 Digital Forensics
+
+Digital forensics is used to investigate crimes and recover from attacks.
+
+##### Identification
+
+Identify specific objects that store important data for the case analysis.
+
+##### Collection
+
+Preserve evidence, establish chain of custody, ensure data stays intact and unaltered. Produce a forensic image of the data. Prioritize collection by volatility: RAM > disk > external media. A **forensic image** preserves all partitions and residual data. The image should be created using a *write-blocker* device to prevent writing to the disk. Analyst should record original hash to later confirm image wasn't changed.
+
+###### Imaging RAM
+
+**Cold-boot attack** reset and boot the system with special-purpose software designed to image RAM.
+
+**Mobile devices** place device in a Faraday bag to shield RF signals.
+
+##### Analysis
+
+Examine the information stored on digital evidence and conduct an analysis of the incident. Digital forensics tools such as Autopsy.
+
+[[File System 482]]
+
+![[Pasted image 20230331140030.png]]
+
+##### Reporting
+
+Interpret findings, prepare and deliver an expert report and testimony. A well written report.
+
+##### Hiding Data
+
+* Encryption
+* Obfuscation: transforms code or binaries to conceal their purpose while preserve their function
+* Watermarking: add durable mark to a file that resists removal attempts
+* Steganography: encode hidden data inside other data, e.g. hide message in least significant bits of a bitmap image
+
+##### Full Disk Encryption
+
+![[Pasted image 20230331191356.png|350]]
+
+Protect data by encrypting every sector of a storage partition using a secret key. 
+
+* Store the encrypted key $k$ with PIN $p$ by applying a key derivation function $E_{KDF(p)}(k)$.
+* Can use a *trusted platform module (TPM)*, a tamper-resistant chip that measures boot-time code and only provide the key to OS.
+
+**Securely erasing media** by encrypting data and discarding the key or physically destroy the media.

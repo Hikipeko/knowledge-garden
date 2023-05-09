@@ -56,7 +56,7 @@ We show that a collision in $H$ yields a collision in $h$. If $H(x) = H(x')\land
 
 ![[Pasted image 20230320125518.png]]
 
-#### 6.3.1 HMAC
+#### 6.3.2 HMAC
 
 Combining two things is not easy. Can we construct a MAC or PRF directly from a hash function?
 
@@ -76,17 +76,3 @@ is a PRG.
 **Theorem 6.8** Assume $G^s$ is a PRG, $\tilde \Pi^s$ is a secure fixed-length MAC, and $h$ is collision resistant. Then HMAC is a secure MAC.
 
 Why we need a inner secret key, as collision resistant scheme doesn't require a secret key? Because this allows security of HMAC to be based on a weakly collision resistant $H$. E.g. MD5.
-
-
-
-
-
-
-
-* 6.2 6.3.1
-* 6.3.2 12.1
-* 12.1 9.1
-* 9.1 9.3.1 9.3.2
-* 9.3.2 12.2
-* 12.4.1
-* 9.2.3 9.2.4 12.5.1

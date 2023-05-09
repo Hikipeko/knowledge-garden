@@ -2,8 +2,6 @@
 
 We want to detect if a message is modified by an adversary.  In general, encryption doesn't provide any integrity.
 
-
-
 ### 4.2 Message Authentication Codes (MACs) - Definitions
 
 The aim of MAC is to prevent an adversary from modifying a message sent by one party to another.

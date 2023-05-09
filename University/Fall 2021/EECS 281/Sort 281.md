@@ -24,7 +24,7 @@ int bs(int a[], int val, int left, int right) {
 
 **`upper_bound()`** returns first item greater than target
 
-**`[lower_bound, upper_bound]`** is where element can be inserted
+**`[lower_bound, upper_bound)`** is where element can be inserted
 
 **`binary_search()`** returns a bool, not the location
 

@@ -240,5 +240,3 @@ Defense:
 * Active port scanning
 * Firewalls
 * VPN
-
-
