@@ -40,7 +40,7 @@
 
 ##### Leveraging Ultradian Cycles
 
-* The autonomic nervous system is composed of the sympathetic (alertness) and parasympathetic (calmness) systems。
+* The autonomic nervous system is composed of the sympathetic (alertness) and parasympathetic (calmness) systems.
 - Pay attention to the rhythms of your waking states to optimize focus and reflexive thinking.
 - The most important ultradian rhythm is the ==90 minute cycle which governs focus and attention==.
-- The brain is not optimally tuned for focus and attention in the first 5-10 minutes of the cycle, but improves as the cycle progresses
+- The brain is not optimally tuned for focus and attention in the first 5-10 minutes of the cycle, but improves as the cycle progresses.
