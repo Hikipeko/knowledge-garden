@@ -57,6 +57,8 @@ $$
 
 #### 2.5 Recursive Tautology
 
+##### Positional Cube Notation
+
 * Tautology is a ==data structure== for a Boolean function
 * Problem: whether $F$ is a tautology, i.e. $F \equiv 1$ for every input
 * Any Boolean function can be represented in sum of products expression, list of list.
@@ -64,9 +66,11 @@ $$
 * $v[i] =$ 01 if contains $x_i$, 10 if contains $x_i'$, 11 if has no $x_i$ term.
 * $f$ is a tautology iff $f_x$ and $f_x'$ are both tautologies.
 
-#### 2.6 Unate Recursive Complement(URP) Implementation
+#### 2.6 Unate Recursive Complement Implementation
 
-We solve this problem by recursively split on some $x_i$.
+* Is a given Boolean function a tautology?
+* We solve this problem by recursively split on some $x_i$.
+* A kind of URP algorithm.
 
 ##### Recursive Rule
 
