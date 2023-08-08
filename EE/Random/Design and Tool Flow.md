@@ -33,7 +33,6 @@ Simulation is the process of verifying the functional characteristics of models 
 * Logic synthesis if form RTL to netlist (representation of logic gates).
 
 ##### Place and Route
-
 * The gatelevel netlist from the synthesis tool is taken and imported into place and route tool in Verilog netlist format.
 * Backend team normally dumps out SPEF (standard parasitic exchange format) /RSPF (reduced parasitic exchange format)/DSPF (detailed parasitic exchange format) from layout tools like ASTRO to the frontend team, who then use the read_parasitic command in tools like Prime Time to write out SDF (standard delay format) for gate level simulation purposes.
 

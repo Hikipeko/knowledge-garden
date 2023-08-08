@@ -9,3 +9,6 @@ Boolean Algebra ----(VLSI CAD Tools)----> Digital circuits, gates+wires, located
 * [[3 Binary Decision Diagram]]
 * [[4 SAT]]
 * [[5 2-Level Logic Synthesis]]
+* [[6 Multilevel Logic 1]]
+* [[7 Multilevel Logic 2]]
+* [[8 Multilevel Logic 3]]

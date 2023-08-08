@@ -69,14 +69,7 @@ High $E$ leads to non-linear increase of $v$
 
 #### 2.4.3 Threshold Voltage Effects
 
-##### Body Effect
-
-* When a voltage $V_{sb}$ is applied between the source and body, it increases the amount of charge required to invert the channel, and thus increases $V_t$.
-* Can be leveraged to adjust $V_t$.
-
-$$
-V_t = V_{to} + \gamma(\sqrt{\phi_s+V_{sb}} - \sqrt{\phi_s})
-$$
+[[模拟CMOS集成电路设计#Body Effect]]
 
 ##### Drain-Induced Barrier Lowering
 
@@ -137,4 +130,4 @@ Devices right next to each other can have slightly different parameters.
 
 ![[Pasted image 20230719170835.png|300]]![[Pasted image 20230719171018.png|300]]
 
-asdf
+afd

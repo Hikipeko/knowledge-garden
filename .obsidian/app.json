@@ -4,9 +4,7 @@
   "attachmentFolderPath": "./attachments",
   "strictLineBreaks": true,
   "spellcheck": true,
-  "spellcheckLanguages": [
-    "en-US"
-  ],
+  "spellcheckLanguages": null,
   "defaultViewMode": "source",
   "autoPairMarkdown": false,
   "autoPairBrackets": true,
