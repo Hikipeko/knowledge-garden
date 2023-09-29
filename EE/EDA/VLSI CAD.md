@@ -1,4 +1,5 @@
-https://www.coursera.org/learn/vlsi-cad-logic
+* https://www.coursera.org/learn/vlsi-cad-logic
+* https://www.coursera.org/learn/vlsi-cad-layout
 
 Boolean Algebra ----(VLSI CAD Tools)----> Digital circuits, gates+wires, located at (x, y)
 
@@ -12,3 +13,5 @@ Boolean Algebra ----(VLSI CAD Tools)----> Digital circuits, gates+wires, located
 * [[6 Multilevel Logic 1]]
 * [[7 Multilevel Logic 2]]
 * [[8 Multilevel Logic 3]]
+* [[9 ASIC Placer]]
+* [[10 Technology Mapping]]

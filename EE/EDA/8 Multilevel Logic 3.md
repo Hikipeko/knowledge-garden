@@ -40,3 +40,4 @@ $$
 #### 8.5 Observability Don't Cares
 
 Patterns input to node that make network outputs insensitive to output of the node.
+

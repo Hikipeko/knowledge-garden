@@ -16,6 +16,7 @@
 
 * The pMOS transistor operates in just the opposite fashion.
 * Body is tied to a high potential so that the two junctions are normally reverse-biased.
+* Majority carriers flow from their source to their drain.
 
 ![[Pasted image 20230719120730.png]]
 
@@ -23,7 +24,19 @@
 
 ### 2.2 Long-Channel I-V Characteristics
 
-##### First Order Model
+![[Pasted image 20230929120422.png|250]]
+
+* Model the gate as parallel plate capacitor with capacitance proportional to area over thickness.
+* The current is the total amount of charge in the channel divided by the time required to cross.
+
+$$\begin{align}
+Q_{\text{channel}} &= C_g(V_{gc}-V_t)\\
+C_g &= k_{ox} \epsilon_0\frac{WL}{t_{ox}}\\
+v &= \mu E\\
+E &= \frac{V_{ds}}{L}\\
+I_{ds} &= \frac{Q_{\text{channel}}}{L/v}
+\end{align}$$
+
 
 ![[Pasted image 20230719145948.png]]
 
@@ -130,4 +143,4 @@ Devices right next to each other can have slightly different parameters.
 
 ![[Pasted image 20230719170835.png|300]]![[Pasted image 20230719171018.png|300]]
 
-afd
+
