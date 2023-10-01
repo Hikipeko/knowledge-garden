@@ -28,13 +28,16 @@
 
 * Model the gate as parallel plate capacitor with capacitance proportional to area over thickness.
 * The current is the total amount of charge in the channel divided by the time required to cross.
+* $I_{\text{on}} = \frac \beta2(V_{DD} - V_t)$ 
 
 $$\begin{align}
 Q_{\text{channel}} &= C_g(V_{gc}-V_t)\\
 C_g &= k_{ox} \epsilon_0\frac{WL}{t_{ox}}\\
 v &= \mu E\\
 E &= \frac{V_{ds}}{L}\\
-I_{ds} &= \frac{Q_{\text{channel}}}{L/v}
+I_{ds} &= \frac{Q_{\text{channel}}}{L/v}\\
+&= \mu C_{ox}\frac WL (V_{gs} - V_t - \frac 12 V_{ds} ) V_{ds}\\
+&= \beta(V_{GT} - V_{ds}/2)V_{ds}
 \end{align}$$
 
 
@@ -43,6 +46,7 @@ I_{ds} &= \frac{Q_{\text{channel}}}{L/v}
 $\beta = \mu C_{ox} \frac WL;V_{GT} = V_{gs} - Vt$.
 
 * Mobility of holes < electrons, thus pMOS transistors provide less current than nMOS, and is slower.
+* Just remember: current flows from source to drain in a pMOS transistor
 
 ![[Pasted image 20230719150451.png]]
 
@@ -50,14 +54,10 @@ $\beta = \mu C_{ox} \frac WL;V_{GT} = V_{gs} - Vt$.
 
 ### 2.3 C-V Characteristics
 
-#### Simple MOS Capacitance Models
+#### 2.3.1 Simple MOS Capacitance Models
 
-* $C_g = C_{ox}WL = C_\text{permicron}W$ 
+* $C_g = C_{ox}WL = C_\text{permicron}W$, where permicron use $L$ as constant for a particular process.
 * **Parasitic capacitor**: capacitance between source and drain, which is useless
-
-![[Pasted image 20230719151623.png]]
-
-
 
 ### 2.4 Non-ideal I-V Effects
 
@@ -67,18 +67,27 @@ $\beta = \mu C_{ox} \frac WL;V_{GT} = V_{gs} - Vt$.
 
 ##### Mobility Degradation
 
-High voltage at the gate attracts the carriers to the edge of the channel, causing collisions with the oxide interface that slow the carrier.
+High voltage at the gate attracts the carriers to the edge of the channel, causing collisions with the oxide interface that slow the carrier (vertical).
 
 ![[Pasted image 20230719155758.png|400]]![[Pasted image 20230719155823.png]]
 
-##### Velocity saturation
+##### Velocity Saturation
 
-High $E$ leads to non-linear increase of $v$
+* High $E$ leads to non-linear increase of $v$
+* After velocity saturation (tell the difference between saturation region), $I_{ds}$ grows linearly rather than quadratically with $V_{gs}$.
+
+![[Pasted image 20230929133306.png|400]]
+![[Pasted image 20230929141305.png|500]]
+![[Pasted image 20230929141952.png|300]]
 
 #### 2.4.2 Channel Length Modulation
 
-* The depletion region effectively shortens the channel length to $L_{eff} = L - L_D$.
-* The effective length becomes shorter, $I_D$ becomes larger.
+* The p-n junction between the drain and body forms a depletion region, which shortens the channel length to $L_{\text{eff}} = L - L_d$.
+* Generally unimportant for qualitatively understanding of digital circuits.
+* Can be modeled as
+
+$$I_{ds} = \frac \beta 2 V_{GT}^2(1+\frac{V_{ds} }{V_A})$$
+
 
 #### 2.4.3 Threshold Voltage Effects
 
@@ -88,6 +97,7 @@ High $E$ leads to non-linear increase of $v$
 
 * A high $V_{ds}$ creates an electric field that can decrease $V_t = V_{to} - \eta V_{ds}$.
 * **DIBL coefficient: $\eta \approx 100 \text{mV/V}$
+* Cause $I_{ds}$ continue to increase with $V_{ds}$ in the saturation region.
 * Normally not a problem at nominal supply voltages.
 * Can be very important in sub-threshold region.
 
@@ -97,7 +107,9 @@ High $E$ leads to non-linear increase of $v$
 
 Even OFF transistors leaks small amount of current.
 
-##### Subthreshold Conduction
+##### 2.4.4.1 Subthreshold Leakage
+
+![[Pasted image 20230929201109.png|400]]
 
 * The "cut-off" region is a mathematical abstraction, "weak inversion".
 * Weak inversion region is useful for low power designs.
@@ -109,22 +121,18 @@ $$
 I_{DS} = I_{OFF}\cdot \exp(\frac{V_{gs}-V_t+\eta V_{ds} - k\gamma V_{sb}}{n\phi_t}) (1-\exp(-V_{ds}/\phi_t))
 $$
 
-##### Gate leakage
+##### 2.4.4.2 Gate leakage
 
 * From gate to body, caused by quantum tunneling
 * Important for 90nm technologies and below.
 
-##### Junction Leakage
+##### 2.4.4.3 Junction Leakage
 
 * Reverse biased diode have currents
 * $I_{\text{junc}} = I_s \cdot \exp(V_{db}/\phi_t - 1)$
-* Not a big deal
+* TODO
 
-##### Process Variation
-
-Devices right next to each other can have slightly different parameters.
-
-##### Temperature Dependency
+#### 2.4.5 Temperature Dependency
 
 
 

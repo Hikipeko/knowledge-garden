@@ -15,3 +15,5 @@ Boolean Algebra ----(VLSI CAD Tools)----> Digital circuits, gates+wires, located
 * [[8 Multilevel Logic 3]]
 * [[9 ASIC Placer]]
 * [[10 Technology Mapping]]
+* [[11 Routing]]
+* [[12 Timing]]
