@@ -134,21 +134,56 @@ $$
 
 #### 2.4.5 Temperature Dependency
 
+* Carrier mobility decreases ? with temperature. $k_\mu \approx 1.5$
+* Threshold voltage decreases nearly linearly with temperature
+* When $T$ increases, $I_{\text{OFF}}$ increases and $I_{\text{ON}}$ decreases, hurting the circuit performance. 
+
+#### 2.4.6 Geometry Dependence
+
 
 
 ### 2.5 DC Transfer Characteristics
 
+* Relate the output voltage to the input voltage
+* Assume the change is slow enough so that capacitances have time to charge or discharge
+
 #### 2.5.1 Static CMOS Inverter DC Characteristics
+
+![[Pasted image 20231001121958.png|150]]![[Pasted image 20231001123549.png|160]]
 
 ![[Pasted image 20230719163702.png|600]]
 
 ![[Pasted image 20230719163726.png|500]]
 
+#### 2.5.2 Beta Ratio Effects
+
+* Inverter with different beta ratios $r = \beta_p / \beta_n$ are called skewed inverters.
+* HI-skewed (strong pMOS) if $r > 1$ and low-skewed otherwise.
+
+![[Pasted image 20231001124212.png|300]]
+
 #### 2.5.3 Noise Margin
 
 * Logic '1' and '0' are not necessarily exactly VDD and GND.
 * We use the following definition to determine the margin with which we can operate.
+* Defined at the unit gain point where the slop is -1.
 
-![[Pasted image 20230719170835.png|300]]![[Pasted image 20230719171018.png|300]]
+![[Pasted image 20230719170835.png|450]]
 
+![[Pasted image 20230719171018.png|300]]
 
+#### 2.5.4 Pass Transistor DC Characteristics
+
+* nMOS transistors attempting to pass a 1 never pull the source above $V_{DD} - V_{tn}$.
+* Conversely, pMOS transistors attempting to pass a 0 pull down to $|{V_{tp}}|$.
+* In modern process where $V_t$ counts for close to 1/3 of $V_{DD}$, the threshold drop can produce invalid logic level.
+* Use transmission gates instead.
+
+### 2.6 Pitfalls and Fallacies
+
+* Blindly trusting one's model: model is not reality
+* Using excessively complicated models for manual calculation
+* Assuming a transistor with twice the drawn length has half the current
+* Assuming two transistors in series deliver exactly half the current of a single transistor
+* Ignoring leakage
+* Using nMOS passing transistors
