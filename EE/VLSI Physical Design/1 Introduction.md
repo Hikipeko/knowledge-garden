@@ -109,7 +109,7 @@
 * *Size rules*, such as minimum width
 * *Separation rules*, such as minimum separation
 * *Overlap rules* such as minimum overlap
-* See [[EE/CMOS VLSI/1 Introduction#1.5.3 Layout Design Rules|Layout Design Rules]]
+* See [[EE/VLSI Design/1 Introduction#1.5.3 Layout Design Rules|Layout Design Rules]]
 * As the size of transistors decreases, the $\lambda$ metric is becoming less meaningful, as some physical properties no longer follow such ideal scaling
 
 ##### Physical Design Optimizations
