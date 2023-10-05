@@ -117,7 +117,7 @@ Rank by sim(doc, query)
 
 **tf-idf**
 
-Term frequency: #times of occurance
+Term frequency: \#times of occurance
 
 Document frequency: how often a word appear in documents.
 
@@ -131,11 +131,11 @@ $$w_{ik} = \frac{W_{ik}}{n_i}$$
 
 **Precision-recall curve**
 
-Change of precision and recall when #return results increases
+Change of precision and recall when \#return results increases
 
 **Kendall's Tau**
 
-tau = (#pairs_that_agree - #pairs_that_disagree) / #total_pairs
+tau = (#pairs_that_agree - \#pairs_that_disagree) / \#total_pairs
 
 **Mean Reciprocal Rank**
 
