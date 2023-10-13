@@ -1,7 +1,7 @@
 {
   "collapse-filter": false,
   "search": "",
-  "showTags": true,
+  "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": true,
@@ -11,7 +11,14 @@
       "query": "path:EE/",
       "color": {
         "a": 1,
-        "rgb": 2118807
+        "rgb": 4502062
+      }
+    },
+    {
+      "query": "path:University/ ",
+      "color": {
+        "a": 1,
+        "rgb": 5942237
       }
     }
   ],

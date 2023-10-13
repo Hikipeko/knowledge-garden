@@ -1,15 +1,8 @@
 # Introduction to Web Systems
 
-1. [[Web development 485]]
+1. [[Web Development 485]]
 2. [[Distributed Web 485]]
-
-
-
-
-
-
-
-
+3. [[Web Development Projects 485]]
 
 ## L13 OS and Parallelism
 

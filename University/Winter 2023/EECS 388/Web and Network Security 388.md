@@ -3,7 +3,7 @@
 ##### Web Components
 
 1. HTML is the standard language for web documents
-2. JavaScript can read and modify page content through the [[Web development 485#DOM|DOM]] interface
+2. JavaScript can read and modify page content through the [[Web Development 485#DOM|DOM]] interface
 3. [[Application Layer 489#URL|URL]] from EECS 489
 4. [[Application Layer 489#2.2.3 HTTP Message Format|HTTP]] from EECS 489
 5. [[Application Layer 489#2.2.4 User-Server Interaction: Cookies|Cookies]] from EECS 489

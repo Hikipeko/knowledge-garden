@@ -9,5 +9,12 @@
   "autoPairMarkdown": false,
   "autoPairBrackets": true,
   "alwaysUpdateLinks": true,
-  "promptDelete": false
+  "promptDelete": false,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 84
+  }
 }
