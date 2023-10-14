@@ -301,25 +301,24 @@ $$
 
 ![[Pasted image 20230103170857.png]]
 
-A probabilistic graphical model that represents a set of *variables* and their *dependencies* via a directed acyclic graph.
+* A probabilistic graphical model that represents a set of *variables* and their *dependencies* via a directed acyclic graph (DAG).
+* Nodes: random variables
+* Given its parent, a node $x$ is conditionally independent from all other nodes in the graph.
+* Directed edges: dependencies
 
-Node: variable
-
-Given its parent, a node $x$ is conditionally independent from all other nodes in the graph.
-
-Directed edges: dependencies
-
-**Marginal independence**
+##### Marginal independence
 
 $$
 \Pr (X_1, X_2) = \Pr (X_1) \Pr (X_2)
 $$
 
-**Conditional Independence**
+##### Conditional Independence
 
 $$
-\Pr(X_1, X_2,|X_3) = \Pr(X_1|X_3)\Pr (X_2|X_3)\\
-X_1 \perp X_2 | X_3
+\begin{align}
+X_1 &\perp X_2 | X_3 \\
+\Pr(X_1, X_2,|X_3) &= \Pr(X_1|X_3)\Pr (X_2|X_3) \\
+\end{align}
 $$
 
 ##### d-separation
