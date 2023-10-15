@@ -74,5 +74,33 @@
 #### 4.3.2 Analytic Placement
 
 * See [[9 ASIC Placer#9.6-9.7 Quadratic Wirelength Model]].
-* Use repel force to prevent overlap?
 
+##### Force-Directed Placement with Ripple Move
+
+* Determine the energy-minimal positions of cells.
+* Find a valid location for a cell if the ZFT position is occupied
+* Algorithm
+	1. Sort the cells in descending order by their connection degrees
+	2. Repeat:
+		1. Compute ZFT position (seed) for the next cell
+		2. If position is free, seed is moved there
+		3. Else, its current inhabitant is moved next
+		4. Once a cell has been moved, mark it as LOCKED
+
+#### 4.3.3 Simulated Annealing
+
+##### Perturb
+
+* Limit the scope of MOVE and SWAP to a small window of size $w \times h$
+* The window size depends on the current temperature, and decreases as temperature reduces.
+* Cost = total estimated wirelength + amount of overlap + row length inequality
+
+#### 4.3.4 Modern Placement Algorithms
+
+* The global placement algorithms today can handle extremely large netlists using analytic techniques.
+* Spreading can also be integrated directly into quadratic optimization by adding spreading forces.
+
+### 4.4 Legalization and Detailed Placement
+
+* Basic: sort cells by x-coordinate and process them greedily
+* Problem: some cell may travel a long distance

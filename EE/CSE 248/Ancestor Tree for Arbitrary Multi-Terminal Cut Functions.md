@@ -5,7 +5,7 @@ Need only $n-1$ computations of the cut function to gain minimum cuts for all $n
 ### 1 Introduction
 
 * Graph is undirected
-* The cost function can be the value of the cut, or something related to this value. E.g. $F_{st} = C(X, \bar X) / (|X|\cdot |\bar X|), \, s\in X \cap t \in \bar X$
+* The cost function can be the value of the cut, or something related to this value. E.g. $F_{st} = \min_X C(X, \bar X) / (|X|\cdot |\bar X|), \, s\in X \cap t \in \bar X$
 * There exists a set of minimum cuts which do not cross each other.
 * For arbitrary functions $F$, the cuts might yield values for $F_{ij}$ that cross each other.
 

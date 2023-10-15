@@ -2,3 +2,4 @@
 * [[2 Netlist and System Partitioning]]
 * [[3 Chip Planning]]
 * [[4 Global and Detailed Placement]]
+* [[5 Global Routing]]
