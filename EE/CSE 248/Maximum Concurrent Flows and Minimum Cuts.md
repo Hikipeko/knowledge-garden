@@ -1,4 +1,5 @@
-Based on [[Ancestor Tree for Arbitrary Multi-Terminal Cut Functions]]
+* Based on [[Ancestor Tree for Arbitrary Multi-Terminal Cut Functions]]
+* Used for [[2 Netlist and System Partitioning]]
 
 ### 1 Introduction
 
