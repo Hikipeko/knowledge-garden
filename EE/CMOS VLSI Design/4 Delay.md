@@ -20,3 +20,39 @@ Good microarchitecture -> good logic -> good transistors.
 ### 4.2 Transistor Response
 
 * The circuit takes time to switch as the capacitance need to charge/discharge
+* Need to solve differential equations, which is complicated.
+
+### 4.3 RC Delay Model
+
+Approximate the nonlinear transistor characteristics with an average resistance and capacitance over the switching range of the gate.
+
+#### 4.3.1 Effective Resistance
+
+* **Effective resistance** is the ratio of $V_{ds}$ to $I_{ds}$ averaged across the switching interval of interest.
+* A unit nMOS transistor is defined to have effective resistance $R$.
+
+#### 4.3.2 Gate and Diffusion Capacitance
+
+Assume the contacted source or drain of a unit transistor to have capacitance of about $C$.
+
+#### 4.3.3 Equivalent RC Circuits
+
+![[Pasted image 20231017195019.png|250]]![[Pasted image 20231017195115.png|450]]
+
+#### 4.3.4 Transient Response
+
+* $t_{pd} = RC$
+
+#### 4.3.5 Elmore Delay
+
+* Represent circuits of interest as **RC tree**.
+* The **Elmore delay** model estimates the delay from a source switching to one of the leaf nodes changing as the sum over each node $i$ of the capacitance $C_i$ on the node, multiplied by the effective resistance $R_{is}$ on the **shared path** from the source to the node and the leaf.
+* $t_{ps} = \sum_i R_{is}C_i$
+* Normalized delay $d = t_{pd} / \tau$, where $\tau = 3RC$ for a ideal inverter.
+* The delay of a fanout-of-$h$ inverter has delay $d = h + 1$.
+* The **parasitic delay** is the time for a gate to drive its own internal diffusion capacitance.
+
+#### 4.3.6 Layout Dependence of Capacitance
+
+* In good layout, diffusion nodes are shared wherever possible to reduce the diffusion capacitance.
+
