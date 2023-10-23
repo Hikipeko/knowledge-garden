@@ -119,10 +119,6 @@ $$\Phi(G) = \max\{d(p):w(p) = 0\}$$
 1. For each vertex $v\in V$, set $r(v) \leftarrow 0$.
 2. Repeat for $|V| - 1$ times:
 	1. Compute graph $G_r$ with the existing values for $r$.
-	2. Run [[Retiming Synchronous Circuitry#Algorithm CP|Algorithm CP]] on graph $G_r$ to determine $\Delta(v)$ for each vertex $v\in V$.
+	2. Run [[3 Retiming Synchronous Circuitry#Algorithm CP|Algorithm CP]] on graph $G_r$ to determine $\Delta(v)$ for each vertex $v\in V$.
 	3. For each $v$ s.t. $\Delta(v) > c$, set $r(v) \leftarrow r(v) + 1$.
 3. Run Algorithm CP o circuit $G$. If $\Phi(G_r) > c$, then no feasible retiming.
-
-
-
-

@@ -3,3 +3,5 @@
 * [[3 Chip Planning]]
 * [[4 Global and Detailed Placement]]
 * [[5 Global Routing]]
+* [[6 Detailed Routing]]
+* 

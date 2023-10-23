@@ -1,4 +1,4 @@
-* Based on [[Ancestor Tree for Arbitrary Multi-Terminal Cut Functions]]
+* Based on [[1 Ancestor Tree for Arbitrary Multi-Terminal Cut Functions]]
 * Used for [[2 Netlist and System Partitioning]]
 
 ### 1 Introduction
@@ -29,6 +29,3 @@ Question:
 
 1. Where is the NP-hard part?
 2. How to think reversely?
-
-
-
