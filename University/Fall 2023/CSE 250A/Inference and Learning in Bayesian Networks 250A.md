@@ -6,6 +6,12 @@
 * S and M are not [[Unsupervised Learning 445#Marginal independence|marginally independent]]
 * S is [[Unsupervised Learning 445#Conditional Independence|conditionally independent]] of M given W
 
+##### Marginalization
+
+$$
+P(X=x_i) = \sum_j P(X=x_i,Y=y_j)
+$$
+
 ##### Bayes Rule
 
 $$
@@ -53,8 +59,49 @@ $$
 
 #### Polytrees
 
+![[Pasted image 20231022215159.png|600]]
+![[Pasted image 20231023204231.png|400]]
+
 * A singly connected belief network: between any two nodes there is at most one path.
 * Let $X$ be a node in a polytree, its parents $U_i$ and its children $Y_i$ are also polytrees.
 * We want to compute $P(X = x|E)$, given $E$ as a set of evidence nodes.
+* $E = E_X^+ \cup E_X^-$, where $E_X^+$ is evidence from above, and $E_X^-$ is evidence from below
+* Let $E_{U_i \backslash X} \subset E_X^+$ denote the evidence in the $i^{th}$ parent's box
 
-![[Pasted image 20231022215159.png|600]]
+$$
+\begin{align}
+P(X = x | E) &= \frac{P(E_X^-|X = x)P(X=x|E_X^+)}{P(E_X^-|E_X^+)}\\
+P(E_X^-|E_X^+) &= \sum_x P(E_X^- | X=x) P(X=x|E_X^+)\\
+P(X=x|E_X^+) &=\sum_{\vec u}P(\vec U = \vec u | E_X^+) P(X=x|\vec U = \vec u)\\
+P(\vec U = \vec u|E_X^+) &= \prod_{i=1}^mP(U_i = u_i|E_{U_i \backslash X})\\
+P(X=x|E_X^+) &= \sum_{\vec u} P(X=x|\vec U = \vec u) \prod_{i=1}^mP(U_i = u_i|E_{U_i \backslash X})\\
+P(E_X^-|X=x) &= \prod_{j=1}^n P(E_{Y_j\backslash}X | X = x)
+\end{align}
+$$
+
+### 6 Inference in Loopy BNs
+
+![[Pasted image 20231023210953.png|400]]
+
+1. Node clustering: merge nodes in the DAG to remove loops
+2. Cutset conditioning: remove one or more nodes by instantiating them as evidence
+
+![[Pasted image 20231023211325.png|500]]
+
+* Exact inference in belief networks is NP-hard
+* Sampling from the joint distribution in a discrete BN
+* Let $Q$ be the query nodes, $E$ be the evidence nodes, how to estimate $P(Q=1|E=e)$?
+
+##### Rejection Sampling
+
+* Sample N times, reject if $E \neq e$
+* $P(Q=q|E=e) \approx N(q,e) / N(e)$
+* Very inefficient
+
+##### Likelihood weighting
+
+* Instantiate evidence nodes instead of sampling them
+* Weight each sample using CPTs at evidence nodes
+* Move efficient than rejection sampling, but still very slow
+
+![[Pasted image 20231023213741.png|500]]
