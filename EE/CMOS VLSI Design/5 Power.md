@@ -64,4 +64,89 @@ The application and architectural level are where the major impact on power diss
 
 #### 5.2.3 Voltage
 
-* Divide 
+* Choosing a lower power supply significantly reduced power consumption.
+* Divide chip into multiple **voltage domains** (e.g. high for memory, medium for processor, low for I/O.)
+
+##### 5.2.3.1 Voltage Domains
+
+* The gate in $V_{DDL}$ domain cannot directly drive a gate in $V_{DDH}$ domain, otherwise causing short circuit.
+* Use **level converter** to cross voltage domains.
+* Easiest way to manage is to associate each domain with a large area of the [[3 Chip Planning|floorplan]].
+* Another approach is **clustered voltage scaling (CVS)**, in which two supply voltage are used in a single block. E.g. using high voltage for the critical path.
+
+![[Pasted image 20231024213132.png|150]]![[Pasted image 20231024213147.png|200]]
+![[Pasted image 20231024213509.png|500]]
+
+##### 5.2.3.2 Dynamic Voltage Scaling (DVS)
+
+* Motivation: Many tasks have uneven workload, requiring different frequency & supply voltage at different time.
+* DVS or DVFS reduces the supply voltage to minimum necessary to operate at a given frequency.
+* **DVS controller** takes information from Core logic.
+	* First decide frequency
+	* Then decide supply voltage
+* A switching voltage regulator efficiently steps down $V_{\text{in}}$ to a necessary $V_{DD}$.
+* Define **rate** to be fraction of maximum performance required to complete the workload.
+* Without DVS (linear) > Undithered (stepped) > Dithered > Arbitrary Supply Voltage
+* Use discrete voltages.
+* A system can **dither** between these voltages to achieve almost as low energy as by using arbitrary supply voltage.
+* **Local voltage dithering** let each block operate in different voltages.
+
+![[Pasted image 20231024214119.png|300]]![[Pasted image 20231024214951.png|350]]
+
+#### 5.2.4 Frequency
+
+Use multiple frequency domains
+
+#### 5.2.5 Short-Circuit Current
+
+* Increase as the input edge rates become slower.
+* Good to use relatively crisp edge rates.
+
+### 5.3 Static Power
+
+In nanometer processes with low threshold voltages and thin gate oxides, leakage can account for as much as 1/3 of total active power.
+
+#### 5.3.1 Static Power Sources
+
+##### 5.3.1.1 Subthreshold Leakage
+
+* Increase exponentially with temperature, and thus limiting die temperature is important.
+* **Stack effect** is the effect that the leakage through two or more series transistors is dramatically reduced by a factor of about 10.
+
+#### 5.3.2 Power Gating
+
+* The easiest way to reduce static current during sleep mode is to turn off the power supply to sleep blocks. (In clock gating, we just block the logic)
+* When sleep, the header switch turns OFF.
+* In real design, pMOS header power gating is simpler.
+* Practical designs use **coarse-grained power gating** where the switch is shared across an entire block.
+
+![[Pasted image 20231024220344.png|300]]
+
+#### 5.3.3 Multiple Threshold Voltages and Oxide Thicknesses
+
+* Maintain performance by using low-$V_t$ transistors on critical paths, and high-$V_t$ transistors on other path.
+* 5.3.4 Variable Threshold Voltage
+* 5.3.5 Input Vector Control
+
+### 5.4 Energy-Delay Optimization
+
+See [[ECE 470 Computer Architecture#Metrics]]
+
+#### 5.4.1 Minimum Energy
+
+* **Power-delay product (PDP)** is simply the energy for an operation
+* The blue lines denotes how many times of minimum energy is used.
+
+![[Pasted image 20231024221400.png|600]]
+
+#### 5.4.2 Minimum Energy-Delay Product
+
+* A popular metric that balances performance and power.
+* 5.4.3 Minimum Energy Under a Delay Constraint
+
+### 5.5 Low Power Architectures
+
+* 5.5.1 Microarchitecture
+* 5.5.2 Parallelism and Pipelining
+* 5.5.3 Power Management Modes
+

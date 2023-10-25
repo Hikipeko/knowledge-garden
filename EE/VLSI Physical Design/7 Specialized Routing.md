@@ -32,3 +32,4 @@ Octilinear Steiner Tree Algorithm generalize rectilinear Steiner trees by allowi
 ### 7.3 Clock Routing
 
 Once the clock signal entry points and sinks are known, **clock tree routing** generates a clock tree for each clock domain of the circuit.
+
