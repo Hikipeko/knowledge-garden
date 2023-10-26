@@ -19,3 +19,12 @@ Spectral clustering
 * First supervised spectral framework that tackles two limitations
 * Leading partitioners hMETIS and KaHyPar
 
+##### Late Breaking Results: Placement Initialization via a Projected Eigenvector Algorithm
+
+* https://github.com/choltz95/laplacian-eigenmaps-revisited/tree/main
+* Focus on producing initial layouts, which is important for later optimization
+* 
+
+##### RePlAce: Advancing Solution Quality and Routability Validation in Global Placement
+
+* 

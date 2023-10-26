@@ -72,7 +72,8 @@ Centroid-linkage: distance the centroids of two clusters
 
 ![[Pasted image 20230103012612.png]]
 
-Spectral clustering reformulated data clustering problem as minimum graph cut problem. #link 477
+* Spectral clustering reformulated data clustering problem as [[Maximum Flow Min Cut 477|graph partition problem]], actually a ratio cut.
+* Doesn't assume globular-shaped clusters.
 
 **Gaussian kernel similarity metric**
 $$
@@ -95,15 +96,15 @@ $$
 $$
 \begin{align}
 d_{ii} &= \sum_{j = 1} ^n w_{ij} \\
-L &= D - W
+L &= D - W\\
 \end{align}
 $$
-
-Goal: minimizing the ratio cut, which is similar to the following problem.
-
-L is symmetric, PSD, has n non-negative real-valued eigenvalues.
-
-The multiplicity of the eigenvalues 0 is the number of connected components in the graph.
+* The problem of minimizing the ratio cut can be approximate by minimizing $\min_F \text{Tr}F^TLF$, where $F$ is the indicator vectors. This is just minimizing $\sum_{(i<j)}w_{ij}(v_i - v_j)^2$
+* Goal: minimizing the ratio cut, which is similar to the following problem.
+* L is symmetric, PSD, has n non-negative real-valued eigenvalues.
+* The multiplicity of the eigenvalues 0 is the number of connected components in the graph.
+* For the special case of $k=2$, we can let $f_i = \sqrt{|\bar A| / |A|}$ if $v_i \in A$ and $-\sqrt{|A| / |\bar A|}$ otherwise. The cost function is $(|A|/|\bar A| + |\bar A| / |A| + 2)\sum_{e \in Cut} w_e$, pushing towards a balanced cut.
+* Finding $\min_f f^TLf$ is NP-hard, so we look for real number solutions.
 
 **Steps**
 

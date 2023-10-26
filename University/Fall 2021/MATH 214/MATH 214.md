@@ -480,18 +480,3 @@ Since we prefer orthonormal basis, we want to know for which matrices is there a
 ##### SVD
 
 ![[Pasted image 20221222215433.png]]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
