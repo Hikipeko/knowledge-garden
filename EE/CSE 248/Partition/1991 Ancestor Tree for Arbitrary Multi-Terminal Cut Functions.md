@@ -1,3 +1,8 @@
+---
+year: 1991
+author: CK Cheng, TC Hu
+citation: 37
+---
 ### Abstract
 
 Need only $n-1$ computations of the cut function to gain minimum cuts for all $n\choose 2$ pairs of nodes.

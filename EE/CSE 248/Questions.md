@@ -17,4 +17,6 @@
 	* What are some of the unsolved problems or open question for partition problem?
 	* What are SOTA approaches?
 	* View on "SpecPart: A Supervised Spectral Framework for Hypergraph Partitioning Solution Improvement"
-	* Do some improvement on SpecPart?
+	* Have some idea on partition or 
+* Choose placement?
+	* ePlace, any future works?

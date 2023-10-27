@@ -1,7 +1,3 @@
-##### New Spectral Methods for Ratio Cut Partitioning and Clustering
-
-Spectral clustering
-
 ##### A graph placement methodology for fast chip design
 
 * A deep reinforcement learning approach to chip foorplanning

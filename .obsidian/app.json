@@ -17,5 +17,6 @@
     "margin": "0",
     "downscalePercent": 84
   },
-  "readableLineLength": true
+  "readableLineLength": true,
+  "propertiesInDocument": "visible"
 }

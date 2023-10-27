@@ -1,3 +1,12 @@
+---
+year: 1993
+author: M Hartmann, JB Orlin
+citation: 85
+---
+### Abstract
+
+Gives a new algorithm for finding a cycle $C$ with the minimum cost to time ratio $\lambda(C)$.
+
 ### 1 Introduction
 
 * $D = (V,E,t,c)$, where $t_e$ is the transit time, and $c_e$ is the cost.

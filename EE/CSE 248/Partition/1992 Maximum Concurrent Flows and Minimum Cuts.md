@@ -1,7 +1,14 @@
-* Based on [[1 Ancestor Tree for Arbitrary Multi-Terminal Cut Functions]]
+---
+year: 1992
+author: CK Cheng, TC Hu
+citation: 24
+---
+* Based on [[1991 Ancestor Tree for Arbitrary Multi-Terminal Cut Functions]]
 * Used for [[2 Netlist and System Partitioning]]
 
-### 1 Introduction
+### Abstract
+
+Relate the ratio cut problem to uniform multicommodity flow problem.
 
 ### 2 Minimum Cut and Essential Cut Set
 
@@ -25,7 +32,4 @@
 	3. Simplify the duo problem
 	4. Assume we get a solution for the duo problem, the solution also solves the original problem (minimum ratio cut).
 
-Question:
-
-1. Where is the NP-hard part?
-2. How to think reversely?
+How to think reversely?

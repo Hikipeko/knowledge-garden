@@ -1,3 +1,8 @@
+---
+year: 1993
+author: LT Liu, M Shih, NC Chou, CK Cheng
+citation: 32
+---
 ### Abstract
 
 Propose a novel paradigm for two-way circuit partitioning which minimizes the block cycle.
@@ -16,7 +21,7 @@ Propose a novel paradigm for two-way circuit partitioning which minimizes the bl
 
 ### 3 Theoretical Aspects
 
-* Use [[3 Retiming Synchronous Circuitry#4 An Algorithm for Clock Period Minimization]] for retiming.
+* Use [[1991 Retiming Synchronous Circuitry#4 An Algorithm for Clock Period Minimization]] for retiming.
 * **Lemma 1** Given a graph and a constant $K$, if each simple loop $l$ satisfies $(t_l + d_l) / r_l \leq K$, $G$ can be retimed to achieve a cycle time equal $K$.
 * **Theorem 2** If each path between the primary I/O is cut at most once and each loop is not cut, then $P$ can be retimed to achieve a clock cycle time of $T$.
 * The complexity is $NP$.

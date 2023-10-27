@@ -68,30 +68,30 @@ Centroid-linkage: distance the centroids of two clusters
 
 ## L19 Spectral Clustering
 
-**Defect of k-means**
+##### Defect of k-means
 
 ![[Pasted image 20230103012612.png]]
 
 * Spectral clustering reformulated data clustering problem as [[Maximum Flow Min Cut 477|graph partition problem]], actually a ratio cut.
 * Doesn't assume globular-shaped clusters.
 
-**Gaussian kernel similarity metric**
+##### Gaussian kernel similarity metric
 $$
 w_{ij} = \exp (-\frac{||x^{(i)} - x^{(j)}||^2}{2\sigma^2})
 $$
 
-**Cost of a cut**
+##### Cost of a cut
 $$
 cut(A, \bar A) = \sum_{i \in A, j \in \bar A} w_{ij}
 $$
 
-**Ratio cut**
+##### Ratio cut
 
 $$
 RatioCut(A_1, ..., A_k) = \frac{1}{2}\sum_{i=1}^k\frac{cut(A_i, \bar A_i)}{|A_i|}
 $$
 
-**Graph Laplacian**
+##### Graph Laplacian
 
 $$
 \begin{align}
@@ -106,7 +106,7 @@ $$
 * For the special case of $k=2$, we can let $f_i = \sqrt{|\bar A| / |A|}$ if $v_i \in A$ and $-\sqrt{|A| / |\bar A|}$ otherwise. The cost function is $(|A|/|\bar A| + |\bar A| / |A| + 2)\sum_{e \in Cut} w_e$, pushing towards a balanced cut.
 * Finding $\min_f f^TLf$ is NP-hard, so we look for real number solutions.
 
-**Steps**
+##### Steps
 
 1. Build adjacency matrix $W$.
 2. Compute graph Laplacian $L = D - W$.
