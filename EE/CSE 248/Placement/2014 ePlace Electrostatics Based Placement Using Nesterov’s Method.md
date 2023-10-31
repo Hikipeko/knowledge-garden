@@ -13,7 +13,9 @@ citation: 61
 
 * **Min-cut**
 * **Quadratic** use quadratic function to approximate wirelength.
+	* Low solution quality and robustness.
 * **Nonlinear** approach use high-order wirelength.
+	* Due to high complexity, usually employ multilevel cell clustering.
 * **Two-stage** methods construct floorplanning followed by standard-cell placement. Often induces suboptimal solutions.
 * **Constructive** methods group standard cells into soft blocks.
 * **One-stage** methods place Macros and standard cells simultaneously to avoid above limitations. Hard to converge.
@@ -62,6 +64,67 @@ $$
 
 * See [[2013 FFTPL An analytic placement algorithm using Fast Fourier Transform for Density Equalization#3 Electrostatic System Modeling|2013 FFTPL Electrostatic System Modeling]].
 * We obtain $\psi(x,y), \xi_x(x,y), \xi_y(x,y)$ in $O(n\log n)$. ==What is n?==
+
+#### System Modeling Using Electrostatic Equilibrium
+
+* Each cell is a positive charge $q_i$ equal to its area.
+* Correlate the global placement constraint of an even density distribution with the system state of the electrostatic equilibrium.
+* Remove DC component from the density distribution $\rho(x,y)$ so that the integral of the density function over the region is 0.
+	* Thus underfilled region become negatively charged, attracting cells in overfilled region.
+* In the end, the system reaches the electrostatic equilibrium state zero charge density over the entire placement region, while the total potential energy is reduced to 0.
+
+#### Density Penalty and Gradient Formulation
+
+##### Filler Insertion
+
+![[Pasted image 20231030122309.png|600]]
+
+* Let $A_m$ denotes the total area of movable nodes.
+* Let $A_{ws}$ denotes the total area of whitespace.
+* Add equal size, movable, and disconnected cells with total area $A_{fc}=\rho_t A_{ws}-A_m$.
+* Size of each cell $A_i$ is average size of the mid-80% of movable cells.
+
+##### Dark Node
+
+* Illegal placement regions are modeled as dark node.
+* $A_d$ is the set of all dark nodes, and $A_d$ is the total area.
+
+##### Density Scaling
+
+![[Pasted image 20231030125808.png|600]]
+
+The areas $A_i$ of each fixed or dark node must be scaled by the target density $\rho_t$.
+
+##### Potential Energy Computation
+
+* Let $V' = V_m \cup V_f\cup V_{fc} \cup V_d$ (movable, fixed macros, filler, dark) denote the set of all elements.
+* For each node $i \in V'$, let $\rho_i, \xi_i, \psi_i$ denote the electric density, field, and potential at that point.
+* Total potential energy $N(\mathbf v ) = \frac12 \sum_{i\in V'}q_i\psi_i$.
+* Cast the numerous grid density constraints into a single $N(\mathbf v)=0$ constraint.
+* Our analytic approach handles the problem by following the Lorentz force law:
+
+$$
+\nabla f(\mathbf v) = \nabla W(\mathbf v) + \lambda \nabla N(\mathbf v) = (\frac{\partial W}{\partial x_1}, \frac{\partial W}{\partial y_1} \cdots) - \lambda (q_1 \xi_{1_x},q_1 \xi_{1_y}, \cdots)^T
+$$
+
+#### Behavior and Complexity Analysis
+
+![[Pasted image 20231030134842.png]]
+
+* Suppose we have $n' = |V_m| + |V_{fc}|$ cells and $m\times m$ grid.
+* **Density computation**
+	* Traverse all the bins and clears value to 0 is $O(m^2)$.
+	* Traverse all the cells to determine the area contribution to according bins is $O(n')$.
+* **Potential and field computation**
+	* FFT library call is $O(m^2 \log m^2)$.
+* Total complexity is $O(n'+m^2 \log m)$ for each placement iteration.
+* Usually $O(n') = O(m^2)$, filler cells is $O(n)$, thus the overall complexity is $O(n\log n)$.
+
+#### Local Smoothness over Discrete Grids
+
+![[Pasted image 20231030140825.png]]
+
+* Reflect infinitely small movement of cells within each bin.
 
 ### 5 Mixed-Size Global Placement
 
