@@ -107,6 +107,6 @@ $$
 ### Questions
 
 * Converge tau < 10%, what is the formula for tau?
-* grid number is $\log_2 \sqrt{m}\}$, that small?
+* grid number is $\log_2 \sqrt{m}$, that small?
 * What is CG solver, how does it incorporate with result of FFT?
 * Why CG solver instead of gradient descent?

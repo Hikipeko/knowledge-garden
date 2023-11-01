@@ -52,4 +52,3 @@ GP spends 72% of the total runtime.
 * Why do we choose $\lambda_0$ as this value?
 * Why doubled $\lambda$ each round? Are there any better approaches?
 * Can we do something about the overflow ratio?
-

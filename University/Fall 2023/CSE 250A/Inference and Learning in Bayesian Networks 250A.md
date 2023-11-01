@@ -1,4 +1,5 @@
 ### 2 Probability and Commonsense Reasoning 250A
+
 #### Review of Probability
 
 * M: month, W: weather, S: sidewalk
