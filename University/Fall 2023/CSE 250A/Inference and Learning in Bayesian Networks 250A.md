@@ -103,6 +103,55 @@ $$
 
 * Instantiate evidence nodes instead of sampling them
 * Weight each sample using CPTs at evidence nodes
-* Move efficient than rejection sampling, but still very slow
+* Move efficient than rejection sampling
+* Problem: suppose all the evidences are below the queries, then this degrade to rejection sampling.
 
 ![[Pasted image 20231023213741.png|500]]
+
+### 7 Inference and Learning in BNs
+
+#### Markov Chain Monte Carlo
+
+![[Pasted image 20231103201659.png|350]]
+
+* **Markov blanket** $B_X$ of a node $X$ consists of its parents, children, and spouses (parents of children).
+* The node $X$ is conditionally independent of the nodes outside its Markov blanket given the nodes inside its Markov blanket.
+
+1. **Initialization** Fix evidence nodes to observed values. Initialize non-evidence nodes to random values.
+2. **Repeat N times**
+	1. Pick a non-evidence node $X$ at random
+	2. Use Bayes rule to compute $P(X|B_X)$
+	3. Resample $x\sim P(X|B_X)$
+	4. Take a snapshot t of all the nodes in the BN.
+3. **Estimate** Count the snapshots $N(q, q') \leq n$ with $Q = q \land Q' = q'$.
+
+#### Learning in BNs
+
+* Model data by the BN that assigns it the highest probability.
+* In CSE 250A, we will always assume the DAG is given.
+
+##### Assumptions
+
+* The DAG is fixed over a finite set of discrete random variables.
+* Data consists of $T$ complete instantiations, independent and identically distributed (IID) from the joint distribution of the BN.
+
+##### Solution
+
+$$
+\begin{align}
+P_{ML}(X_i=x|pa_i=\pi) &= \frac{cnt(X_i=x,pa_i=\pi)}{cnt(pa_i=\pi)}\\
+P_{ML}(X_i=x) &= \frac{cnt(X_i=x)}{T}
+\end{align}
+$$
+
+### 8 Learning from Complete Data
+
+#### Markov Models
+
+* **Finite context**: to predict the $l^{\text{th}}$ word, it's sufficient to consider $n$ words precede it.
+* **Position invariance** predictions should not depend on where the context occurs
+* n-gram
+
+#### Naïve Bayes Models
+
+See [[2 Classification 258#Naïve Bayes]].

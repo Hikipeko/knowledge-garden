@@ -28,6 +28,7 @@ $$
 * [[Electric Charges]] for backgrounds.
 * Poisson's equation Eq. (8) relates spatial density and potential distribution.
 * Neumann boundary condition (zero gradient at the boundary) is enforced to prevent cells from moving outside.
+	* When cell approaches the boundary, the electric force diminishes towards zero.
 * $\hat n$ is the outer unit normal.
 * $\partial R$ is the boundary of $R$.
 * The potential integral is set to zeros thus Poisson's equation has unique solution.
@@ -76,33 +77,6 @@ $$
 #### FFTPL Algorithm
 
 ![[Pasted image 20231029105754.png|470]]
-
-##### Self-Adaptive Parameter Adjustment
-
-* **Grid dimension** $n = \max\{1024, \log_2 \sqrt{m}\}$.
-* **Step length** $\alpha$ is initialized to $\alpha_0^{max} = 0.044w_b$, where $w_b$ is the grid width.
-	* Update as $\alpha_k^{max} = \max(\alpha_0^{max}, 2\alpha_k)$
-* **Penalty factor** $\lambda_0$ is initially set as [[2008 NTUplace3-An Analytical Placer for Large-Scale Mixed-Size Designs With Preplaced Blocks and Density Constraints#Global Placement|NTU-place3 global placement]].
-	* Update as $\lambda_k = \mu_k \lambda_{k-1}$
-	* Scaling factor $\mu_k$ is determined in (13)
-* **Density overflow** is similar to Eq. (11) in [[2008 NTUplace3-An Analytical Placer for Large-Scale Mixed-Size Designs With Preplaced Blocks and Density Constraints#3 Proposed Algorithm|NTUplace3 density overflow]].
-	* Stops when $\tau \leq 10\%$.
-* **Wirelength coefficient** $\gamma$ is larger at early time to encourage global movement and smaller at later to move only HPWL-insensitive cells. set as (14).
-
-$$
-\begin{align}
-\mu_k &= 1.1^{-\frac{\Delta w_k}{\Delta w_{ref}}+1.0},\; \mu_k \in [0.75,1.1] & (13)\\
-\Delta w_k &= W(\vec v_k) - W(\vec v_{k-1})\\
-\Delta w_{ref} &= 3.5 \times 10^5\\
-\gamma &= 8.0 w_b \times 10^{20/9 \times(\tau - 0.1) - 1.0}
-\end{align}
-$$
-
-### 5 Experiments and Results
-
-* Set target placement density $\rho_t = 1.0$ for all benchmarks.
-
-
 
 ### Questions
 
