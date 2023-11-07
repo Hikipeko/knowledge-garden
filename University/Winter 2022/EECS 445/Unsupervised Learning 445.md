@@ -152,8 +152,9 @@ Minimize the lost function. *Coordinate descent?*
 
 **Algorithm**
 
-1. Fix V and solve U.
-2. Fix U and solve V.
+1. Repeat until converge:
+	1. Fix V and solve U.
+	2. Fix U and solve V.
 
 #### Nearest Neighbor Prediction
 

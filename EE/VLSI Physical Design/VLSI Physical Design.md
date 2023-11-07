@@ -5,3 +5,4 @@
 * [[5 Global Routing]]
 * [[6 Detailed Routing]]
 * [[7 Specialized Routing]]
+* [[8 Timing Closure]]
