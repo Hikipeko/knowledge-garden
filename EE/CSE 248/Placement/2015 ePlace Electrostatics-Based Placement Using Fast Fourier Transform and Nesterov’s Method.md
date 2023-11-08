@@ -204,4 +204,3 @@ $$
 * Use inertia to prevent large cell from oscillating?
 * DC component is removed from $\rho(x,y)$ , $p_i$ still remain the same?
 * Can we do parameter tuning based on different benchmark properties?
-* 

@@ -15,7 +15,7 @@
 
 #### 4.1.2 Timing Optimization
 
-Good microarchitecture -> good logic -> good transistors.
+Good microarchitecture > good logic > good transistors.
 
 ### 4.2 Transistor Response
 
@@ -85,7 +85,7 @@ Assume the contacted source or drain of a unit transistor to have capacitance of
 
 #### 4.4.4 Drive
 
-* It is often more intuitive to characterize gates by their drive, x, rather than their input capacitance.
+* It is often more intuitive to characterize gates by their drive $x$ rather than their input capacitance.
 * Redefine a unit inverter to have one unit of input capacitance, then the drive of an arbitrary gate is $x = C_{in}/g$ (the ability to drive a unit inverter).
 * Delay can be expressed in terms of drive as $d = C_{out}/x + p$.
 

@@ -105,3 +105,45 @@ while (slack_min is not infinity)
 * Minimize a function of slack, subject to 
 * **Physical constraints**
 * **Timing constraints**
+
+### 8.4 Timing-Driven Routing
+
+* Minimize (1) maximum sink delay and (2) total wirelength.
+* **radius(T)** denotes the length of longest source-sink path in $T$.
+* **cost(T)** denotes the total edge weight.
+
+![[Pasted image 20231108132615.png|500]]
+
+#### 8.4.1 The Bounded-Radius, Bounded-Cost Algorithm
+
+Find a shallow-light spanning tree with provable bounds on both radius and cost.
+
+#### 8.4.2 Prime-Dijkstra Trade-Off
+
+The [[Graphs 281#Prim's Algorithm]] and [[Graphs 281#Dijkstra's Algorithm]] has nearly the same procedure, and the only difference is that Prim's look for $cost(s_i, s_j)$, while Dijkstra looks for $cost(s_i) + cost(s_i, s_j)$. Prim's minimizes the cost, while Dijkstra's minimizes radius. We can look for minimum of $\gamma ]\cdot cost(s_i) +cost(s_i, s_j)$ to obtain a Prime-Dijkstra trade-off algorithm
+
+#### 8.4.3 Minimization of Source-to-Sink Delay
+
+### 8.5 Physical Synthesis
+
+#### 8.5.1 Gate Sizing
+
+A gate with larger size has lower output resistance and can drive a larger load capacitance. See [[4 Delay#4.4. Linear Delay Model]]. However, it will also have larger intrinsic delay.
+
+![[Pasted image 20231108133637.png|500]]
+
+#### 8.5.2 Buffering
+
+* See [[4 Delay#4.5 Logical Effort of Paths]].
+* Buffers can (1) improve timing delay and (2) modify transition times
+* However, consumes area and power
+
+#### 8.5.3 Netlist Restructuring
+
+* Cloning
+* Redesign of fan-in tree
+* Redesign of fanout tree
+* Swapping commutative pins (a gate have different delays for different pins)
+* Gate decomposition (breaks down large gates into multiple smaller ones)
+* Boolean restructuring
+* Reverse transformation
