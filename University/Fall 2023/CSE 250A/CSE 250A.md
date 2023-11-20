@@ -1,2 +1,2 @@
-* [[Introduction 250A]]
-* [[Inference and Learning in Bayesian Networks 250A]]
+* [[1 Introduction 250A]]
+* [[2 Inference and Learning in Bayesian Networks 250A]]
