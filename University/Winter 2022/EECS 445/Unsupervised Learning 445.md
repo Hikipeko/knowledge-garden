@@ -346,33 +346,48 @@ Use BIC.
 
 ## L25 HMM
 
-![[25.1.PNG|500]]
+![[Pasted image 20231202204851.png|500]]
 
-A special kind of [[Unsupervised Learning 445#L24 Bayesian Networks|Bayesian Network]] in which **future** depends on **past** via the **present**.
-
-Current observation only depends on current state (see from [[Unsupervised Learning 445#d-separation|d-separation]]), current state only depends on last state.
-
-E.g. observed data: words in a sentence; hidden state: POS tags.
+* A special kind of [[Unsupervised Learning 445#L24 Bayesian Networks|Bayesian Network]] in which **future** depends on **past** via the **present**.
+* $S_t$ are hidden states and $O_t$ are observations.
+* Current observation only depends on current state (see from [[Unsupervised Learning 445#d-separation|d-separation]]), current state only depends on last state.
+* E.g. observed data: words in a sentence; hidden state: POS tags.
 
 $$
-P(x_1, ..., X_T, z_1, ..., z_t) = \pi(z_1)\prod_{t=1}^{T-1}t(z_t, z_{t+1})\prod_{t=1}^T e(z_t, x_t)
+P(s_1, ..., s_T, o_1, ..., o_t) = \pi(s_1)\prod_{t=1}^{T-1}t(s_t, s_{t+1})\prod_{t=1}^T e(s_t, o_t)
 $$
 
-$\pi$: initial, $t$: transition, $e$: emission.
+* $\pi_i = P(S_1 = i)$: initial state distribution
+* $t_{ij} = P(S_{t+1}=j|S_t=i)$: transition matrix
+* $e_{ik} = P(O_t  k|S_t = i)$: emission matrix
+* But how to estimate these parameters to maximize the log-likelihood?
 
-**Viterbi Algorithm**
+##### Forward Algorithm
 
-Infer the underlying hidden states.
+![[Pasted image 20231202205840.png|600]]
 
-**Parameter Estimation**
+* $\alpha_{i1} = \pi_i e_i(o_1)$
+* $\alpha_{j, t+1} = \sum_{i=1}^n \alpha_{it}t_{ij}e_j(o_{t+1})$
+* $P(o_1, o_2, \dots, o_T)=\sum_{i=1}^n \alpha_{iT}$
 
-Goal: estimate $\pi, t, e$.
+##### Viterbi Algorithm
 
-If hidden states are available, use MLE.
+![[Pasted image 20231202211047.png|500]]
+
+* Infer the underlying hidden states.
+* $l_{i1}^* = \log \pi_i + \log b_i(o_1)$
+* $l_{j,t+1}^* = \max_i [l_{it}^* + \log t_{ij}] + \log b_j(o_{t+1})$
+* We need another matrix for backtracking.
+* $\Phi_{t+1}(j) = \arg\max_i[l_{it}^*+\log a_{ij}]$, we track where the max for each $l_{ij}^*$ comes from.
+* $s_T^* = \arg \max_i[l_{iT}^*]$
+* $s_t^* = \Phi_{t+1}(s_{t+1}^*)$
+
+##### Parameter Estimation
+
+* Goal: estimate $\pi, t, e$.
 
 **Incomplete Data**
 
 1. M step: given the hidden states and estimate the parameters
 2. E step: fix the parameters and estimate the hidden states
 
-#link 487
