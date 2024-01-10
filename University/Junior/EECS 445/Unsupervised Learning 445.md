@@ -311,15 +311,20 @@ $$
 ##### Marginal independence
 
 $$
-\Pr (X_1, X_2) = \Pr (X_1) \Pr (X_2)
+\begin{align}
+\Pr (X_1, X_2) &= \Pr (X_1) \Pr (X_2) \\
+\Pr(X_1) &= \Pr(X_1|X_2) \\
+\end{align}
 $$
 
 ##### Conditional Independence
 
 $$
 \begin{align}
+X_1 \implies &X_3 \implies X_2 \\
 X_1 &\perp X_2 | X_3 \\
 \Pr(X_1, X_2,|X_3) &= \Pr(X_1|X_3)\Pr (X_2|X_3) \\
+\Pr(X_2|X_3) &= \Pr(X_2|X_3, X_1)
 \end{align}
 $$
 

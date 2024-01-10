@@ -1,7 +1,6 @@
 [
   "table-editor-obsidian",
-  "obsidian-linter",
-  "recent-files-obsidian",
+  "obsidian-code-block-enhancer",
   "cm-editor-syntax-highlight-obsidian",
-  "obsidian-code-block-enhancer"
+  "recent-files-obsidian"
 ]

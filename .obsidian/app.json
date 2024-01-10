@@ -1,22 +1,7 @@
 {
-  "trashOption": "local",
-  "newFileLocation": "current",
-  "attachmentFolderPath": "./attachments",
-  "strictLineBreaks": true,
-  "spellcheck": true,
-  "spellcheckLanguages": null,
-  "defaultViewMode": "source",
   "autoPairMarkdown": false,
-  "autoPairBrackets": true,
-  "alwaysUpdateLinks": true,
+  "newFileLocation": "current",
   "promptDelete": false,
-  "pdfExportSettings": {
-    "includeName": true,
-    "pageSize": "A4",
-    "landscape": false,
-    "margin": "0",
-    "downscalePercent": 82
-  },
-  "readableLineLength": true,
-  "propertiesInDocument": "visible"
+  "newFileFolderPath": "attachments",
+  "attachmentFolderPath": "./attachments"
 }
