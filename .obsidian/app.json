@@ -3,5 +3,6 @@
   "newFileLocation": "current",
   "promptDelete": false,
   "newFileFolderPath": "attachments",
-  "attachmentFolderPath": "./attachments"
+  "attachmentFolderPath": "./attachments",
+  "alwaysUpdateLinks": true
 }

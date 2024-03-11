@@ -466,6 +466,9 @@ Since we prefer orthonormal basis, we want to know for which matrices is there a
 
 ![[Pasted image 20221222172642.png]]
 
+**Example 4**
+
+![[Pasted image 20240124134807.png|600]]
 
 
 ### 8.3 Singular Values
